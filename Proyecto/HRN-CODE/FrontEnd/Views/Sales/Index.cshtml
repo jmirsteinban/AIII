@@ -1,0 +1,55 @@
+﻿@model IEnumerable<FrontEnd.Models.SalesViewModel>
+
+@{
+    ViewBag.Title = "Lista Facturación";
+}
+
+<h2>Lista Facturación</h2>
+
+<h4>
+    @Html.ActionLink("Crear Factura", "Create")
+</h4>
+<table class="table table-dark">
+    <tr>
+        <th class="thead-dark">
+            @Html.DisplayNameFor(model => model.cedula_cliente)
+        </th>
+        <th class="thead-dark">
+            @Html.DisplayNameFor(model => model.cedula_user)
+        </th>
+        <th class="thead-dark">
+            @Html.DisplayNameFor(model => model.fecha_compra)
+        </th>
+        <th class="thead-dark">
+            @Html.DisplayNameFor(model => model.estado_factura)
+        </th>
+        <th class="thead-dark">
+            @Html.DisplayNameFor(model => model.monto_total)
+        </th>
+        <th class="thead-dark"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.cedula_cliente)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cedula_user)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fecha_compra)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estado_factura)
+        </td>
+        <td>
+            ₡ @Html.DisplayFor(modelItem => item.monto_total)
+        </td>
+        <td>
+            @Html.ActionLink("Detalles", "Details", new { id = item.compraID })
+        </td>
+    </tr>
+}
+
+</table>

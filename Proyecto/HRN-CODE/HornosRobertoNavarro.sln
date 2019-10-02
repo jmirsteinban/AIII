@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.705
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackEnd", "BackEnd\BackEnd.csproj", "{CCD69A47-0303-47E4-93FB-3E7D104FCA31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontEnd", "FrontEnd\FrontEnd.csproj", "{016F52BA-06C8-45C8-BAFA-9BDD9CF72021}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBackEnd", "TestBackEnd\TestBackEnd.csproj", "{07C2C433-E013-4B3C-8426-B9DA4C12DA4E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCD69A47-0303-47E4-93FB-3E7D104FCA31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCD69A47-0303-47E4-93FB-3E7D104FCA31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCD69A47-0303-47E4-93FB-3E7D104FCA31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCD69A47-0303-47E4-93FB-3E7D104FCA31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{016F52BA-06C8-45C8-BAFA-9BDD9CF72021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{016F52BA-06C8-45C8-BAFA-9BDD9CF72021}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{016F52BA-06C8-45C8-BAFA-9BDD9CF72021}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{016F52BA-06C8-45C8-BAFA-9BDD9CF72021}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07C2C433-E013-4B3C-8426-B9DA4C12DA4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07C2C433-E013-4B3C-8426-B9DA4C12DA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07C2C433-E013-4B3C-8426-B9DA4C12DA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07C2C433-E013-4B3C-8426-B9DA4C12DA4E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {664E076E-6C16-4758-9619-591FA90ECDCB}
+	EndGlobalSection
+EndGlobal
