@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    @{
+        ViewBag.Title = "ERROR ("+ @ViewBag.Proveedor+")";
+    }
+    <div>
+        <hgroup>
+            <h3>@ViewBag.Proveedor</h3>
+            <hr />
+            <h3>@ViewBag.Mensaje</h3>
+        </hgroup>
+        <hgroup>
+            <h5>
+            @Html.ActionLink("Volver",(string)@ViewBag.Redirection,(string)@ViewBag.Controller)
+            </h5>
+        </hgroup>
+    </div>
+</body>
+</html>

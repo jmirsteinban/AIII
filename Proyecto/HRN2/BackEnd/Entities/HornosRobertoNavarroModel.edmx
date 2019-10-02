@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HornosDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="bitacora">
+          <Key>
+            <PropertyRef Name="registroID" />
+          </Key>
+          <Property Name="registroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="50" />
+          <Property Name="accion" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="fecha_hora" Type="datetime" />
+        </EntityType>
+        <EntityType Name="clients">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula_cliente" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="primer_nombre_cliente" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="segundo_nombre_cliente" Type="varchar" MaxLength="60" />
+          <Property Name="primer_apellido_cliente" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="segundo_apellido_cliente" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="correo_electronico_cliente" Type="varchar" MaxLength="100" />
+          <Property Name="estado_cliente" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="directions">
+          <Key>
+            <PropertyRef Name="direccionID" />
+          </Key>
+          <Property Name="direccionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="relacionID" Type="int" Nullable="false" />
+          <Property Name="tabla_relacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="earnings">
+          <Key>
+            <PropertyRef Name="earningID" />
+          </Key>
+          <Property Name="earningID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="earnings_total_mes" Type="money" Nullable="false" />
+          <Property Name="conteo_facturas" Type="int" Nullable="false" />
+          <Property Name="fecha_reporte" Type="datetime" />
+        </EntityType>
+        <EntityType Name="phones">
+          <Key>
+            <PropertyRef Name="telefonoID" />
+          </Key>
+          <Property Name="telefonoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="relacionID" Type="int" Nullable="false" />
+          <Property Name="tabla_relacion" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="products">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigo_producto" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="nombre_producto" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="precio_manufactura" Type="money" />
+          <Property Name="precio_venta" Type="money" Nullable="false" />
+          <Property Name="estado_producto" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="porcentaje_ganancia" Type="decimal" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="porcentaje_descuento" Type="decimal" Precision="2" Scale="2" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sales">
+          <Key>
+            <PropertyRef Name="compraID" />
+          </Key>
+          <Property Name="compraID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientID" Type="int" Nullable="false" />
+          <Property Name="userID" Type="int" Nullable="false" />
+          <Property Name="fecha_compra" Type="datetime" />
+          <Property Name="monto_total" Type="money" Nullable="false" />
+          <Property Name="estado_factura" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sales_x_products">
+          <Key>
+            <PropertyRef Name="compraID_detalle" />
+          </Key>
+          <Property Name="compraID_detalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="compraID" Type="int" Nullable="false" />
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="precio_factura_d" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cedula_user" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="primer_nombre_user" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="segundo_nombre_user" Type="varchar" MaxLength="60" />
+          <Property Name="primer_apellido_user" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="segundo_apellido_user" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="tipo_user" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="estado_user" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersInRoles">
+          <Key>
+            <PropertyRef Name="User_UserId" />
+            <PropertyRef Name="Role_RoleId" />
+          </Key>
+          <Property Name="User_UserId" Type="int" Nullable="false" />
+          <Property Name="Role_RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="warranties">
+          <Key>
+            <PropertyRef Name="warrantyID" />
+          </Key>
+          <Property Name="warrantyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="compraID" Type="int" Nullable="false" />
+          <Property Name="estado_warranty" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__sales__clientID__4E88ABD4">
+          <End Role="clients" Type="Self.clients" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__userID__4F7CD00D">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales_x_p__produ__5535A963">
+          <End Role="products" Type="Self.products" Multiplicity="1" />
+          <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="sales_x_products">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserRoles_dbo_Roles_Role_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="Role_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_UserRoles_dbo_Users_User_UserId">
+          <End Role="users" Type="Self.users" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="User_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCompraID_cascade_salesProducts">
+          <End Role="sales" Type="Self.sales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="compraID" />
+            </Principal>
+            <Dependent Role="sales_x_products">
+              <PropertyRef Name="compraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCompraID_cascade_warranties">
+          <End Role="sales" Type="Self.sales" Multiplicity="1" />
+          <End Role="warranties" Type="Self.warranties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="compraID" />
+            </Principal>
+            <Dependent Role="warranties">
+              <PropertyRef Name="compraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_directions_clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_directions_users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Get_Client_X_Cedula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaClient" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Get_factura_detalle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="maestroID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_Get_Last_SaleID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_Get_producto_x_nombre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_producto" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_Get_User_X_Cedula" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cedulaUser" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getRolesForUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getUsuariosRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_isUserInRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userName" Type="varchar" Mode="In" />
+          <Parameter Name="roleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_phones_clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="clientID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_phones_users" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ultimoID_sales" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="HornosDBModelStoreContainer">
+          <EntitySet Name="bitacora" EntityType="Self.bitacora" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="clients" EntityType="Self.clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="directions" EntityType="Self.directions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="earnings" EntityType="Self.earnings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="phones" EntityType="Self.phones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="products" EntityType="Self.products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sales" EntityType="Self.sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sales_x_products" EntityType="Self.sales_x_products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="warranties" EntityType="Self.warranties" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__sales__clientID__4E88ABD4" Association="Self.FK__sales__clientID__4E88ABD4">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__userID__4F7CD00D" Association="Self.FK__sales__userID__4F7CD00D">
+            <End Role="users" EntitySet="users" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales_x_p__produ__5535A963" Association="Self.FK__sales_x_p__produ__5535A963">
+            <End Role="products" EntitySet="products" />
+            <End Role="sales_x_products" EntitySet="sales_x_products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserRoles_dbo_Roles_Role_RoleId" Association="Self.FK_dbo_UserRoles_dbo_Roles_Role_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_UserRoles_dbo_Users_User_UserId" Association="Self.FK_dbo_UserRoles_dbo_Users_User_UserId">
+            <End Role="users" EntitySet="users" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fkCompraID_cascade_salesProducts" Association="Self.fkCompraID_cascade_salesProducts">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="sales_x_products" EntitySet="sales_x_products" />
+          </AssociationSet>
+          <AssociationSet Name="fkCompraID_cascade_warranties" Association="Self.fkCompraID_cascade_warranties">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="warranties" EntitySet="warranties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HornosDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="bitacora">
+          <Key>
+            <PropertyRef Name="registroID" />
+          </Key>
+          <Property Name="registroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="accion" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fecha_hora" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula_cliente" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primer_nombre_cliente" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_nombre_cliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="primer_apellido_cliente" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_apellido_cliente" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo_electronico_cliente" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado_cliente" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="sales" Relationship="Self.FK__sales__clientID__4E88ABD4" FromRole="clients" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="direction">
+          <Key>
+            <PropertyRef Name="direccionID" />
+          </Key>
+          <Property Name="direccionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="relacionID" Type="Int32" Nullable="false" />
+          <Property Name="tabla_relacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="earning">
+          <Key>
+            <PropertyRef Name="earningID" />
+          </Key>
+          <Property Name="earningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="earnings_total_mes" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="conteo_facturas" Type="Int32" Nullable="false" />
+          <Property Name="fecha_reporte" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="phone">
+          <Key>
+            <PropertyRef Name="telefonoID" />
+          </Key>
+          <Property Name="telefonoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="relacionID" Type="Int32" Nullable="false" />
+          <Property Name="tabla_relacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigo_producto" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre_producto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="descripcion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="precio_manufactura" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="precio_venta" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="estado_producto" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="porcentaje_ganancia" Type="Decimal" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="porcentaje_descuento" Type="Decimal" Precision="2" Scale="2" />
+          <NavigationProperty Name="sales_x_products" Relationship="Self.FK__sales_x_p__produ__5535A963" FromRole="products" ToRole="sales_x_products" />
+        </EntityType>
+        <EntityType Name="sale">
+          <Key>
+            <PropertyRef Name="compraID" />
+          </Key>
+          <Property Name="compraID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientID" Type="Int32" Nullable="false" />
+          <Property Name="userID" Type="Int32" Nullable="false" />
+          <Property Name="fecha_compra" Type="DateTime" Precision="3" />
+          <Property Name="monto_total" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="estado_factura" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="client" Relationship="Self.FK__sales__clientID__4E88ABD4" FromRole="sales" ToRole="clients" />
+          <NavigationProperty Name="user" Relationship="Self.FK__sales__userID__4F7CD00D" FromRole="sales" ToRole="users" />
+          <NavigationProperty Name="sales_x_products" Relationship="Self.fkCompraID_cascade_salesProducts" FromRole="sales" ToRole="sales_x_products" />
+          <NavigationProperty Name="warranties" Relationship="Self.fkCompraID_cascade_warranties" FromRole="sales" ToRole="warranties" />
+        </EntityType>
+        <EntityType Name="sales_x_products">
+          <Key>
+            <PropertyRef Name="compraID_detalle" />
+          </Key>
+          <Property Name="compraID_detalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="compraID" Type="Int32" Nullable="false" />
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="precio_factura_d" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="product" Relationship="Self.FK__sales_x_p__produ__5535A963" FromRole="sales_x_products" ToRole="products" />
+          <NavigationProperty Name="sale" Relationship="Self.fkCompraID_cascade_salesProducts" FromRole="sales_x_products" ToRole="sales" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cedula_user" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primer_nombre_user" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_nombre_user" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="primer_apellido_user" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundo_apellido_user" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipo_user" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="sales" Relationship="Self.FK__sales__userID__4F7CD00D" FromRole="users" ToRole="sales" />
+          <NavigationProperty Name="Roles" Relationship="HornosDBModel.UsersInRoles" FromRole="user" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="warranty">
+          <Key>
+            <PropertyRef Name="warrantyID" />
+          </Key>
+          <Property Name="warrantyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="compraID" Type="Int32" Nullable="false" />
+          <Property Name="estado_warranty" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="sale" Relationship="Self.fkCompraID_cascade_warranties" FromRole="warranties" ToRole="sales" />
+        </EntityType>
+        <Association Name="FK__sales__clientID__4E88ABD4">
+          <End Role="clients" Type="Self.client" Multiplicity="1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="clients">
+              <PropertyRef Name="clientID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales_x_p__produ__5535A963">
+          <End Role="products" Type="Self.product" Multiplicity="1" />
+          <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="products">
+              <PropertyRef Name="productID" />
+            </Principal>
+            <Dependent Role="sales_x_products">
+              <PropertyRef Name="productID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__sales__userID__4F7CD00D">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="sales" Type="Self.sale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="sales">
+              <PropertyRef Name="userID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCompraID_cascade_salesProducts">
+          <End Role="sales" Type="Self.sale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="compraID" />
+            </Principal>
+            <Dependent Role="sales_x_products">
+              <PropertyRef Name="compraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkCompraID_cascade_warranties">
+          <End Role="sales" Type="Self.sale" Multiplicity="1" />
+          <End Role="warranties" Type="Self.warranty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sales">
+              <PropertyRef Name="compraID" />
+            </Principal>
+            <Dependent Role="warranties">
+              <PropertyRef Name="compraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="bitacoras" EntityType="Self.bitacora" />
+          <EntitySet Name="clients" EntityType="Self.client" />
+          <EntitySet Name="directions" EntityType="Self.direction" />
+          <EntitySet Name="earnings" EntityType="Self.earning" />
+          <EntitySet Name="phones" EntityType="Self.phone" />
+          <EntitySet Name="products" EntityType="Self.product" />
+          <EntitySet Name="sales" EntityType="Self.sale" />
+          <EntitySet Name="sales_x_products" EntityType="Self.sales_x_products" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <EntitySet Name="warranties" EntityType="Self.warranty" />
+          <AssociationSet Name="FK__sales__clientID__4E88ABD4" Association="Self.FK__sales__clientID__4E88ABD4">
+            <End Role="clients" EntitySet="clients" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales_x_p__produ__5535A963" Association="Self.FK__sales_x_p__produ__5535A963">
+            <End Role="products" EntitySet="products" />
+            <End Role="sales_x_products" EntitySet="sales_x_products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__sales__userID__4F7CD00D" Association="Self.FK__sales__userID__4F7CD00D">
+            <End Role="users" EntitySet="users" />
+            <End Role="sales" EntitySet="sales" />
+          </AssociationSet>
+          <AssociationSet Name="fkCompraID_cascade_salesProducts" Association="Self.fkCompraID_cascade_salesProducts">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="sales_x_products" EntitySet="sales_x_products" />
+          </AssociationSet>
+          <AssociationSet Name="fkCompraID_cascade_warranties" Association="Self.fkCompraID_cascade_warranties">
+            <End Role="sales" EntitySet="sales" />
+            <End Role="warranties" EntitySet="warranties" />
+          </AssociationSet>
+          <FunctionImport Name="sp_directions_clients" ReturnType="Collection(HornosDBModel.sp_directions_clients_Result)">
+          <Parameter Name="clientID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_directions_users" ReturnType="Collection(HornosDBModel.sp_directions_users_Result)">
+          <Parameter Name="userID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_phones_clients" ReturnType="Collection(HornosDBModel.sp_phones_clients_Result)">
+          <Parameter Name="clientID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_phones_users" ReturnType="Collection(HornosDBModel.sp_phones_users_Result)">
+          <Parameter Name="userID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Get_Client_X_Cedula" ReturnType="Collection(HornosDBModel.sp_Get_Client_X_Cedula_Result)">
+          <Parameter Name="cedulaClient" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Get_User_X_Cedula" ReturnType="Collection(HornosDBModel.sp_Get_User_X_Cedula_Result)">
+          <Parameter Name="cedulaUser" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Roles" EntityType="HornosDBModel.Role" />
+          <AssociationSet Name="UsersInRoles" Association="HornosDBModel.UsersInRoles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <FunctionImport Name="sp_Get_factura_detalle" ReturnType="Collection(HornosDBModel.sp_Get_factura_detalle_Result)">
+          <Parameter Name="maestroID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Get_producto_x_nombre" ReturnType="Collection(HornosDBModel.sp_Get_producto_x_nombre_Result)">
+          <Parameter Name="nombre_producto" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ultimoID_sales" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="sp_getRolesForUser" ReturnType="Collection(String)">
+          <Parameter Name="userName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getUsuariosRole" ReturnType="Collection(String)">
+          <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_isUserInRole" ReturnType="Collection(Boolean)">
+            <Parameter Name="userName" Mode="In" Type="String" />
+            <Parameter Name="roleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Get_Last_SaleID" ReturnType="Collection(Int32)" />
+        </EntityContainer>
+        <ComplexType Name="sp_directions_clients_Result">
+          <Property Type="Int32" Name="direccionID" Nullable="false" />
+          <Property Type="Int32" Name="relacionID" Nullable="false" />
+          <Property Type="String" Name="tabla_relacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_directions_users_Result">
+          <Property Type="Int32" Name="direccionID" Nullable="false" />
+          <Property Type="Int32" Name="relacionID" Nullable="false" />
+          <Property Type="String" Name="tabla_relacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="sp_phones_clients_Result">
+          <Property Type="Int32" Name="telefonoID" Nullable="false" />
+          <Property Type="Int32" Name="relacionID" Nullable="false" />
+          <Property Type="String" Name="tabla_relacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_phones_users_Result">
+          <Property Type="Int32" Name="telefonoID" Nullable="false" />
+          <Property Type="Int32" Name="relacionID" Nullable="false" />
+          <Property Type="String" Name="tabla_relacion" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_Get_Client_X_Cedula_Result">
+          <Property Type="Int32" Name="clientID" Nullable="false" />
+          <Property Type="String" Name="cedula_cliente" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="primer_nombre_cliente" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="segundo_nombre_cliente" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="primer_apellido_cliente" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="segundo_apellido_cliente" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="correo_electronico_cliente" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="estado_cliente" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_Get_User_X_Cedula_Result">
+          <Property Type="Int32" Name="userID" Nullable="false" />
+          <Property Type="String" Name="cedula_user" Nullable="false" MaxLength="25" />
+          <Property Type="String" Name="primer_nombre_user" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="segundo_nombre_user" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="primer_apellido_user" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="segundo_apellido_user" Nullable="false" MaxLength="80" />
+          <Property Type="String" Name="usuario" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="contrasena" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="tipo_user" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="estado_user" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="HornosDBModel.UsersInRoles" FromRole="Role" ToRole="user" />
+        </EntityType>
+        <Association Name="UsersInRoles">
+          <End Type="HornosDBModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="HornosDBModel.user" Role="user" Multiplicity="*" />
+        </Association>
+        <ComplexType Name="sp_Get_factura_detalle_Result">
+          <Property Type="Int32" Name="compraID_detalle" Nullable="false" />
+          <Property Type="Int32" Name="compraID" Nullable="false" />
+          <Property Type="Int32" Name="productID" Nullable="false" />
+          <Property Type="Decimal" Name="precio_factura_d" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="sp_Get_producto_x_nombre_Result">
+          <Property Type="Int32" Name="productID" Nullable="false" />
+          <Property Type="String" Name="codigo_producto" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="nombre_producto" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="descripcion" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="cantidad" Nullable="false" />
+          <Property Type="Decimal" Name="precio_manufactura" Nullable="true" Precision="19" />
+          <Property Type="Decimal" Name="precio_venta" Nullable="false" Precision="19" />
+          <Property Type="String" Name="estado_producto" Nullable="false" MaxLength="20" />
+          <Property Type="Decimal" Name="porcentaje_ganancia" Nullable="false" Precision="2" Scale="2" />
+          <Property Type="Decimal" Name="porcentaje_descuento" Nullable="true" Precision="2" Scale="2" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HornosDBModelStoreContainer" CdmEntityContainer="BDContext">
+          <EntitySetMapping Name="bitacoras">
+            <EntityTypeMapping TypeName="HornosDBModel.bitacora">
+              <MappingFragment StoreEntitySet="bitacora">
+                <ScalarProperty Name="registroID" ColumnName="registroID" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="accion" ColumnName="accion" />
+                <ScalarProperty Name="fecha_hora" ColumnName="fecha_hora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="clients">
+            <EntityTypeMapping TypeName="HornosDBModel.client">
+              <MappingFragment StoreEntitySet="clients">
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="cedula_cliente" ColumnName="cedula_cliente" />
+                <ScalarProperty Name="primer_nombre_cliente" ColumnName="primer_nombre_cliente" />
+                <ScalarProperty Name="segundo_nombre_cliente" ColumnName="segundo_nombre_cliente" />
+                <ScalarProperty Name="primer_apellido_cliente" ColumnName="primer_apellido_cliente" />
+                <ScalarProperty Name="segundo_apellido_cliente" ColumnName="segundo_apellido_cliente" />
+                <ScalarProperty Name="correo_electronico_cliente" ColumnName="correo_electronico_cliente" />
+                <ScalarProperty Name="estado_cliente" ColumnName="estado_cliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="directions">
+            <EntityTypeMapping TypeName="HornosDBModel.direction">
+              <MappingFragment StoreEntitySet="directions">
+                <ScalarProperty Name="direccionID" ColumnName="direccionID" />
+                <ScalarProperty Name="relacionID" ColumnName="relacionID" />
+                <ScalarProperty Name="tabla_relacion" ColumnName="tabla_relacion" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="earnings">
+            <EntityTypeMapping TypeName="HornosDBModel.earning">
+              <MappingFragment StoreEntitySet="earnings">
+                <ScalarProperty Name="earningID" ColumnName="earningID" />
+                <ScalarProperty Name="earnings_total_mes" ColumnName="earnings_total_mes" />
+                <ScalarProperty Name="conteo_facturas" ColumnName="conteo_facturas" />
+                <ScalarProperty Name="fecha_reporte" ColumnName="fecha_reporte" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="phones">
+            <EntityTypeMapping TypeName="HornosDBModel.phone">
+              <MappingFragment StoreEntitySet="phones">
+                <ScalarProperty Name="telefonoID" ColumnName="telefonoID" />
+                <ScalarProperty Name="relacionID" ColumnName="relacionID" />
+                <ScalarProperty Name="tabla_relacion" ColumnName="tabla_relacion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="HornosDBModel.product">
+              <MappingFragment StoreEntitySet="products">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
+                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio_manufactura" ColumnName="precio_manufactura" />
+                <ScalarProperty Name="precio_venta" ColumnName="precio_venta" />
+                <ScalarProperty Name="estado_producto" ColumnName="estado_producto" />
+                <ScalarProperty Name="porcentaje_ganancia" ColumnName="porcentaje_ganancia" />
+                <ScalarProperty Name="porcentaje_descuento" ColumnName="porcentaje_descuento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales">
+            <EntityTypeMapping TypeName="HornosDBModel.sale">
+              <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="compraID" ColumnName="compraID" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="fecha_compra" ColumnName="fecha_compra" />
+                <ScalarProperty Name="monto_total" ColumnName="monto_total" />
+                <ScalarProperty Name="estado_factura" ColumnName="estado_factura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sales_x_products">
+            <EntityTypeMapping TypeName="HornosDBModel.sales_x_products">
+              <MappingFragment StoreEntitySet="sales_x_products">
+                <ScalarProperty Name="compraID_detalle" ColumnName="compraID_detalle" />
+                <ScalarProperty Name="compraID" ColumnName="compraID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="precio_factura_d" ColumnName="precio_factura_d" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="HornosDBModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="cedula_user" ColumnName="cedula_user" />
+                <ScalarProperty Name="primer_nombre_user" ColumnName="primer_nombre_user" />
+                <ScalarProperty Name="segundo_nombre_user" ColumnName="segundo_nombre_user" />
+                <ScalarProperty Name="primer_apellido_user" ColumnName="primer_apellido_user" />
+                <ScalarProperty Name="segundo_apellido_user" ColumnName="segundo_apellido_user" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="tipo_user" ColumnName="tipo_user" />
+                <ScalarProperty Name="estado_user" ColumnName="estado_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="warranties">
+            <EntityTypeMapping TypeName="HornosDBModel.warranty">
+              <MappingFragment StoreEntitySet="warranties">
+                <ScalarProperty Name="warrantyID" ColumnName="warrantyID" />
+                <ScalarProperty Name="compraID" ColumnName="compraID" />
+                <ScalarProperty Name="estado_warranty" ColumnName="estado_warranty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_directions_clients" FunctionName="HornosDBModel.Store.sp_directions_clients">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_directions_clients_Result">
+                <ScalarProperty Name="direccionID" ColumnName="direccionID" />
+                <ScalarProperty Name="relacionID" ColumnName="relacionID" />
+                <ScalarProperty Name="tabla_relacion" ColumnName="tabla_relacion" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_directions_users" FunctionName="HornosDBModel.Store.sp_directions_users">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_directions_users_Result">
+                <ScalarProperty Name="direccionID" ColumnName="direccionID" />
+                <ScalarProperty Name="relacionID" ColumnName="relacionID" />
+                <ScalarProperty Name="tabla_relacion" ColumnName="tabla_relacion" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_phones_clients" FunctionName="HornosDBModel.Store.sp_phones_clients">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_phones_clients_Result">
+                <ScalarProperty Name="telefonoID" ColumnName="telefonoID" />
+                <ScalarProperty Name="relacionID" ColumnName="relacionID" />
+                <ScalarProperty Name="tabla_relacion" ColumnName="tabla_relacion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_phones_users" FunctionName="HornosDBModel.Store.sp_phones_users">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_phones_users_Result">
+                <ScalarProperty Name="telefonoID" ColumnName="telefonoID" />
+                <ScalarProperty Name="relacionID" ColumnName="relacionID" />
+                <ScalarProperty Name="tabla_relacion" ColumnName="tabla_relacion" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Get_Client_X_Cedula" FunctionName="HornosDBModel.Store.sp_Get_Client_X_Cedula">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_Client_X_Cedula_Result">
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="cedula_cliente" ColumnName="cedula_cliente" />
+                <ScalarProperty Name="primer_nombre_cliente" ColumnName="primer_nombre_cliente" />
+                <ScalarProperty Name="segundo_nombre_cliente" ColumnName="segundo_nombre_cliente" />
+                <ScalarProperty Name="primer_apellido_cliente" ColumnName="primer_apellido_cliente" />
+                <ScalarProperty Name="segundo_apellido_cliente" ColumnName="segundo_apellido_cliente" />
+                <ScalarProperty Name="correo_electronico_cliente" ColumnName="correo_electronico_cliente" />
+                <ScalarProperty Name="estado_cliente" ColumnName="estado_cliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Get_User_X_Cedula" FunctionName="HornosDBModel.Store.sp_Get_User_X_Cedula">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_User_X_Cedula_Result">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="cedula_user" ColumnName="cedula_user" />
+                <ScalarProperty Name="primer_nombre_user" ColumnName="primer_nombre_user" />
+                <ScalarProperty Name="segundo_nombre_user" ColumnName="segundo_nombre_user" />
+                <ScalarProperty Name="primer_apellido_user" ColumnName="primer_apellido_user" />
+                <ScalarProperty Name="segundo_apellido_user" ColumnName="segundo_apellido_user" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="tipo_user" ColumnName="tipo_user" />
+                <ScalarProperty Name="estado_user" ColumnName="estado_user" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="HornosDBModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UsersInRoles" TypeName="HornosDBModel.UsersInRoles" StoreEntitySet="UsersInRoles">
+            <EndProperty Name="user">
+              <ScalarProperty Name="userID" ColumnName="User_UserId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="RoleId" ColumnName="Role_RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Get_factura_detalle" FunctionName="HornosDBModel.Store.sp_Get_factura_detalle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_factura_detalle_Result">
+                <ScalarProperty Name="compraID_detalle" ColumnName="compraID_detalle" />
+                <ScalarProperty Name="compraID" ColumnName="compraID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="precio_factura_d" ColumnName="precio_factura_d" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_Get_producto_x_nombre" FunctionName="HornosDBModel.Store.sp_Get_producto_x_nombre">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_producto_x_nombre_Result">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="codigo_producto" ColumnName="codigo_producto" />
+                <ScalarProperty Name="nombre_producto" ColumnName="nombre_producto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="precio_manufactura" ColumnName="precio_manufactura" />
+                <ScalarProperty Name="precio_venta" ColumnName="precio_venta" />
+                <ScalarProperty Name="estado_producto" ColumnName="estado_producto" />
+                <ScalarProperty Name="porcentaje_ganancia" ColumnName="porcentaje_ganancia" />
+                <ScalarProperty Name="porcentaje_descuento" ColumnName="porcentaje_descuento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ultimoID_sales" FunctionName="HornosDBModel.Store.sp_ultimoID_sales" />
+          <FunctionImportMapping FunctionImportName="sp_getRolesForUser" FunctionName="HornosDBModel.Store.sp_getRolesForUser" />
+          <FunctionImportMapping FunctionImportName="sp_getUsuariosRole" FunctionName="HornosDBModel.Store.sp_getUsuariosRole" />
+          <FunctionImportMapping FunctionImportName="sp_isUserInRole" FunctionName="HornosDBModel.Store.sp_isUserInRole" />
+          <FunctionImportMapping FunctionImportName="sp_Get_Last_SaleID" FunctionName="HornosDBModel.Store.sp_Get_Last_SaleID" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
