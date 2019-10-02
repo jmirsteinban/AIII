@@ -1,5 +1,3 @@
 ## Analisis de Sistemas III
 
-### Wiki
-
-[Implantanción del sistema](https://github.com/jmirsteinban/AIII/milestone/1)
+### Wiki [Wiki](https://github.com/jmirsteinban/AIII/wiki)
