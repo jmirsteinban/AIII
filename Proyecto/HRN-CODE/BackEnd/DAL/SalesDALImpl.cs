@@ -39,20 +39,5 @@ namespace BackEnd.DAL
                 return null;
             }
         }
-
-        public int ultimoID()
-        {
-            try
-            {
-                int id = Convert.ToInt32(context.sp_Get_Last_SaleID());
-                return id;
-            }
-            catch (Exception)
-            {
-                return 0;
-            }
-                
-
-        }
     }
 }

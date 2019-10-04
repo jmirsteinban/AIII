@@ -77,10 +77,10 @@ namespace FrontEnd.Controllers
             }
 
             sale Factura = new sale
-            {
+            {                
                 clientID=Cliente.clientID,
                 userID=Empleado.userID,
-                fecha_compra=facturas.fecha_compra,
+                fecha_compra=DateTime.Now,
                 estado_factura=facturas.estado_factura,
                 monto_total=Producto.precio_venta                
             };
@@ -126,20 +126,20 @@ namespace FrontEnd.Controllers
             return Factura;
         }
 
-        private sales_x_products ConvertirDetalle(SalesViewModel facturas)
+        private sales_x_products ConvertirDetalle(sale factura, string nombre_producto)
         {
             sp_Get_producto_x_nombre_Result Producto;
 
             using (WorkUnit<product> unidad = new WorkUnit<product>(new BDContext()))
             {
-                Producto = unidad.salesDAL.GetProducto(facturas.nombre_producto);
+                Producto = unidad.salesDAL.GetProducto(nombre_producto);
             }
 
             sales_x_products FacturaD = new sales_x_products
             {                
-                compraID= facturas.compraID,
+                compraID= factura.compraID,
                 precio_factura_d=Producto.precio_venta,
-                productID=Producto.productID               
+                productID=Producto.productID
             };
 
             return FacturaD;
@@ -169,13 +169,7 @@ namespace FrontEnd.Controllers
 
             List<Estado> estados = new List<Estado>();
             estados.Insert(0, new Estado { nombreEstado="Completado"});
-            estados.Insert(1, new Estado { nombreEstado="Procesando"});
-            
-            using (WorkUnit<sale> unidad = new WorkUnit<sale>(new BDContext()))
-            {
-                //REVISAR
-                Session["IDCompra"] = unidad.salesDAL.ultimoID();
-            }
+            estados.Insert(1, new Estado { nombreEstado="Procesando"});           
 
             ViewBag.Productos = products;
             ViewBag.Estados = estados;
@@ -232,9 +226,8 @@ namespace FrontEnd.Controllers
                 string redirection = "Create";
                 string controller2 = "Sales";
 
-                return RedirectToAction("Error", new RouteValueDictionary
-                    (new
-                    {
+                return RedirectToAction("Error", new RouteValueDictionary(
+                    new {
                         Controller = "Error",
                         Action = "Error",
                         proveedor = proveedor,
@@ -260,19 +253,18 @@ namespace FrontEnd.Controllers
         {
             try
             {
+                sale Factura;
+
                 using (WorkUnit<sale> unit = new WorkUnit<sale>(new BDContext()))
                 {
-                    unit.genericDAL.Add(ConvertirMaestro(salesViewModel));
+                    Factura = ConvertirMaestro(salesViewModel);
+                    unit.genericDAL.Add(Factura);
                     unit.Complete();
-                }
-                using (WorkUnit<sales_x_products> unit = new WorkUnit<sales_x_products>(new BDContext()))
-                {
-                    salesViewModel.compraID = unit.salesDAL.ultimoID();
-                }
+                }                
                 
                 using (WorkUnit<sales_x_products> unit = new WorkUnit<sales_x_products>(new BDContext()))
                 {
-                    unit.genericDAL.Add(ConvertirDetalle(salesViewModel));
+                    unit.genericDAL.Add(ConvertirDetalle(Factura,salesViewModel.nombre_producto));
                     unit.Complete();
                 }
 
@@ -373,15 +365,18 @@ namespace FrontEnd.Controllers
         {
             try
             {
+                sale Factura;
+
                 using (WorkUnit<sale> unit = new WorkUnit<sale>(new BDContext()))
                 {
-                    unit.genericDAL.Delete(ConvertirMaestro(salesViewModel));
+                    Factura = ConvertirMaestro(salesViewModel);
+                    unit.genericDAL.Delete(Factura);
                     unit.Complete();
                 }
 
                 using (WorkUnit<sales_x_products> unit = new WorkUnit<sales_x_products>(new BDContext()))
                 {
-                    unit.genericDAL.Delete(ConvertirDetalle(salesViewModel));
+                    unit.genericDAL.Delete(ConvertirDetalle(Factura,salesViewModel.nombre_producto));
                     unit.Complete();
                 }
 

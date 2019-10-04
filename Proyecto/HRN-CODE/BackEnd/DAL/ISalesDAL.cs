@@ -12,8 +12,6 @@ namespace BackEnd.DAL
         sp_Get_factura_detalle_Result GetFacturaDetalle(int maestroID);
 
         sp_Get_producto_x_nombre_Result GetProducto(string nombreProducto);
-
-        int ultimoID();
               
     }
 }
