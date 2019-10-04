@@ -42,6 +42,7 @@ namespace FrontEnd.Controllers
                 Session["userID"] = userDetails.userID;
                 Session["userName"] = userDetails.usuario;
                 Session["userName2"] = userDetails.primer_nombre_user+" "+userDetails.primer_apellido_user;
+                Session["cedula"] = userDetails.cedula_user;
                 var authTicket = new FormsAuthenticationTicket(userDetails.usuario, true, 100000);
                 var cookie = new HttpCookie(FormsAuthentication.FormsCookieName,
                                             FormsAuthentication.Encrypt(authTicket));
