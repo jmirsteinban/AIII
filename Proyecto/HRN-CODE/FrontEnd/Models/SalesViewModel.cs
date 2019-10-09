@@ -35,6 +35,8 @@ namespace FrontEnd.Models
         public int productID { get; set; }
         [Display(Name = "Nombre Producto")]
         public string nombre_producto { get; set; }
+        [Display(Name = "Cantidad Producto")]
+        public int cantidad_producto { get; set; }
         [Display(Name = "Precio Unitario")]
         public decimal precio_factura_d { get; set; }
     }

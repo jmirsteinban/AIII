@@ -27,12 +27,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id= "cedCliente" } })
                     @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario" } })
                     @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -51,12 +51,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id="estadoFac"})
                     @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "nombreProducto", "nombreProducto"), "--Select--", new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "nombreProducto", "nombreProducto"), "--Select--", new { @class = "form-control", @id = "productName" })
                     @Html.ValidationMessageFor(model => model.nombre_producto, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -65,65 +65,90 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-6">
-                    <br />
+                    @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
                 <div class="col-6">
                     <br />
                 </div>
             </div>
             <div class="row">
-                <div class="col-1"></div>
+                <div class="col-1">
+                    @* <div class="col-md-2 col-lg-offset-4">
+            <a id="addToList" class="btn btn-primary">Add To List</a>
+        </div>
+        <input type="submit" value="Crear Factura" class="btn btn-md btn-block btn-default" />*@
+                </div>
                 <div class="col-4">
-                    <input type="submit" value="Agregar Producto" class="btn btn-md btn-block btn-success"  />
+                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto" } })
+                    @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    <input type="submit" value="Create" class="btn btn-md btn-block btn-default"/>
+                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
+                    @*<input type="submit" id="addToList" value="Agregar Producto" class="btn btn-md btn-block btn-success" />*@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="compraID" value="@ViewBag.IDCompra" />
-        <br />
+        <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <table id="detailsTable" class="table">
+                    <thead>
+                        <tr>
+                            <th style="width:30%">Producto</th>
+                            <th style="width:15%">Cantidad</th>
+                            <th style="width:15%">Cédula Cliente</th>
+                            <th style="width:15%">Cédula Usuario</th>
+                            <th style="width:15%">Estado de Factura</th>
+                            <th style="width:10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="reset" class="btn btn-danger" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
+            <button id="saveOrder" type="submit" class="btn btn-success">Crear Factura</button>
+        </div>
     </div>
+    
 }
-
-<div>
-    @Html.ActionLink("Volver a la Lista", "Index")
-</div>
 
 @section scripts{
     <script>
-        //Show Modal.
-        function addNewOrder() {
-            $("#newOrderModal").modal();
-        }
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();
 
-            if ($.trim($("#productName").val()) == "" || $.trim($("#price").val()) == "" || $.trim($("#quantity").val()) == "") return;
+            if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {                
+                window.alert("Debe llenar todos los campos")
+            } else {
+                var productName = $("#productName").val(),
+                    cedCliente = $("#cedCliente").val(),
+                    cedUsuario = $("#cedUsuario").val(),
+                    estado = $("#estadoFac").val(),
+                    cantProd = $("#cantProducto").val(),
+                    detailsTableBody = $("#detailsTable tbody");
 
-            var productName = $("#productName").val(),
-                price = $("#price").val(),
-                quantity = $("#quantity").val(),
-                detailsTableBody = $("#detailsTable tbody");
-
-            var productItem = '<tr><td>' + productName + '</td><td>' + quantity + '</td><td>' + price + '</td><td>' + (parseFloat(price) * parseInt(quantity)) + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
-            detailsTableBody.append(productItem);
-            clearItem();
+                var productItem = '<tr><td>' + productName + '</td><td>' + cantProd+ '</td><td>'  + cedCliente + '</td><td>' + cedUsuario + '</td><td>' + estado +'</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                detailsTableBody.append(productItem);
+                clearItem();
+            }  
         });
         //After Add A New Order In The List, Clear Clean The Form For Add More Order.
         function clearItem() {
             $("#productName").val('');
-            $("#price").val('');
-            $("#quantity").val('');
+            $("#estadoFac").val('');
+            $("#cantProducto").val('');
         }
         // After Add A New Order In The List, If You Want, You Can Remove It.
         $(document).on('click', 'a.deleteItem', function (e) {
             e.preventDefault();
             var $self = $(this);
             if ($(this).attr('data-itemId') == "0") {
-                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(800, function () {
+                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(300, function () {
                     $(this).remove();
                 });
             }
@@ -134,7 +159,7 @@
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 type: 'POST',
-                url: "/Orders/SaveOrder",
+                url: "/Sales/Create",
                 data: data,
                 success: function (result) {
                     alert(result);
