@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario" } })
+                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
                 </div>
             </div>
