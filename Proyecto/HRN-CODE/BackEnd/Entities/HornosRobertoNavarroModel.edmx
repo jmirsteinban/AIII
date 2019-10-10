@@ -95,6 +95,7 @@
           <Property Name="compraID" Type="int" Nullable="false" />
           <Property Name="productID" Type="int" Nullable="false" />
           <Property Name="precio_factura_d" Type="money" Nullable="false" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="users">
           <Key>
@@ -392,6 +393,7 @@
           <Property Name="precio_factura_d" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <NavigationProperty Name="product" Relationship="Self.FK__sales_x_p__produ__5535A963" FromRole="sales_x_products" ToRole="products" />
           <NavigationProperty Name="sale" Relationship="Self.fkCompraID_cascade_salesProducts" FromRole="sales_x_products" ToRole="sales" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="user">
           <Key>
@@ -723,6 +725,7 @@
           <EntitySetMapping Name="sales_x_products">
             <EntityTypeMapping TypeName="HornosDBModel.sales_x_products">
               <MappingFragment StoreEntitySet="sales_x_products">
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
                 <ScalarProperty Name="compraID_detalle" ColumnName="compraID_detalle" />
                 <ScalarProperty Name="compraID" ColumnName="compraID" />
                 <ScalarProperty Name="productID" ColumnName="productID" />

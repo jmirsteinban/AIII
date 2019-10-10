@@ -82,7 +82,7 @@ namespace FrontEnd.Controllers
                 userID=Empleado.userID,
                 fecha_compra=DateTime.Now,
                 estado_factura=facturas.estado_factura,
-                monto_total=Producto.precio_venta                
+                monto_total=Producto.precio_venta           
             };
 
             return Factura;
@@ -108,7 +108,7 @@ namespace FrontEnd.Controllers
                 clientID=Cliente.clientID,
                 userID=Empleado.userID,
                 fecha_compra=DateTime.Now,
-                estado_factura=estado              
+                estado_factura=estado         
             };
 
             return Factura;
@@ -146,13 +146,13 @@ namespace FrontEnd.Controllers
                 cedula_user=empleado.cedula_user,
                 fecha_compra=(DateTime) facturas.fecha_compra,
                 monto_total=facturas.monto_total,
-                estado_factura=facturas.estado_factura
+                estado_factura=facturas.estado_factura,
             };
 
             return Factura;
         }
 
-        private sales_x_products ConvertirDetalle(sale factura, string nombre_producto)
+        private sales_x_products ConvertirDetalle(sale factura, string nombre_producto, int cantidad)
         {
             sp_Get_producto_x_nombre_Result Producto;
 
@@ -165,7 +165,8 @@ namespace FrontEnd.Controllers
             {                
                 compraID= factura.compraID,
                 precio_factura_d=Producto.precio_venta,
-                productID=Producto.productID
+                productID=Producto.productID,
+                cantidad=cantidad
             };
 
             return FacturaD;
@@ -281,7 +282,7 @@ namespace FrontEnd.Controllers
             try
             {
                 string cedula_cliente= order[0].cedCliente, cedula_user= order[0].cedUsuario,
-                       estado= order[0].estado;
+                       estado= order[0].estado;                
 
                 sale Factura;
                 sales_x_products FactDetalle;
@@ -299,8 +300,8 @@ namespace FrontEnd.Controllers
                     {
                         using (WorkUnit<sales_x_products> unit2 = new WorkUnit<sales_x_products>(new BDContext()))
                         {
-                            FactDetalle = ConvertirDetalle(Factura, item.productName);
-                            totalFactura = totalFactura + FactDetalle.precio_factura_d;
+                            FactDetalle = ConvertirDetalle(Factura, item.productName,Convert.ToInt32(item.cantProd));
+                            totalFactura = totalFactura + (FactDetalle.precio_factura_d*FactDetalle.cantidad);
                             unit2.genericDAL.Add(FactDetalle);
                             unit2.Complete();
                         }
@@ -419,7 +420,7 @@ namespace FrontEnd.Controllers
 
                 using (WorkUnit<sales_x_products> unit = new WorkUnit<sales_x_products>(new BDContext()))
                 {
-                    unit.genericDAL.Delete(ConvertirDetalle(Factura,salesViewModel.nombre_producto));
+                    //unit.genericDAL.Delete(ConvertirDetalle(Factura,salesViewModel.nombre_producto));
                     unit.Complete();
                 }
 
