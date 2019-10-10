@@ -36,8 +36,8 @@ namespace BackEnd.Entities
         public virtual DbSet<sale> sales { get; set; }
         public virtual DbSet<sales_x_products> sales_x_products { get; set; }
         public virtual DbSet<user> users { get; set; }
-        public virtual DbSet<warranty> warranties { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<warranty> warranties { get; set; }
     
         public virtual ObjectResult<sp_directions_clients_Result> sp_directions_clients(Nullable<int> clientID)
         {

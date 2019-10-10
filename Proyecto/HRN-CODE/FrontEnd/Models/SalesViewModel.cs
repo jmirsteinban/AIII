@@ -43,7 +43,11 @@ namespace FrontEnd.Models
 
     public class Producto
     {
-        public string nombreProducto { get; set; }
+        public string productName { get; set; }
+        public string cedCliente { get; set; }
+        public string cedUsuario { get; set; }
+        public string estado { get; set; }
+        public string cantProd { get; set; }
     }
 
 }

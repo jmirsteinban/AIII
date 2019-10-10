@@ -88,6 +88,32 @@ namespace FrontEnd.Controllers
             return Factura;
         }
 
+        private sale ConvertirMaestroCreate(string cedula_cliente,string cedula_user, string estado)
+        {
+            sp_Get_Client_X_Cedula_Result Cliente;
+            sp_Get_User_X_Cedula_Result Empleado;
+
+            using (WorkUnit<client> unidad = new WorkUnit<client>(new BDContext()))
+            {
+                Cliente = unidad.clientsDAL.Client(cedula_cliente);
+            }
+
+            using (WorkUnit<user> unidad = new WorkUnit<user>(new BDContext()))
+            {
+                Empleado = unidad.usersDAL.User(cedula_user);
+            }            
+
+            sale Factura = new sale
+            {                
+                clientID=Cliente.clientID,
+                userID=Empleado.userID,
+                fecha_compra=DateTime.Now,
+                estado_factura=estado              
+            };
+
+            return Factura;
+        }
+
         private SalesViewModel ConvertirMaestro(sale facturas)
         {
             client Cliente;
@@ -161,7 +187,7 @@ namespace FrontEnd.Controllers
             {
                 Producto producto = new Producto
                 {
-                    nombreProducto=item.nombre_producto
+                    productName = item.nombre_producto
                 };
 
                 products.Add(producto);
@@ -243,28 +269,45 @@ namespace FrontEnd.Controllers
         public ActionResult Create()
         {
             LlenarLista();
+            ViewBag.CedulaUser = Session["cedula"];
 
             return View();
         }
 
         // POST: Facturas/Create
         [HttpPost]
-        public ActionResult Create(SalesViewModel salesViewModel)
+        public ActionResult Create(SalesViewModel salesViewModel, Producto[] order)
         {
             try
             {
+                string cedula_cliente= order[0].cedCliente, cedula_user= order[0].cedUsuario,
+                       estado= order[0].estado;
+
                 sale Factura;
+                sales_x_products FactDetalle;
 
                 using (WorkUnit<sale> unit = new WorkUnit<sale>(new BDContext()))
                 {
-                    Factura = ConvertirMaestro(salesViewModel);
+                    Factura = ConvertirMaestroCreate(cedula_cliente, cedula_user, estado);
+                    decimal totalFactura = 0;
+                    Factura.monto_total = totalFactura;
+
                     unit.genericDAL.Add(Factura);
                     unit.Complete();
-                }                
-                
-                using (WorkUnit<sales_x_products> unit = new WorkUnit<sales_x_products>(new BDContext()))
-                {
-                    unit.genericDAL.Add(ConvertirDetalle(Factura,salesViewModel.nombre_producto));
+
+                    foreach (var item in order)
+                    {
+                        using (WorkUnit<sales_x_products> unit2 = new WorkUnit<sales_x_products>(new BDContext()))
+                        {
+                            FactDetalle = ConvertirDetalle(Factura, item.productName);
+                            totalFactura = totalFactura + FactDetalle.precio_factura_d;
+                            unit2.genericDAL.Add(FactDetalle);
+                            unit2.Complete();
+                        }
+                    }
+
+                    Factura.monto_total = totalFactura;
+                    unit.genericDAL.Update(Factura);
                     unit.Complete();
                 }
 

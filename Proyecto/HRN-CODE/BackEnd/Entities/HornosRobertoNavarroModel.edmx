@@ -206,7 +206,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fkCompraID_cascade_warranties">
-          <End Role="sales" Type="Self.sales" Multiplicity="1" />
+          <End Role="sales" Type="Self.sales" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="warranties" Type="Self.warranties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="sales">
@@ -378,7 +380,7 @@
           <NavigationProperty Name="client" Relationship="Self.FK__sales__clientID__4E88ABD4" FromRole="sales" ToRole="clients" />
           <NavigationProperty Name="user" Relationship="Self.FK__sales__userID__4F7CD00D" FromRole="sales" ToRole="users" />
           <NavigationProperty Name="sales_x_products" Relationship="Self.fkCompraID_cascade_salesProducts" FromRole="sales" ToRole="sales_x_products" />
-          <NavigationProperty Name="warranties" Relationship="Self.fkCompraID_cascade_warranties" FromRole="sales" ToRole="warranties" />
+          <NavigationProperty Name="warranties" Relationship="HornosDBModel.fkCompraID_cascade_warranties" FromRole="sale" ToRole="warranty" />
         </EntityType>
         <EntityType Name="sales_x_products">
           <Key>
@@ -407,15 +409,6 @@
           <Property Name="estado_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="sales" Relationship="Self.FK__sales__userID__4F7CD00D" FromRole="users" ToRole="sales" />
           <NavigationProperty Name="Roles" Relationship="HornosDBModel.UsersInRoles" FromRole="user" ToRole="Role" />
-        </EntityType>
-        <EntityType Name="warranty">
-          <Key>
-            <PropertyRef Name="warrantyID" />
-          </Key>
-          <Property Name="warrantyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="compraID" Type="Int32" Nullable="false" />
-          <Property Name="estado_warranty" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="sale" Relationship="Self.fkCompraID_cascade_warranties" FromRole="warranties" ToRole="sales" />
         </EntityType>
         <Association Name="FK__sales__clientID__4E88ABD4">
           <End Role="clients" Type="Self.client" Multiplicity="1" />
@@ -467,18 +460,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fkCompraID_cascade_warranties">
-          <End Role="sales" Type="Self.sale" Multiplicity="1" />
-          <End Role="warranties" Type="Self.warranty" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="sales">
-              <PropertyRef Name="compraID" />
-            </Principal>
-            <Dependent Role="warranties">
-              <PropertyRef Name="compraID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="BDContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="bitacoras" EntityType="Self.bitacora" />
           <EntitySet Name="clients" EntityType="Self.client" />
@@ -489,7 +470,6 @@
           <EntitySet Name="sales" EntityType="Self.sale" />
           <EntitySet Name="sales_x_products" EntityType="Self.sales_x_products" />
           <EntitySet Name="users" EntityType="Self.user" />
-          <EntitySet Name="warranties" EntityType="Self.warranty" />
           <AssociationSet Name="FK__sales__clientID__4E88ABD4" Association="Self.FK__sales__clientID__4E88ABD4">
             <End Role="clients" EntitySet="clients" />
             <End Role="sales" EntitySet="sales" />
@@ -505,10 +485,6 @@
           <AssociationSet Name="fkCompraID_cascade_salesProducts" Association="Self.fkCompraID_cascade_salesProducts">
             <End Role="sales" EntitySet="sales" />
             <End Role="sales_x_products" EntitySet="sales_x_products" />
-          </AssociationSet>
-          <AssociationSet Name="fkCompraID_cascade_warranties" Association="Self.fkCompraID_cascade_warranties">
-            <End Role="sales" EntitySet="sales" />
-            <End Role="warranties" EntitySet="warranties" />
           </AssociationSet>
           <FunctionImport Name="sp_directions_clients" ReturnType="Collection(HornosDBModel.sp_directions_clients_Result)">
           <Parameter Name="clientID" Mode="In" Type="Int32" />
@@ -551,6 +527,11 @@
             <Parameter Name="roleName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_Get_Last_SaleID" ReturnType="Collection(Int32)" />
+          <EntitySet Name="warranties" EntityType="HornosDBModel.warranty" />
+          <AssociationSet Name="fkCompraID_cascade_warranties" Association="HornosDBModel.fkCompraID_cascade_warranties">
+            <End Role="sale" EntitySet="sales" />
+            <End Role="warranty" EntitySet="warranties" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_directions_clients_Result">
           <Property Type="Int32" Name="direccionID" Nullable="false" />
@@ -628,6 +609,29 @@
           <Property Type="Decimal" Name="porcentaje_ganancia" Nullable="false" Precision="2" Scale="2" />
           <Property Type="Decimal" Name="porcentaje_descuento" Nullable="true" Precision="2" Scale="2" />
         </ComplexType>
+        <EntityType Name="warranty">
+          <Key>
+            <PropertyRef Name="warrantyID" />
+          </Key>
+          <Property Name="warrantyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="compraID" Type="Int32" Nullable="false" />
+          <Property Name="estado_warranty" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="sale" Relationship="HornosDBModel.fkCompraID_cascade_warranties" FromRole="warranty" ToRole="sale" />
+        </EntityType>
+        <Association Name="fkCompraID_cascade_warranties">
+          <End Type="HornosDBModel.sale" Role="sale" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="HornosDBModel.warranty" Role="warranty" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="sale">
+              <PropertyRef Name="compraID" />
+            </Principal>
+            <Dependent Role="warranty">
+              <PropertyRef Name="compraID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -739,15 +743,6 @@
                 <ScalarProperty Name="contrasena" ColumnName="contrasena" />
                 <ScalarProperty Name="tipo_user" ColumnName="tipo_user" />
                 <ScalarProperty Name="estado_user" ColumnName="estado_user" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="warranties">
-            <EntityTypeMapping TypeName="HornosDBModel.warranty">
-              <MappingFragment StoreEntitySet="warranties">
-                <ScalarProperty Name="warrantyID" ColumnName="warrantyID" />
-                <ScalarProperty Name="compraID" ColumnName="compraID" />
-                <ScalarProperty Name="estado_warranty" ColumnName="estado_warranty" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -868,6 +863,15 @@
           <FunctionImportMapping FunctionImportName="sp_getUsuariosRole" FunctionName="HornosDBModel.Store.sp_getUsuariosRole" />
           <FunctionImportMapping FunctionImportName="sp_isUserInRole" FunctionName="HornosDBModel.Store.sp_isUserInRole" />
           <FunctionImportMapping FunctionImportName="sp_Get_Last_SaleID" FunctionName="HornosDBModel.Store.sp_Get_Last_SaleID" />
+          <EntitySetMapping Name="warranties">
+            <EntityTypeMapping TypeName="HornosDBModel.warranty">
+              <MappingFragment StoreEntitySet="warranties">
+                <ScalarProperty Name="estado_warranty" ColumnName="estado_warranty" />
+                <ScalarProperty Name="compraID" ColumnName="compraID" />
+                <ScalarProperty Name="warrantyID" ColumnName="warrantyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -882,7 +886,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

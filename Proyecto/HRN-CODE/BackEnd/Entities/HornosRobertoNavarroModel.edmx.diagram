@@ -14,14 +14,14 @@
         <EntityTypeShape EntityType="HornosDBModel.sale" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.sales_x_products" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.user" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="HornosDBModel.warranty" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <AssociationConnector Association="HornosDBModel.FK__sales__clientID__4E88ABD4" ManuallyRouted="false" />
         <AssociationConnector Association="HornosDBModel.FK__sales_x_p__produ__5535A963" ManuallyRouted="false" />
         <AssociationConnector Association="HornosDBModel.FK__sales__userID__4F7CD00D" ManuallyRouted="false" />
         <AssociationConnector Association="HornosDBModel.fkCompraID_cascade_salesProducts" ManuallyRouted="false" />
-        <AssociationConnector Association="HornosDBModel.fkCompraID_cascade_warranties" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HornosDBModel.Role" Width="1.5" PointX="0.75" PointY="11.75" />
         <AssociationConnector Association="HornosDBModel.UsersInRoles" />
+        <EntityTypeShape EntityType="HornosDBModel.warranty" Width="1.5" PointX="5.25" PointY="5.625" />
+        <AssociationConnector Association="HornosDBModel.fkCompraID_cascade_warranties" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
