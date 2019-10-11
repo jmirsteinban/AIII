@@ -222,7 +222,6 @@ namespace FrontEnd.Controllers
 
             return View(facturas);
         }
-        
 
         // GET: Facturas/Details/5
         public ActionResult Details(int id)
@@ -311,6 +310,18 @@ namespace FrontEnd.Controllers
                     unit.genericDAL.Update(Factura);
                     unit.Complete();
                 }
+
+                Session["EstadoFac"] = Factura.estado_factura;
+                client Cliente;
+
+                using (WorkUnit<client> unit = new WorkUnit<client>(new BDContext()))
+                {
+                    Cliente = unit.genericDAL.Get(Factura.clientID);
+                    Session["NombreClienteFac"] = Cliente.primer_nombre_cliente+" "+
+                        Cliente.primer_apellido_cliente+ " " + Cliente.segundo_apellido_cliente;
+                }
+
+                Session["MontoTotalFac"] = Factura.monto_total;
 
                 return RedirectToAction("Index");
             }

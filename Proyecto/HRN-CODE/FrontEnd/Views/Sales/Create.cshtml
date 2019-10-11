@@ -20,19 +20,19 @@
                 <div class="col-6">
                     @Html.LabelFor(model => model.cedula_cliente, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
-                <div class="col-6">                    
+                <div class="col-6">
                     @Html.LabelFor(model => model.cedula_user, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id= "cedCliente" } })
+                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente" } })
                     @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @Value= @ViewBag.CedulaUser, @readonly = "readonly"} })
+                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @Value = @ViewBag.CedulaUser, @readonly = "readonly" } })
                     @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id="estadoFac"})
+                    @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id = "estadoFac" })
                     @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -74,12 +74,12 @@
             <div class="row">
                 <div class="col-1">
                     @* <div class="col-md-2 col-lg-offset-4">
-            <a id="addToList" class="btn btn-primary">Add To List</a>
-        </div>
-        <input type="submit" value="Crear Factura" class="btn btn-md btn-block btn-default" />*@
+                            <a id="addToList" class="btn btn-primary">Add To List</a>
+                        </div>
+                        <input type="submit" value="Crear Factura" class="btn btn-md btn-block btn-default" />*@
                 </div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min="1",@Max="" } })
+                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
                     @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -113,7 +113,54 @@
             <button id="saveOrder" type="submit" class="btn btn-success">Crear Factura</button>
         </div>
     </div>
-    
+    <center>
+        <div class="modal fade" id="newOrderModal">
+            <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        @*<a href="#" class="close" data-dismiss="modal">&times;</a>*@
+                        <div class="row">
+                            <div class="col-2"></div>
+                            <div class="col-8">
+                                <h2>Factura---Completada</h2>
+                                @* @if (Session["EstadoFac"] != null)
+        {
+            if (Session["EstadoFac"].ToString().Equals("Procesando"))
+            {
+                <h2>Factura---@Session["EstadoFac"].ToString()</h2>
+            }
+        }*@
+                            </div>
+                            <div class="col-2"></div>
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />                                
+                                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                @*@if (Session["EstadoFac"] != null)
+        {
+            if (Session["EstadoFac"].ToString().Equals("Procesando"))
+            {
+                <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
+                <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
+                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+            }
+            else
+            {
+                <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
+                <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
+                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+            }
+        }*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </center>
 }
 
 @section scripts{
@@ -126,7 +173,7 @@
         $("#addToList").click(function (e) {
             e.preventDefault();
 
-            if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {                
+            if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {
                 window.alert("Debe llenar todos los campos")
             } else {
                 var productName = $("#productName").val(),
@@ -136,10 +183,10 @@
                     cantProd = $("#cantProducto").val(),
                     detailsTableBody = $("#detailsTable tbody");
 
-                var productItem = '<tr><td>' + productName + '</td><td>' + cantProd+ '</td><td>'  + cedCliente + '</td><td>' + cedUsuario + '</td><td>' + estado +'</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                var productItem = '<tr><td>' + productName + '</td><td>' + cantProd + '</td><td>' + cedCliente + '</td><td>' + cedUsuario + '</td><td>' + estado + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
                 detailsTableBody.append(productItem);
                 clearItem();
-            }  
+            }
         });
         //After Add A New Order In The List, Clear Clean The Form For Add More Order.
         function clearItem() {
@@ -167,10 +214,11 @@
                 success: function (result) {
                     alert(result);
                     location.reload();
+                    $("#newOrderModal").modal();
                 },
                 error: function () {
-                    alert("Factura guardada satisfactoriamente!");
-                    location.href = "/Sales/Index";
+                    //location.href = "/Sales/Index";
+                    $("#newOrderModal").modal();
                 }
             });
         }
