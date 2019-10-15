@@ -311,17 +311,18 @@ namespace FrontEnd.Controllers
                     unit.Complete();
                 }
 
-                Session["EstadoFac"] = Factura.estado_factura;
+                Session["estadoFac"] = Factura.estado_factura;
+
                 client Cliente;
 
                 using (WorkUnit<client> unit = new WorkUnit<client>(new BDContext()))
                 {
                     Cliente = unit.genericDAL.Get(Factura.clientID);
-                    Session["NombreClienteFac"] = Cliente.primer_nombre_cliente+" "+
+                    Session["nombreClienteFac"] = Cliente.primer_nombre_cliente+" "+
                         Cliente.primer_apellido_cliente+ " " + Cliente.segundo_apellido_cliente;
                 }
 
-                Session["MontoTotalFac"] = Factura.monto_total;
+                Session["montoTotalFac"] = Factura.monto_total;
 
                 return RedirectToAction("Index");
             }

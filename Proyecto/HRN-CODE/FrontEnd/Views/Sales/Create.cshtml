@@ -73,10 +73,6 @@
             </div>
             <div class="row">
                 <div class="col-1">
-                    @* <div class="col-md-2 col-lg-offset-4">
-                            <a id="addToList" class="btn btn-primary">Add To List</a>
-                        </div>
-                        <input type="submit" value="Crear Factura" class="btn btn-md btn-block btn-default" />*@
                 </div>
                 <div class="col-4">
                     @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
@@ -84,8 +80,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
-                    @*<input type="submit" id="addToList" value="Agregar Producto" class="btn btn-md btn-block btn-success" />*@
+                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>                    
                 </div>
             </div>
         </div>
@@ -118,18 +113,26 @@
             <div class="modal-dialog modal-lg" style=" width: 900px !important;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        @*<a href="#" class="close" data-dismiss="modal">&times;</a>*@
                         <div class="row">
                             <div class="col-2"></div>
                             <div class="col-8">
-                                <h2>Factura---Completada</h2>
-                                @* @if (Session["EstadoFac"] != null)
-        {
-            if (Session["EstadoFac"].ToString().Equals("Procesando"))
-            {
-                <h2>Factura---@Session["EstadoFac"].ToString()</h2>
-            }
-        }*@
+                                @{
+                                    string estadoFac, nombreCliente, montoTotal;
+
+                                    if (Session["estadoFac"] != null)
+                                    {
+                                        estadoFac = Session["estadoFac"].ToString();
+                                        nombreCliente = Session["nombreClienteFac"].ToString();
+                                        montoTotal = "₡" + Session["montoTotalFac"].ToString();
+                                    }
+                                    else
+                                    {
+                                        estadoFac = "";
+                                        nombreCliente = "";
+                                        montoTotal = "₡";
+                                    }
+                                }
+                                <h4>Factura---@estadoFac</h4>
                             </div>
                             <div class="col-2"></div>
                         </div>
@@ -137,23 +140,36 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-12">
-                                <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />                                
-                                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                @if (estadoFac != null)
+                                {
+                                    if (estadoFac.Equals("Procesando"))
+                                    {
+                                        <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
+                                        <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
+                                        <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                    }
+                                    else
+                                    {
+                                        <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
+                                        <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
+                                        <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                    }
+                                }
                                 @*@if (Session["EstadoFac"] != null)
-        {
-            if (Session["EstadoFac"].ToString().Equals("Procesando"))
-            {
-                <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
-                <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
-                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
-            }
-            else
-            {
-                <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
-                <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
-                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
-            }
-        }*@
+                                    {
+                                        if (Session["EstadoFac"].ToString().Equals("Procesando"))
+                                        {
+                                            <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
+                                            <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
+                                            <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                        }
+                                        else
+                                        {
+                                            <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
+                                            <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
+                                            <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                        }
+                                    }*@
                             </div>
                         </div>
                     </div>
