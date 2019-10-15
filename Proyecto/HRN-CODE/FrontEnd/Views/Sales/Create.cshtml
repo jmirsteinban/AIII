@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "productName", "productName"), "--Select--", new { @class = "form-control", @id = "productName" })
+                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "productName", "productName"), "--Select--", new { @class = "form-control", @id = "productName",@onChange="cambiaSelect()" })
                     @Html.ValidationMessageFor(model => model.nombre_producto, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
                 <div class="col-6">
-                    <br />
+                    @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
             </div>
             <div class="row">
@@ -80,7 +80,21 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>                    
+                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "" } })
+                    @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-4">                    
+                </div>
+                <div class="col-2">
+                   
+                </div>
+                <div class="col-4">
+                    <br />
+                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
                 </div>
             </div>
         </div>
@@ -154,22 +168,7 @@
                                         <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
                                         <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
                                     }
-                                }
-                                @*@if (Session["EstadoFac"] != null)
-                                    {
-                                        if (Session["EstadoFac"].ToString().Equals("Procesando"))
-                                        {
-                                            <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
-                                            <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
-                                            <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
-                                        }
-                                        else
-                                        {
-                                            <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
-                                            <h4>Cliente: @Session["NombreClienteFac"].ToString() --- Monto Total: ₡ @Session["MontoTotalFac"].ToString()</h4><br />
-                                            <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
-                                        }
-                                    }*@
+                                }                                
                             </div>
                         </div>
                     </div>
@@ -182,9 +181,10 @@
 @section scripts{
     <script>
         //Cambio Dinámico de Máxima cantidad
-        $("#productName").change(function () {
-            //$("#cantProducto").setAttribute("Max", "10");
-        });
+        function cambiaSelect() {
+            var producto = $("#productName").val();
+            window.alert(producto[0].cantProd);
+        }
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();

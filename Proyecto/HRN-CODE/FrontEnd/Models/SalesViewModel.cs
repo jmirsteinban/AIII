@@ -47,7 +47,8 @@ namespace FrontEnd.Models
         public string cedCliente { get; set; }
         public string cedUsuario { get; set; }
         public string estado { get; set; }
-        public string cantProd { get; set; }
+        public int cantProd { get; set; }
+        public decimal precio_factura_d { get; set; }
     }
 
 }
