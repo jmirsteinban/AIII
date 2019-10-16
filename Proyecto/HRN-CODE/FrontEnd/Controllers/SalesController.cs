@@ -174,7 +174,6 @@ namespace FrontEnd.Controllers
 
         private void LlenarLista()
         {
-
             List<product> Productos;
 
             using (WorkUnit<product> unidad = new WorkUnit<product>(new BDContext()))
@@ -183,7 +182,6 @@ namespace FrontEnd.Controllers
             }
 
             List<Producto> products = new List<Producto>();
-            Producto[] arregloProductos = new Producto[200];
 
             foreach (var item in Productos)
             {
@@ -197,13 +195,6 @@ namespace FrontEnd.Controllers
 
                 products.Add(producto);
             }
-
-            for (int i = 0; i < products.Count-1; i++)
-            {
-                arregloProductos[i] = products[i];
-            }
-
-            ViewBag.ArregloProductos = arregloProductos;
 
             List<Estado> estados = new List<Estado>();
             estados.Insert(0, new Estado { nombreEstado="Completado"});
@@ -322,20 +313,17 @@ namespace FrontEnd.Controllers
                     unit.Complete();
                 }
 
-                Session["estadoFac"] = Factura.estado_factura;
-
                 client Cliente;
 
                 using (WorkUnit<client> unit = new WorkUnit<client>(new BDContext()))
                 {
                     Cliente = unit.genericDAL.Get(Factura.clientID);
-                    Session["nombreClienteFac"] = Cliente.primer_nombre_cliente+" "+
-                        Cliente.primer_apellido_cliente+ " " + Cliente.segundo_apellido_cliente;
+ 
                 }
 
-                Session["montoTotalFac"] = Factura.monto_total;
-
-                return RedirectToAction("Index");
+                return Json(Cliente.primer_nombre_cliente + " " +
+                        Cliente.primer_apellido_cliente + " " + Cliente.segundo_apellido_cliente,
+                        JsonRequestBehavior.AllowGet);
             }
             catch (Exception msj)
             {
