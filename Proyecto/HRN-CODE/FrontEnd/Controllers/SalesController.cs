@@ -189,6 +189,7 @@ namespace FrontEnd.Controllers
             {
                 Producto producto = new Producto
                 {
+
                     productName = item.nombre_producto,
                     precio_factura_d=item.precio_venta ,
                     cantProd=item.cantidad

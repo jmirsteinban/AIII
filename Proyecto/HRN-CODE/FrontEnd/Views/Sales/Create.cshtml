@@ -53,240 +53,283 @@
                 <div class="col-4">
                     @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id = "estadoFac" })
                     @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
+
+
+
+
+
+
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "precio_factura_d", "productName"), "--Select--", new { @class = "form-control", @id = "productName", @onChange = "cambiaSelect()" })
-                    @Html.ValidationMessageFor(model => model.nombre_producto, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
 
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-                <div class="col-6">
-                    @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                </div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
-                    @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡" } })
-                    @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                </div>
-                <div class="col-4">
-                </div>
-                <div class="col-2">
+                    @*
+        @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "precio_factura_d", "productName"), "--Select--", new { @class = "form-control", @id = "productName", @onChange = "cambiaSelect()" })
+        @Html.ValidationMessageFor(model => model.nombre_producto, "", new { @class = "text-danger" })
+
+                    *@
+
+
+                    <select id="productName" name="select" class="form-control" onChange = "cambiaSelect()">
+                        <option value="--Select--"> --Select-- </option>
+
+                        @foreach (var item in ViewBag.Productos)
+                        {
+                            <option attr-prec=" @item.precio_factura_d" attr-cant=" @item.cantProd"> @item.productName </option>
+                        }
+
+                    </select>
+
+
+
 
                 </div>
-                <div class="col-4">
-                    <br />
-                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <table id="detailsTable" class="table">
-                    <thead>
-                        <tr>
-                            <th style="width:30%">Producto</th>
-                            <th style="width:15%">Cantidad</th>
-                            <th style="width:15%">Cédula Cliente</th>
-                            <th style="width:15%">Cédula Usuario</th>
-                            <th style="width:15%">Estado de Factura</th>
-                            <th style="width:10%"></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <div class="col-1"></div>
-        </div>
-        <div class="modal-footer">
-            <button type="reset" class="btn btn-danger" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
-            <button id="saveOrder" type="submit" class="btn btn-success">Crear Factura</button>
-        </div>
-    </div>
-    <center>
-        <div class="modal fade" id="newOrderModal">
-            <div class="modal-dialog modal-lg" style=" width: 900px !important;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="row">
-                            <div class="col-2"></div>
-                            <div class="col-8">
-                                @{
-                                    string estadoFac, nombreCliente, montoTotal;
 
-                                    if (Session["estadoFac"] != null)
-                                    {
-                                        estadoFac = Session["estadoFac"].ToString();
-                                        nombreCliente = Session["nombreClienteFac"].ToString();
-                                        montoTotal = "₡" + Session["montoTotalFac"].ToString();
-                                    }
-                                    else
-                                    {
-                                        estadoFac = "";
-                                        nombreCliente = "";
-                                        montoTotal = "₡";
-                                    }
-                                }
-                                <h4>Factura---@estadoFac</h4>
-                            </div>
-                            <div class="col-2"></div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-6">
+                            @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
+                        </div>
+                        <div class="col-6">
+                            @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
                         </div>
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-12">
-                                @if (estadoFac != null)
-                                {
-                                    if (estadoFac.Equals("Procesando"))
-                                    {
-                                        <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
-                                        <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
-                                        <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
-                                    }
-                                    else
-                                    {
-                                        <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
-                                        <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
-                                        <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
-                                    }
-                                }
-                            </div>
+                    <div class="row">
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4">
+                            @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
+                            @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-4">
+                            @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡" } })
+                            @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1">
+                        </div>
+                        <div class="col-4">
+                        </div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-4">
+                            <br />
+                            <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
                         </div>
                     </div>
                 </div>
+                <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <table id="detailsTable" class="table">
+                            <thead>
+                                <tr>
+                                    <th style="width:30%">Producto</th>
+                                    <th style="width:15%">Cantidad</th>
+                                    <th style="width:15%">Cédula Cliente</th>
+                                    <th style="width:15%">Cédula Usuario</th>
+                                    <th style="width:15%">Estado de Factura</th>
+                                    <th style="width:10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="col-1"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" class="btn btn-danger" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
+                    <button id="saveOrder" type="submit" class="btn btn-success">Crear Factura</button>
+                </div>
             </div>
-        </div>
-    </center>
-}
+            <center>
+                <div class="modal fade" id="newOrderModal">
+                    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="row">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        @{
+                                            string estadoFac, nombreCliente, montoTotal;
 
-@section scripts{
-    <script>
-        //Cambio Dinámico de Máxima cantidad
-        function cambiaSelect() {
-            var objetoProducto = document.getElementById("productName");
-            var viewBag = '@ViewBag.ArregloProductos';
-            console.log(viewBag);
-            //var nombreProd = objetoProducto.value.productName;
-            var nombreProducto=$("#productName option:selected").text();            
-            var precioProducto = $("#productName option:selected").val();
-            document.getElementById("precioDetalle").setAttribute("value", precioProducto);
-            var cantidadProducto = document.getElementById("cantProducto");        
-            var jScriptArray = [];
-            for (var i = 0; i < viewBag.length; i++) {
-                jScriptArray[i] = viewBag[i];
-                console.log(jScriptArray[i]);
-                if (jScriptArray[i].productName == nombreProducto) {
-                    cantidadProducto.setAttribute("max", viewBag[i].cantidadProducto);
-                    
-                }
-            }
+                                            if (Session["estadoFac"] != null)
+                                            {
+                                                estadoFac = Session["estadoFac"].ToString();
+                                                nombreCliente = Session["nombreClienteFac"].ToString();
+                                                montoTotal = "₡" + Session["montoTotalFac"].ToString();
+                                            }
+                                            else
+                                            {
+                                                estadoFac = "";
+                                                nombreCliente = "";
+                                                montoTotal = "₡";
+                                            }
+                                        }
+                                        <h4>Factura---@estadoFac</h4>
+                                    </div>
+                                    <div class="col-2"></div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        @if (estadoFac != null)
+                                        {
+                                            if (estadoFac.Equals("Procesando"))
+                                            {
+                                                <h4>¡La compra se encuentra en un estado de espera! <br /> Fecha: @DateTime.Now</h4> <br />
+                                                <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
+                                                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                            }
+                                            else
+                                            {
+                                                <h4>¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now</h4> <br />
+                                                <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
+                                                <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </center>
+        }
 
-           @* @{
-                //for(int i = 0; i < ViewBag.Productos.Length; i++){
-                  //jScriptArray[i] = "@ViewBag.Productos[i]";
-                  //i++;
-                //}
-              }*@
-}
-        //Add Multiple Order.
-        $("#addToList").click(function (e) {
-            e.preventDefault();
+        @section scripts{
+            <script>
+                //Cambio Dinámico de Máxima cantidad
+                function cambiaSelect() {
 
-            if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {
-                window.alert("Debe llenar todos los campos")
-            } else {
-                var productName = $("#productName").val(),
+
+                   @*
+
+                       Codigo Anterior
+
+                    var objetoProducto = document.getElementById("productName");
+                    var viewBag = '@ViewBag.ArregloProductos';
+                    console.log(viewBag);
+                    //var nombreProd = objetoProducto.value.productName;
+                    var nombreProducto=$("#productName option:selected").text();
+                    var precioProducto = $("#productName option:selected").val();
+                    document.getElementById("precioDetalle").setAttribute("value", precioProducto);
+                    var cantidadProducto = document.getElementById("cantProducto");
+                    var jScriptArray = [];
+                    for (var i = 0; i < viewBag.length; i++) {
+                        jScriptArray[i] = viewBag[i];
+                        console.log(jScriptArray[i]);
+                        if (jScriptArray[i].productName == nombreProducto) {
+                            cantidadProducto.setAttribute("max", viewBag[i].cantidadProducto);
+
+                        }
+                           }
+                       *@
+
+
+
+
+
+
+                    $("#cantProducto").val($("#productName option:selected").attr("attr-cant"));
+                    $("#precioDetalle").val($("#productName option:selected").attr("attr-prec"));
+
+
+
+
+                   @* @{
+                        //for(int i = 0; i < ViewBag.Productos.Length; i++){
+                          //jScriptArray[i] = "@ViewBag.Productos[i]";
+                          //i++;
+                        //}
+                      }*@
+                    }
+                    //Add Multiple Order.
+                    $("#addToList").click(function (e) {
+                    e.preventDefault();
+
+                    if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {
+                    window.alert("Debe llenar todos los campos")
+                    } else {
+                    var productName = $("#productName").val(),
                     cedCliente = $("#cedCliente").val(),
                     cedUsuario = $("#cedUsuario").val(),
                     estado = $("#estadoFac").val(),
                     cantProd = $("#cantProducto").val(),
                     detailsTableBody = $("#detailsTable tbody");
 
-                var productItem = '<tr><td>' + productName + '</td><td>' + cantProd + '</td><td>' + cedCliente + '</td><td>' + cedUsuario + '</td><td>' + estado + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
-                detailsTableBody.append(productItem);
-                clearItem();
-            }
-        });
-        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
-        function clearItem() {
-            $("#productName").val('');
-            $("#cantProducto").val('');
-        }
-        // After Add A New Order In The List, If You Want, You Can Remove It.
-        $(document).on('click', 'a.deleteItem', function (e) {
-            e.preventDefault();
-            var $self = $(this);
-            if ($(this).attr('data-itemId') == "0") {
-                $(this).parents('tr').css("background-color", "#ff6347").fadeOut(300, function () {
+                    var productItem = '<tr><td>' + productName + '</td><td>' + cantProd + '</td><td>' + cedCliente + '</td><td>' + cedUsuario + '</td><td>' + estado + '</td><td><a data-itemId="0" href="#" class="deleteItem">Remove</a></td></tr>';
+                    detailsTableBody.append(productItem);
+                    clearItem();
+                    }
+                    });
+                    //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+                    function clearItem() {
+                    $("#productName").val('');
+                    $("#cantProducto").val('');
+                    }
+                    // After Add A New Order In The List, If You Want, You Can Remove It.
+                    $(document).on('click', 'a.deleteItem', function (e) {
+                    e.preventDefault();
+                    var $self = $(this);
+                    if ($(this).attr('data-itemId') == "0") {
+                    $(this).parents('tr').css("background-color", "#ff6347").fadeOut(300, function () {
                     $(this).remove();
-                });
-            }
-        });
-        //After Click Save Button Pass All Data View To Controller For Save Database
-        function saveOrder(data) {
-            return $.ajax({
-                contentType: 'application/json; charset=utf-8',
-                dataType: 'json',
-                type: 'POST',
-                url: "/Sales/Create",
-                data: data,
-                success: function (result) {
+                    });
+                    }
+                    });
+                    //After Click Save Button Pass All Data View To Controller For Save Database
+                    function saveOrder(data) {
+                    return $.ajax({
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    type: 'POST',
+                    url: "/Sales/Create",
+                    data: data,
+                    success: function (result) {
                     alert(result);
                     location.reload();
                     $("#newOrderModal").modal();
-                },
-                error: function () {
+                    },
+                    error: function () {
                     //location.href = "/Sales/Index";
                     $("#newOrderModal").modal();
-                }
-            });
-        }
-        //Collect Multiple Order List For Pass To Controller
-        $("#saveOrder").click(function (e) {
-            e.preventDefault();
+                    }
+                    });
+                    }
+                    //Collect Multiple Order List For Pass To Controller
+                    $("#saveOrder").click(function (e) {
+                    e.preventDefault();
 
-            var orderArr = [];
-            orderArr.length = 0;
+                    var orderArr = [];
+                    orderArr.length = 0;
 
-            $.each($("#detailsTable tbody tr"), function () {
-                orderArr.push({
+                    $.each($("#detailsTable tbody tr"), function () {
+                    orderArr.push({
                     productName: $(this).find('td:eq(0)').html(),
                     cantProd: $(this).find('td:eq(1)').html(),
                     cedCliente: $(this).find('td:eq(2)').html(),
                     cedUsuario: $(this).find('td:eq(3)').html(),
                     estado: $(this).find('td:eq(4)').html()
-                });
-            });
+                    });
+                    });
 
 
-            var data = JSON.stringify({
-                order: orderArr
-            });
+                    var data = JSON.stringify({
+                    order: orderArr
+                    });
 
-            $.when(saveOrder(data)).then(function (response) {
-                console.log(response);
-            }).fail(function (err) {
-                console.log(err);
-            });
-        });
-    </script>
-}
+                    $.when(saveOrder(data)).then(function (response) {
+                    console.log(response);
+                    }).fail(function (err) {
+                    console.log(err);
+                    });
+                    });
+            </script>
+                }
