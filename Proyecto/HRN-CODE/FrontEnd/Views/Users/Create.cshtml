@@ -119,12 +119,12 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-4">
-                @Html.DropDownListFor(model => model.estado_user, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--")
+                @Html.DropDownListFor(model => model.estado_user, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control"})
                 @Html.ValidationMessageFor(model => model.estado_user, "", new { @class = "text-danger" })
             </div>
             <div class="col-2"></div>
             <div class="col-4">
-                @Html.DropDownListFor(model => model.tipo_user, new SelectList(ViewBag.Tipos, "tipoUsuario", "tipoUsuario"), "--Select--")
+                @Html.DropDownListFor(model => model.tipo_user, new SelectList(ViewBag.Tipos, "tipoUsuario", "tipoUsuario"), "--Select--", new { @class = "form-control"})
                 @Html.ValidationMessageFor(model => model.tipo_user, "", new { @class = "text-danger" })
             </div>
         </div>        

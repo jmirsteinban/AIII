@@ -183,6 +183,7 @@ namespace FrontEnd.Controllers
             }
 
             List<Producto> products = new List<Producto>();
+            Producto[] arregloProductos = new Producto[200];
 
             foreach (var item in Productos)
             {
@@ -195,6 +196,13 @@ namespace FrontEnd.Controllers
 
                 products.Add(producto);
             }
+
+            for (int i = 0; i < products.Count-1; i++)
+            {
+                arregloProductos[i] = products[i];
+            }
+
+            ViewBag.ArregloProductos = arregloProductos;
 
             List<Estado> estados = new List<Estado>();
             estados.Insert(0, new Estado { nombreEstado="Completado"});

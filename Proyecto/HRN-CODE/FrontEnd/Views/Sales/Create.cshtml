@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "productName", "productName"), "--Select--", new { @class = "form-control", @id = "productName",@onChange="cambiaSelect()" })
+                    @Html.DropDownListFor(model => model.nombre_producto, new SelectList(ViewBag.Productos, "precio_factura_d", "productName"), "--Select--", new { @class = "form-control", @id = "productName", @onChange = "cambiaSelect()" })
                     @Html.ValidationMessageFor(model => model.nombre_producto, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -80,17 +80,17 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "",@placeHolder="₡" } })
+                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡" } })
                     @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-1">
                 </div>
-                <div class="col-4">                    
+                <div class="col-4">
                 </div>
                 <div class="col-2">
-                   
+
                 </div>
                 <div class="col-4">
                     <br />
@@ -168,7 +168,7 @@
                                         <h4>Cliente: @nombreCliente --- Monto Total: @montoTotal</h4><br />
                                         <a href="/Sales/Index" class="btn btn-block btn-success">Volver a la lista</a>
                                     }
-                                }                                
+                                }
                             </div>
                         </div>
                     </div>
@@ -183,10 +183,30 @@
         //Cambio Dinámico de Máxima cantidad
         function cambiaSelect() {
             var objetoProducto = document.getElementById("productName");
-            //var viewBag = '@ViewBag.Productos';
-            //var nombreProd = objetoProducto.options[objetoProducto.selectedIndex].text;
-            window.alert(producto.type);
-        }
+            var viewBag = '@ViewBag.ArregloProductos';
+            console.log(viewBag);
+            //var nombreProd = objetoProducto.value.productName;
+            var nombreProducto=$("#productName option:selected").text();            
+            var precioProducto = $("#productName option:selected").val();
+            document.getElementById("precioDetalle").setAttribute("value", precioProducto);
+            var cantidadProducto = document.getElementById("cantProducto");        
+            var jScriptArray = [];
+            for (var i = 0; i < viewBag.length; i++) {
+                jScriptArray[i] = viewBag[i];
+                console.log(jScriptArray[i]);
+                if (jScriptArray[i].productName == nombreProducto) {
+                    cantidadProducto.setAttribute("max", viewBag[i].cantidadProducto);
+                    
+                }
+            }
+
+           @* @{
+                //for(int i = 0; i < ViewBag.Productos.Length; i++){
+                  //jScriptArray[i] = "@ViewBag.Productos[i]";
+                  //i++;
+                //}
+              }*@
+}
         //Add Multiple Order.
         $("#addToList").click(function (e) {
             e.preventDefault();

@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.DropDownListFor(model => model.estado_producto, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--")
+                    @Html.DropDownListFor(model => model.estado_producto, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control"})
                     @Html.ValidationMessageFor(model => model.estado_producto, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
