@@ -151,6 +151,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extras.1.1.0.min.css" />
+    <Content Include="Content\Select2\select2.css" />
+    <Content Include="Content\Select2\select2.min.css" />
     <Content Include="Content\shards-dashboards.1.1.0.css" />
     <Content Include="Content\shards-dashboards.1.1.0.min.css" />
     <Content Include="favicon.ico" />
@@ -175,6 +177,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Select2\select2.full.min.js" />
     <Content Include="Vendor\bootstrap-4.3.1-dist\css\bootstrap-grid.css" />
     <Content Include="Vendor\bootstrap-4.3.1-dist\css\bootstrap-grid.min.css" />
     <Content Include="Vendor\bootstrap-4.3.1-dist\css\bootstrap-reboot.css" />
