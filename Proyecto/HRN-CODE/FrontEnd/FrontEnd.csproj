@@ -132,7 +132,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\ProformaController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -152,8 +151,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extras.1.1.0.min.css" />
-    <Content Include="Content\Select\select2.css" />
-    <Content Include="Content\Select\select2.min.css" />
     <Content Include="Content\shards-dashboards.1.1.0.css" />
     <Content Include="Content\shards-dashboards.1.1.0.min.css" />
     <Content Include="favicon.ico" />
@@ -213,7 +210,6 @@
     <Content Include="Vendor\jquery-3.3.1\jquery.validate.unobtrusive.min.js" />
     <Content Include="Vendor\jquery-3.3.1\modernizr-2.8.3.js" />
     <Content Include="Vendor\popper-1.14.3\popper.min.js" />
-    <Content Include="Vendor\Select\select2.full.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -299,7 +295,6 @@
     <Content Include="Vendor\jquery-3.3.1\jquery-3.3.1.min.map" />
     <Content Include="Vendor\jquery-3.3.1\jquery-3.3.1.slim.min.map" />
     <Content Include="Views\Error\Error.cshtml" />
-    <Content Include="Views\Proforma\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
