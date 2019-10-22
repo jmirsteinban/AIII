@@ -147,11 +147,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Alertas\sweetalert2.all.js" />
+    <Content Include="Content\Alertas\sweetalert2.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extras.1.1.0.min.css" />
+    <Content Include="Content\Mascaras\jquery.maskMoney.js" />
     <Content Include="Content\Select2\select2.css" />
     <Content Include="Content\Select2\select2.min.css" />
     <Content Include="Content\shards-dashboards.1.1.0.css" />
