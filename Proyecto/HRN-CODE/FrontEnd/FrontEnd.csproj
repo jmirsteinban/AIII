@@ -132,6 +132,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ProformaController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -164,6 +165,8 @@
     <Content Include="Resources\logo claro HRN.jpeg" />
     <Content Include="Resources\logo oscuro HRN.jpeg" />
     <Content Include="Resources\productos.svg" />
+    <Content Include="Scripts\Alertas\sweetalert2.all.js" />
+    <Content Include="Scripts\Alertas\sweetalert2.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -176,6 +179,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Mascaras\jquery.maskMoney.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Select2\select2.full.min.js" />
     <Content Include="Vendor\bootstrap-4.3.1-dist\css\bootstrap-grid.css" />
@@ -298,6 +302,7 @@
     <Content Include="Vendor\jquery-3.3.1\jquery-3.3.1.min.map" />
     <Content Include="Vendor\jquery-3.3.1\jquery-3.3.1.slim.min.map" />
     <Content Include="Views\Error\Error.cshtml" />
+    <Content Include="Views\Proforma\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
