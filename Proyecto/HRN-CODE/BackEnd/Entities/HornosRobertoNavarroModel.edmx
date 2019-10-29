@@ -43,7 +43,8 @@
           <Property Name="earningID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="earnings_total_mes" Type="money" Nullable="false" />
           <Property Name="conteo_facturas" Type="int" Nullable="false" />
-          <Property Name="fecha_reporte" Type="datetime" />
+          <Property Name="utils_total_mes" Type="money" />
+          <Property Name="ano_mes" Type="nvarchar" MaxLength="7" />
         </EntityType>
         <EntityType Name="phones">
           <Key>
@@ -86,6 +87,7 @@
           <Property Name="fecha_compra" Type="datetime" />
           <Property Name="monto_total" Type="money" Nullable="false" />
           <Property Name="estado_factura" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fact_analizada" Type="tinyint" />
         </EntityType>
         <EntityType Name="sales_x_products">
           <Key>
@@ -128,7 +130,7 @@
           <Property Name="compraID" Type="int" Nullable="false" />
           <Property Name="estado_warranty" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__sales__clientID__4E88ABD4">
+        <Association Name="FK__sales__clientID__6383C8BA">
           <End Role="clients" Type="Self.clients" Multiplicity="1" />
           <End Role="sales" Type="Self.sales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -140,7 +142,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sales__userID__4F7CD00D">
+        <Association Name="FK__sales__userID__6477ECF3">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="sales" Type="Self.sales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -152,7 +154,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sales_x_p__produ__5535A963">
+        <Association Name="FK__sales_x_p__produ__656C112C">
           <End Role="products" Type="Self.products" Multiplicity="1" />
           <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -269,15 +271,15 @@
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warranties" EntityType="Self.warranties" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__sales__clientID__4E88ABD4" Association="Self.FK__sales__clientID__4E88ABD4">
+          <AssociationSet Name="FK__sales__clientID__6383C8BA" Association="Self.FK__sales__clientID__6383C8BA">
             <End Role="clients" EntitySet="clients" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__sales__userID__4F7CD00D" Association="Self.FK__sales__userID__4F7CD00D">
+          <AssociationSet Name="FK__sales__userID__6477ECF3" Association="Self.FK__sales__userID__6477ECF3">
             <End Role="users" EntitySet="users" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__sales_x_p__produ__5535A963" Association="Self.FK__sales_x_p__produ__5535A963">
+          <AssociationSet Name="FK__sales_x_p__produ__656C112C" Association="Self.FK__sales_x_p__produ__656C112C">
             <End Role="products" EntitySet="products" />
             <End Role="sales_x_products" EntitySet="sales_x_products" />
           </AssociationSet>
@@ -334,15 +336,6 @@
           <Property Name="tabla_relacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="direccion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
-        <EntityType Name="earning">
-          <Key>
-            <PropertyRef Name="earningID" />
-          </Key>
-          <Property Name="earningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="earnings_total_mes" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="conteo_facturas" Type="Int32" Nullable="false" />
-          <Property Name="fecha_reporte" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="phone">
           <Key>
             <PropertyRef Name="telefonoID" />
@@ -382,6 +375,7 @@
           <NavigationProperty Name="user" Relationship="Self.FK__sales__userID__4F7CD00D" FromRole="sales" ToRole="users" />
           <NavigationProperty Name="sales_x_products" Relationship="Self.fkCompraID_cascade_salesProducts" FromRole="sales" ToRole="sales_x_products" />
           <NavigationProperty Name="warranties" Relationship="HornosDBModel.fkCompraID_cascade_warranties" FromRole="sale" ToRole="warranty" />
+          <Property Name="fact_analizada" Type="Byte" />
         </EntityType>
         <EntityType Name="sales_x_products">
           <Key>
@@ -466,7 +460,6 @@
           <EntitySet Name="bitacoras" EntityType="Self.bitacora" />
           <EntitySet Name="clients" EntityType="Self.client" />
           <EntitySet Name="directions" EntityType="Self.direction" />
-          <EntitySet Name="earnings" EntityType="Self.earning" />
           <EntitySet Name="phones" EntityType="Self.phone" />
           <EntitySet Name="products" EntityType="Self.product" />
           <EntitySet Name="sales" EntityType="Self.sale" />
@@ -534,6 +527,7 @@
             <End Role="sale" EntitySet="sales" />
             <End Role="warranty" EntitySet="warranties" />
           </AssociationSet>
+          <EntitySet Name="earnings" EntityType="HornosDBModel.earning" />
         </EntityContainer>
         <ComplexType Name="sp_directions_clients_Result">
           <Property Type="Int32" Name="direccionID" Nullable="false" />
@@ -634,6 +628,16 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="earning">
+          <Key>
+            <PropertyRef Name="earningID" />
+          </Key>
+          <Property Name="earningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="earnings_total_mes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="conteo_facturas" Type="Int32" Nullable="false" />
+          <Property Name="utils_total_mes" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ano_mes" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -674,16 +678,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="earnings">
-            <EntityTypeMapping TypeName="HornosDBModel.earning">
-              <MappingFragment StoreEntitySet="earnings">
-                <ScalarProperty Name="earningID" ColumnName="earningID" />
-                <ScalarProperty Name="earnings_total_mes" ColumnName="earnings_total_mes" />
-                <ScalarProperty Name="conteo_facturas" ColumnName="conteo_facturas" />
-                <ScalarProperty Name="fecha_reporte" ColumnName="fecha_reporte" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="phones">
             <EntityTypeMapping TypeName="HornosDBModel.phone">
               <MappingFragment StoreEntitySet="phones">
@@ -713,6 +707,7 @@
           <EntitySetMapping Name="sales">
             <EntityTypeMapping TypeName="HornosDBModel.sale">
               <MappingFragment StoreEntitySet="sales">
+                <ScalarProperty Name="fact_analizada" ColumnName="fact_analizada" />
                 <ScalarProperty Name="compraID" ColumnName="compraID" />
                 <ScalarProperty Name="clientID" ColumnName="clientID" />
                 <ScalarProperty Name="userID" ColumnName="userID" />
@@ -872,6 +867,17 @@
                 <ScalarProperty Name="estado_warranty" ColumnName="estado_warranty" />
                 <ScalarProperty Name="compraID" ColumnName="compraID" />
                 <ScalarProperty Name="warrantyID" ColumnName="warrantyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="earnings">
+            <EntityTypeMapping TypeName="HornosDBModel.earning">
+              <MappingFragment StoreEntitySet="earnings">
+                <ScalarProperty Name="ano_mes" ColumnName="ano_mes" />
+                <ScalarProperty Name="utils_total_mes" ColumnName="utils_total_mes" />
+                <ScalarProperty Name="conteo_facturas" ColumnName="conteo_facturas" />
+                <ScalarProperty Name="earnings_total_mes" ColumnName="earnings_total_mes" />
+                <ScalarProperty Name="earningID" ColumnName="earningID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

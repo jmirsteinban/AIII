@@ -21,7 +21,7 @@ namespace TestBackEnd
             {
                 conteo_facturas=50,
                 earnings_total_mes=5000000,
-                fecha_reporte=DateTime.Now
+                //fecha_reporte=DateTime.Now
             };
 
             using (unit = new WorkUnit<earning>(new BDContext()))
@@ -48,7 +48,7 @@ namespace TestBackEnd
             {
                 conteo_facturas = 51,
                 earnings_total_mes = 5600000,
-                fecha_reporte = DateTime.Now
+               // fecha_reporte = DateTime.Now
             };
 
             using (unit = new WorkUnit<earning>(new BDContext()))
@@ -65,7 +65,7 @@ namespace TestBackEnd
             {
                 conteo_facturas = 51,
                 earnings_total_mes = 5600000,
-                fecha_reporte = DateTime.Now
+                //fecha_reporte = DateTime.Now
             };
 
             using (unit = new WorkUnit<earning>(new BDContext()))

@@ -39,7 +39,7 @@ namespace TestBackEnd
         {
             using (unit = new WorkUnit<sale>(new BDContext()))
             {
-                unit.salesDAL.ultimoID();
+               // unit.salesDAL.ultimoID();
                 Assert.AreEqual(true, unit.Complete());
             }
         }
