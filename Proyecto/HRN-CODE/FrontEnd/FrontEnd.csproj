@@ -317,6 +317,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Proforma\Create.cshtml" />
     <Content Include="Views\Earnings\Index.cshtml" />
+    <Content Include="Views\Sales\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -14,11 +14,11 @@ namespace FrontEnd.Controllers
     {
         [Authorize(Roles = "Administrador,Consulta")]
 
-        private SalesViewModel Convertir(sale FacturaM, sp_Get_factura_detalle_Result FacturaD)
+        private SalesViewModel Convertir(sale FacturaM, IEnumerable<sp_Get_factura_detalle_Result> FacturaD)
         {
             client Cliente;
             user Empleado;
-            product Producto;
+            List<Producto> Productos= new List<Producto>();
 
             using (WorkUnit<client> unidad = new WorkUnit<client>(new BDContext()))
             {
@@ -32,7 +32,20 @@ namespace FrontEnd.Controllers
 
             using (WorkUnit<product> unidad = new WorkUnit<product>(new BDContext()))
             {
-                Producto = unidad.genericDAL.Get((int)FacturaD.productID);
+                foreach (var item in FacturaD)
+                {
+                    Producto detalles = new Producto
+                    {
+                        productName= unidad.genericDAL.Get((int)item.productID).nombre_producto,
+                        cedCliente= Cliente.cedula_cliente,
+                        cedUsuario=Empleado.cedula_user,
+                        cantProd=item.cantidad,
+                        estado=FacturaM.estado_factura,
+                        precio_factura_d=item.precio_factura_d
+                    };
+
+                    Productos.Add(detalles);
+                }                
             }
 
             SalesViewModel Facturas = new SalesViewModel
@@ -45,11 +58,7 @@ namespace FrontEnd.Controllers
                 fecha_compra=(DateTime) FacturaM.fecha_compra,
                 monto_total=FacturaM.monto_total,
                 estado_factura=FacturaM.estado_factura,
-                compraID_detalle=FacturaD.compraID_detalle,
-                compraID_Detail=FacturaM.compraID,
-                productID=FacturaD.productID,
-                nombre_producto=Producto.nombre_producto,
-                precio_factura_d=FacturaD.precio_factura_d
+                productosDetalle=Productos
             };
 
             return Facturas;
@@ -231,7 +240,7 @@ namespace FrontEnd.Controllers
             try
             {
                 sale FacMaes;
-                sp_Get_factura_detalle_Result FacDet;
+                IEnumerable<sp_Get_factura_detalle_Result> FacDet;
 
                 using (WorkUnit<sale> unit = new WorkUnit<sale>(new BDContext()))
                 {
@@ -377,7 +386,7 @@ namespace FrontEnd.Controllers
             try
             {
                 sale FacMaes;
-                sp_Get_factura_detalle_Result FacDet;
+                IEnumerable<sp_Get_factura_detalle_Result> FacDet;
 
                 using (WorkUnit<sale> unit = new WorkUnit<sale>(new BDContext()))
                 {
@@ -420,18 +429,20 @@ namespace FrontEnd.Controllers
         {
             try
             {
-                sale Factura;
 
                 using (WorkUnit<sale> unit = new WorkUnit<sale>(new BDContext()))
                 {
-                    Factura = ConvertirMaestro(salesViewModel);
-                    unit.genericDAL.Delete(Factura);
-                    unit.Complete();
-                }
+                    sale Factura = new sale
+                    {
+                        compraID=salesViewModel.compraID,
+                        clientID=salesViewModel.clientID,
+                        userID=salesViewModel.userID,
+                        fecha_compra=salesViewModel.fecha_compra,
+                        monto_total=salesViewModel.monto_total,
+                        estado_factura=salesViewModel.estado_factura
+                    };
 
-                using (WorkUnit<sales_x_products> unit = new WorkUnit<sales_x_products>(new BDContext()))
-                {
-                    //unit.genericDAL.Delete(ConvertirDetalle(Factura,salesViewModel.nombre_producto));
+                    unit.genericDAL.Delete(Factura);
                     unit.Complete();
                 }
 

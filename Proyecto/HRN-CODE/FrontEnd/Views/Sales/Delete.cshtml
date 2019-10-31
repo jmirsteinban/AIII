@@ -1,11 +1,12 @@
 ﻿@model FrontEnd.Models.SalesViewModel
 
 @{
-    ViewBag.Title = "Detalle de Factura";
+    ViewBag.Title = "Borrar-Compra";
 }
 
-<h2>Detalle de Factura</h2>
+<h2>Borrar Factura</h2>
 
+<h3>¿Está seguro de borrar esta factura?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -49,6 +50,7 @@
             @Html.DisplayFor(model => model.estado_factura)
         </dd>
     </dl>
+    
     <center>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -90,7 +92,18 @@
         </div>
     </center>
     <br />
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.compraID)
+        @Html.HiddenFor(model => model.clientID)
+        @Html.HiddenFor(model => model.userID)
+        @Html.HiddenFor(model => model.monto_total)
+        @Html.HiddenFor(model => model.estado_factura)
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Volver a la Lista", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Volver a la Lista", "Index")
-</p>

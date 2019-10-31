@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BackEnd.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,8 +31,6 @@ namespace FrontEnd.Models
         [Display(Name = "ID Detalle")]
         public int compraID_detalle { get; set; }
         [Display(Name ="Relación a Sales")]
-        public int compraID_Detail { get; set; }
-        [Display(Name = "ID Producto")]
         public int productID { get; set; }
         [Display(Name = "Nombre Producto")]
         public string nombre_producto { get; set; }
@@ -39,6 +38,9 @@ namespace FrontEnd.Models
         public int cantidad_producto { get; set; }
         [Display(Name = "Precio Unitario")]
         public decimal precio_factura_d { get; set; }
+
+        //Para la vista de Details
+        public List<Producto> productosDetalle { get; set; }
     }
 
     public class Producto

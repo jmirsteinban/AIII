@@ -130,7 +130,7 @@
           <Property Name="compraID" Type="int" Nullable="false" />
           <Property Name="estado_warranty" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__sales__clientID__6383C8BA">
+        <Association Name="FK__sales__clientID__6477ECF3">
           <End Role="clients" Type="Self.clients" Multiplicity="1" />
           <End Role="sales" Type="Self.sales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -142,7 +142,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sales__userID__6477ECF3">
+        <Association Name="FK__sales__userID__656C112C">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="sales" Type="Self.sales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +154,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sales_x_p__produ__656C112C">
+        <Association Name="FK__sales_x_p__produ__66603565">
           <End Role="products" Type="Self.products" Multiplicity="1" />
           <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -222,6 +222,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="sp_Analytics_Earnings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Ano_Mes" Type="nvarchar" Mode="In" />
+          <Parameter Name="rep_mes" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="sp_Analytics_Show" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="compraID" Type="int" Mode="In" />
+          <Parameter Name="Z_Vent_Tot" Type="money" Mode="InOut" />
+          <Parameter Name="Z_Util_Tot" Type="money" Mode="InOut" />
+        </Function>
         <Function Name="sp_directions_clients" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="clientID" Type="int" Mode="In" />
         </Function>
@@ -271,15 +280,15 @@
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warranties" EntityType="Self.warranties" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__sales__clientID__6383C8BA" Association="Self.FK__sales__clientID__6383C8BA">
+          <AssociationSet Name="FK__sales__clientID__6477ECF3" Association="Self.FK__sales__clientID__6477ECF3">
             <End Role="clients" EntitySet="clients" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__sales__userID__6477ECF3" Association="Self.FK__sales__userID__6477ECF3">
+          <AssociationSet Name="FK__sales__userID__656C112C" Association="Self.FK__sales__userID__656C112C">
             <End Role="users" EntitySet="users" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__sales_x_p__produ__656C112C" Association="Self.FK__sales_x_p__produ__656C112C">
+          <AssociationSet Name="FK__sales_x_p__produ__66603565" Association="Self.FK__sales_x_p__produ__66603565">
             <End Role="products" EntitySet="products" />
             <End Role="sales_x_products" EntitySet="sales_x_products" />
           </AssociationSet>
@@ -504,9 +513,6 @@
             <End Role="Role" EntitySet="Roles" />
             <End Role="user" EntitySet="users" />
           </AssociationSet>
-          <FunctionImport Name="sp_Get_factura_detalle" ReturnType="Collection(HornosDBModel.sp_Get_factura_detalle_Result)">
-          <Parameter Name="maestroID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="sp_Get_producto_x_nombre" ReturnType="Collection(HornosDBModel.sp_Get_producto_x_nombre_Result)">
           <Parameter Name="nombre_producto" Mode="In" Type="String" />
           </FunctionImport>
@@ -528,6 +534,18 @@
             <End Role="warranty" EntitySet="warranties" />
           </AssociationSet>
           <EntitySet Name="earnings" EntityType="HornosDBModel.earning" />
+          <FunctionImport Name="sp_Analytics_Earnings">
+            <Parameter Name="Ano_Mes" Mode="In" Type="String" />
+            <Parameter Name="rep_mes" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Analytics_Show">
+            <Parameter Name="compraID" Mode="In" Type="Int32" />
+            <Parameter Name="Z_Vent_Tot" Mode="InOut" Type="Decimal" />
+            <Parameter Name="Z_Util_Tot" Mode="InOut" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="sp_Get_factura_detalle" ReturnType="Collection(HornosDBModel.sp_Get_factura_detalle_Result)">
+            <Parameter Name="maestroID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_directions_clients_Result">
           <Property Type="Int32" Name="direccionID" Nullable="false" />
@@ -587,12 +605,6 @@
           <End Type="HornosDBModel.Role" Role="Role" Multiplicity="*" />
           <End Type="HornosDBModel.user" Role="user" Multiplicity="*" />
         </Association>
-        <ComplexType Name="sp_Get_factura_detalle_Result">
-          <Property Type="Int32" Name="compraID_detalle" Nullable="false" />
-          <Property Type="Int32" Name="compraID" Nullable="false" />
-          <Property Type="Int32" Name="productID" Nullable="false" />
-          <Property Type="Decimal" Name="precio_factura_d" Nullable="false" Precision="19" />
-        </ComplexType>
         <ComplexType Name="sp_Get_producto_x_nombre_Result">
           <Property Type="Int32" Name="productID" Nullable="false" />
           <Property Type="String" Name="codigo_producto" Nullable="false" MaxLength="10" />
@@ -638,6 +650,13 @@
           <Property Name="utils_total_mes" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="ano_mes" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="sp_Get_factura_detalle_Result">
+          <Property Type="Int32" Name="compraID_detalle" Nullable="false" />
+          <Property Type="Int32" Name="compraID" Nullable="false" />
+          <Property Type="Int32" Name="productID" Nullable="false" />
+          <Property Type="Decimal" Name="precio_factura_d" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="cantidad" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -830,16 +849,6 @@
               <ScalarProperty Name="RoleId" ColumnName="Role_RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="sp_Get_factura_detalle" FunctionName="HornosDBModel.Store.sp_Get_factura_detalle">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_factura_detalle_Result">
-                <ScalarProperty Name="compraID_detalle" ColumnName="compraID_detalle" />
-                <ScalarProperty Name="compraID" ColumnName="compraID" />
-                <ScalarProperty Name="productID" ColumnName="productID" />
-                <ScalarProperty Name="precio_factura_d" ColumnName="precio_factura_d" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_Get_producto_x_nombre" FunctionName="HornosDBModel.Store.sp_Get_producto_x_nombre">
             <ResultMapping>
               <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_producto_x_nombre_Result">
@@ -881,6 +890,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_Analytics_Earnings" FunctionName="HornosDBModel.Store.sp_Analytics_Earnings" />
+          <FunctionImportMapping FunctionImportName="sp_Analytics_Show" FunctionName="HornosDBModel.Store.sp_Analytics_Show" />
+          <FunctionImportMapping FunctionImportName="sp_Get_factura_detalle" FunctionName="HornosDBModel.Store.sp_Get_factura_detalle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="HornosDBModel.sp_Get_factura_detalle_Result">
+                <ScalarProperty Name="compraID_detalle" ColumnName="compraID_detalle" />
+                <ScalarProperty Name="compraID" ColumnName="compraID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="precio_factura_d" ColumnName="precio_factura_d" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -895,7 +917,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

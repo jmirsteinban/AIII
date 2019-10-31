@@ -27,6 +27,7 @@
             @Html.DisplayNameFor(model => model.monto_total)
         </th>
         <th class="thead-dark"></th>
+        <th class="thead-dark"></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -48,6 +49,9 @@
         </td>
         <td>
             @Html.ActionLink("Detalles", "Details", new { id = item.compraID })
+        </td>
+        <td>
+            @Html.ActionLink("Borrar", "Delete", new { id = item.compraID })
         </td>
     </tr>
 }
