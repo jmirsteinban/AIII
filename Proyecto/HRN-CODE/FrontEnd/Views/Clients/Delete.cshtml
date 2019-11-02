@@ -9,64 +9,76 @@
 <h3>¿Está seguro de borrar este Cliente?</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cedula_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cedula_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.primer_nombre_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.primer_nombre_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.segundo_nombre_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.segundo_nombre_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.primer_apellido_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.primer_apellido_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.segundo_apellido_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.segundo_apellido_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.correo_electronico_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.correo_electronico_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado_cliente)
-        </dd>
-
-    </dl>
+    <br />
+    <center>
+        <div class="table-responsive">
+            <table class="table table-light">
+                <thead class="bg-danger">
+                    <tr>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
+                        </th>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_cliente)</font>
+                        </th>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.correo_electronico_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.telefono)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.direccion)</font>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.cedula_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.primer_nombre_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.segundo_nombre_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.primer_apellido_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.segundo_apellido_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.correo_electronico_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.estado_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.direccion)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
+    <br />
 
     @using (Html.BeginForm())
     {
@@ -74,9 +86,9 @@
         @Html.HiddenFor(model => model.clientID)
         @Html.HiddenFor(model => model.direccionID)
         @Html.HiddenFor(model => model.telefonoID)
-        <div class="form-actions no-color">
-            <input type="submit" value="Borrar" class="btn btn-block btn-default" /> |
-            @Html.ActionLink("Volver a la Lista", "Index")
-        </div>
+<div class="form-actions no-color">
+    <button class="btn btn-pill btn-success btn-md"><a href="~/Clients/Index" style="color:white !important">Volver a la Lista</a></button>
+    <input type="submit" value="Borrar" class="btn btn-pill btn-danger" style="width:120px;" />
+</div>
     }
 </div>

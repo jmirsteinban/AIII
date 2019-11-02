@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.codigo_producto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.codigo_producto, new { htmlAttributes = new { @class = "form-control", @placeHolder="XXX-XXX" } })
                     @Html.ValidationMessageFor(model => model.codigo_producto, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control", @placeHolder="0" } })
                     @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -101,7 +101,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.porcentaje_ganancia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.porcentaje_ganancia, new { htmlAttributes = new { @class = "form-control", @placeHolder="0.00" } })
                     @Html.ValidationMessageFor(model => model.porcentaje_ganancia, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -119,12 +119,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.porcentaje_descuento, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.porcentaje_descuento, new { htmlAttributes = new { @class = "form-control", @placeHolder="0.00" } })
                     @Html.ValidationMessageFor(model => model.porcentaje_descuento, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    <input type="submit" value="Crear" class="btn btn-block btn-default"/>
+                    <input type="submit" value="Crear" class="btn btn-block btn-outline-dark"/>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
 }
 
 <div>
-    @Html.ActionLink("Volver a la Lista", "Index")
+    <button class="btn btn-pill btn-success btn-md"><a href="~/Products/Index" style="color:white !important">Volver a la Lista</a></button>
 </div>
 
 @section Scripts {

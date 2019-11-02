@@ -9,48 +9,46 @@
 <h3>¿Está seguro de borrar esta factura?</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cedula_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cedula_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cedula_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cedula_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.fecha_compra)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.fecha_compra)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.monto_total)
-        </dt>
-
-        <dd>
-            ₡ @Html.DisplayFor(model => model.monto_total)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado_factura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado_factura)
-        </dd>
-    </dl>
-    
+    <center>
+        <div class="table-responsive">
+            <table class="table table-light">
+                <thead class="bg-danger">
+                    <tr>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
+                        </th>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
+                        </th>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.fecha_compra)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.estado_factura)</font>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.cedula_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.cedula_user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.fecha_compra)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.estado_factura)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
+    <br />
+    <br />
     <center>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -102,8 +100,8 @@
         @Html.HiddenFor(model => model.monto_total)
         @Html.HiddenFor(model => model.estado_factura)
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> |
-            @Html.ActionLink("Volver a la Lista", "Index")
+            <button class="btn btn-success btn-md"><a href="~/Sales/Index" style="color:white !important">Volver a la Lista</a></button>
+            <input type="submit" value="Borrar" class="btn btn-danger" />
         </div>
     }
 </div>
