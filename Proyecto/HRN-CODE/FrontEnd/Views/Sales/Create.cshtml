@@ -5,7 +5,7 @@
 }
 
 <h2>Crear Factura</h2>
-
+@Styles.Render("~/Content/Select2/select2.min.css")
 
 @using (Html.BeginForm())
 {
@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente", @placeHolder="1-1234-1234" } })
+                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente", @placeHolder = "1-1234-1234" } })
                     @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -53,16 +53,10 @@
                 <div class="col-4">
                     @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id = "estadoFac" })
                     @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
-
-
-
-
-
-
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    <select id="productName" name="select" class="form-control" onChange = "cambiaSelect()">
+                    <select id="productName" name="select" class="form-control select2" onChange="cambiaSelect()">
                         <option value="--Select--"> --Select-- </option>
 
                         @foreach (var item in ViewBag.Productos)
@@ -73,109 +67,111 @@
                     </select>
                 </div>
             </div>
-                </div>
+        </div>
 
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-6">
-                            @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
-                        </div>
-                        <div class="col-6">
-                            @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">
-                        </div>
-                        <div class="col-4">
-                            @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
-                            @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
-                        </div>
-                        <div class="col-2"></div>
-                        <div class="col-4">
-                            @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡" } })
-                            @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-1">
-                        </div>
-                        <div class="col-4">
-                        </div>
-                        <div class="col-2">
-
-                        </div>
-                        <div class="col-4">
-                            <br />
-                            <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
-                        </div>
-                    </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-6">
+                    @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
-                <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
-                    <div class="col-12">
-                        <center>
-                            <table id="detailsTable" class="table table-striped">
-                                <caption>
-                                    <center>
-                                        <span id="precioTotal" class="pull-right" style="margin-right:100px;"><strong></strong> </span>
-                                    </center>
-                                </caption>
-                                <thead class="bg-dark">
-                                    <tr>
-                                        <th style="width:30%; color:white;">Producto</th>
-                                        <th style="width:15%; color:white;">Cédula Cliente</th>
-                                        <th style="width:10%; color:white;">Cantidad</th>
-                                        <th style="width:15%; color:white;">Precio Total ₡</th>
-                                        <th style="width:15%; color:white;">Cédula Empleado</th>
-                                        <th style="width:15%; color:white;">Estado de Factura</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </center>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <center>
-                        <button type="reset" class="btn btn-pill btn-success" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
-                        <button id="saveOrder" type="submit" class="btn btn-primary">Crear Factura</button>
-                    </center>
+                <div class="col-6">
+                    @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
                 </div>
             </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-4">
+                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
+                    @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-2"></div>
+                <div class="col-4">
+                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡" } })
+                    @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                </div>
+                <div class="col-4">
+                </div>
+                <div class="col-2">
+
+                </div>
+                <div class="col-4">
+                    <br />
+                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
+            <div class="col-12">
+                <center>
+                    <table id="detailsTable" class="table table-striped">
+                        <caption>
+                            <center>
+                                <span id="precioTotal" class="pull-right" style="margin-right:100px;"><strong></strong> </span>
+                            </center>
+                        </caption>
+                        <thead class="bg-dark">
+                            <tr>
+                                <th style="width:30%; color:white;">Producto</th>
+                                <th style="width:15%; color:white;">Cédula Cliente</th>
+                                <th style="width:10%; color:white;">Cantidad</th>
+                                <th style="width:15%; color:white;">Precio Total ₡</th>
+                                <th style="width:15%; color:white;">Cédula Empleado</th>
+                                <th style="width:15%; color:white;">Estado de Factura</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </center>
+            </div>
+        </div>
+
+        <div class="modal-footer">
             <center>
-                <div class="modal fade" id="newOrderModal">
-                    <div class="modal-dialog modal-lg" style=" width: 900px !important;">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="row">                                        
-                                    <div class="col-12" style="text-align:center;">
-                                        <center>
-                                            <h4 id="modalHeader"></h4>
-                                        </center>
-                                    </div> 
-                                </div>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h4 id="modalBody"></h4> <br />
-                                        <h4 id="modalBody2"></h4><br />
-                                        <a id="redirect" href="" class=""></a>
-                                    </div>
-                                </div>
+                <button type="reset" class="btn btn-pill btn-success" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
+                <button id="saveOrder" type="submit" class="btn btn-pill btn-primary">Crear Factura</button>
+            </center>
+        </div>
+    </div>
+    <center>
+        <div class="modal fade" id="newOrderModal">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style=" width: 900px !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="modalHeader" class="modal-title col-11 text-center"></h4>
+                        <h4><i class="material-icons">done</i></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <h4 id="modalBody"></h4> <br />
+                                <h4 id="modalBody2"></h4><br />
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <a id="redirect" href="" class=""></a>
+                    </div>
                 </div>
-            </center>
-        }
+            </div>
+        </div>
+    </center>
+}
 
-    @section scripts{
-        <script>
+@section scripts{
+    <script src="@Url.Content("~/Scripts/Select2/select2.full.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Mascaras/jquery.maskMoney.js")"></script>
+    <script src="@Url.Content("~/Scripts/Alertas/sweetalert2.all.js")"></script>
+    <script>
+        $('.select2').select2();
+
             //Cambio Dinámico de Máxima cantidad
-            function cambiaSelect() {                
+            function cambiaSelect() {
                 document.getElementById("cantProducto").setAttribute("max", $("#productName option:selected").attr("attr-cant"));
                 //$("#cantProducto").val($("#productName option:selected").attr("attr-cant"));
                 $("#precioDetalle").val($("#productName option:selected").attr("attr-prec"));
@@ -232,7 +228,7 @@
                     //});
                     $(this).parents('tr').remove();
                 }
-                
+
                 calcTotalCompra();
             });
 
@@ -245,8 +241,7 @@
                     url: "/Sales/Create",
                     data: data,
                     success: function (result) {
-                        //este no se está usando por el momento
-                        document.getElementById("modalHeader").innerHTML = "Estado de Factura --- " + $("#estadoFac").val();
+                        document.getElementById("modalHeader").innerHTML = "Estado de Factura: " + $("#estadoFac").val();
                         if ($("#estadoFac").val()=="Procesando") {
                             document.getElementById("modalBody").innerHTML = "¡El proceso de la compra quedó en un estado de espera! <br /> Fecha: @DateTime.Now";
                             document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + calcTotalCompra();
@@ -260,14 +255,14 @@
                             document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
                             document.getElementById("redirect").innerHTML = "Volver a la lista";
                             //$("#cedCliente").val()
-                        }                        
+                        }
                         $("#newOrderModal").modal();
                     },
                     error: function () {
                         //location.href = "/Sales/Index";
                         document.getElementById("modalHeader").innerHTML = "¡Fallo a la hora de realizar la compra!";
                         document.getElementById("modalBody").innerHTML = "¡La compra fue cancelada revise los datos que ingresó! <br /> Fecha: @DateTime.Now";
-                        document.getElementById("modalBody2").innerHTML = ""; 
+                        document.getElementById("modalBody2").innerHTML = "";
                         document.getElementById("redirect").setAttribute("href", "#");
                         document.getElementById("redirect").setAttribute("class", "btn btn-block btn-danger");
                         document.getElementById("redirect").innerHTML = "Volver a la compra";
@@ -305,4 +300,4 @@
             });
             });
     </script>
-        }
+}

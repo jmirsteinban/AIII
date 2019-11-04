@@ -4,93 +4,96 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Borrar</h2>
+<h2>Borrar Producto</h2>
 
-<h3>¿Está seguro de borrar este registro?</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.codigo_producto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.codigo_producto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.nombre_producto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.nombre_producto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.descripcion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.descripcion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.cantidad)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cantidad)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.precio_manufactura)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.precio_manufactura)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.precio_venta)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.precio_venta)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado_producto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado_producto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.porcentaje_ganancia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.porcentaje_ganancia)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.porcentaje_descuento)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.porcentaje_descuento)
-        </dd>
-
-    </dl>
-
+    <br />
+    <br />
+    <div class="table-responsive">
+        <table class="table table-light">
+            <thead class="bg-danger">
+                <tr>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.codigo_producto)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.nombre_producto)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.descripcion)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.cantidad)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.precio_manufactura)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.precio_venta)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_producto)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.porcentaje_ganancia)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.porcentaje_descuento)</font>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.codigo_producto)</td>
+                    <td>@Html.DisplayFor(model => model.nombre_producto)</td>
+                    <td>@Html.DisplayFor(model => model.descripcion)</td>
+                    <td>@Html.DisplayFor(model => model.cantidad)</td>
+                    <td>₡@Html.DisplayFor(model => model.precio_manufactura)</td>
+                    <td>₡@Html.DisplayFor(model => model.precio_venta)</td>
+                    <td>@Html.DisplayFor(model => model.estado_producto)</td>
+                    <td>@Html.DisplayFor(model => model.porcentaje_ganancia)</td>
+                    <td>@Html.DisplayFor(model => model.porcentaje_descuento)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <br />
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.productID)
-        <div class="form-actions no-color">
-            <input type="submit" value="Borrar" class="btn btn-default" /> |
-            @Html.ActionLink("Volver a la Lista", "Index")
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">ELIMINAR</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro de borrar este producto?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" value="Confirmar" class="btn btn-primary" style="width:120px;" />
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="form-actions no-color">
+            <button class="btn btn-pill btn-success btn-md"><a href="~/Products/Index" style="color:white !important">Volver a la Lista</a></button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                Borrar
+            </button>
+        </div>
+        @*<div class="form-actions no-color">
+                <input type="submit" value="Borrar" class="btn btn-default" /> |
+                @Html.ActionLink("Volver a la Lista", "Index")
+            </div>*@
     }
 </div>
