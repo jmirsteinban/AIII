@@ -4,69 +4,81 @@
     ViewBag.Title = "Borrar";
 }
 
-<h2>Borrar</h2>
+<h2>Borrar Cliente</h2>
 
-<h3>¿Está seguro de borrar este Cliente?</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cedula_cliente)
-        </dt>
+    <br />
+    <center>
+        <div class="table-responsive">
+            <table class="table table-light">
+                <thead class="bg-danger">
+                    <tr>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
+                        </th>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_cliente)</font>
+                        </th>
+                        <th scope="col" class="thead-dark">
+                            <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.correo_electronico_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.telefono)</font>
+                        </th>
+                        <th>
+                            <font color="white">@Html.DisplayNameFor(model => model.direccion)</font>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.cedula_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.primer_nombre_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.segundo_nombre_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.primer_apellido_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.segundo_apellido_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.correo_electronico_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.estado_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.telefono)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.direccion)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </center>
+    <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.cedula_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.primer_nombre_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.primer_nombre_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.segundo_nombre_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.segundo_nombre_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.primer_apellido_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.primer_apellido_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.segundo_apellido_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.segundo_apellido_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.correo_electronico_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.correo_electronico_cliente)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado_cliente)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado_cliente)
-        </dd>
-
-    </dl>
 
     @using (Html.BeginForm())
     {
@@ -74,9 +86,34 @@
         @Html.HiddenFor(model => model.clientID)
         @Html.HiddenFor(model => model.direccionID)
         @Html.HiddenFor(model => model.telefonoID)
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">ELIMINAR</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro de borrar este cliente?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" value="Confirmar" class="btn btn-primary" style="width:120px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="form-actions no-color">
-            <input type="submit" value="Borrar" class="btn btn-block btn-default" /> |
-            @Html.ActionLink("Volver a la Lista", "Index")
+            <button class="btn btn-pill btn-success btn-md"><a href="~/Clients/Index" style="color:white !important">Volver a la Lista</a></button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                Borrar
+            </button>
+
         </div>
     }
 </div>

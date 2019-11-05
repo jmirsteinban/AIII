@@ -30,7 +30,6 @@ namespace BackEnd.Entities
         public virtual DbSet<bitacora> bitacoras { get; set; }
         public virtual DbSet<client> clients { get; set; }
         public virtual DbSet<direction> directions { get; set; }
-        public virtual DbSet<earning> earnings { get; set; }
         public virtual DbSet<phone> phones { get; set; }
         public virtual DbSet<product> products { get; set; }
         public virtual DbSet<sale> sales { get; set; }
@@ -38,6 +37,7 @@ namespace BackEnd.Entities
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<warranty> warranties { get; set; }
+        public virtual DbSet<earning> earnings { get; set; }
     
         public virtual ObjectResult<sp_directions_clients_Result> sp_directions_clients(Nullable<int> clientID)
         {
@@ -93,15 +93,6 @@ namespace BackEnd.Entities
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Get_User_X_Cedula_Result>("sp_Get_User_X_Cedula", cedulaUserParameter);
         }
     
-        public virtual ObjectResult<sp_Get_factura_detalle_Result> sp_Get_factura_detalle(Nullable<int> maestroID)
-        {
-            var maestroIDParameter = maestroID.HasValue ?
-                new ObjectParameter("maestroID", maestroID) :
-                new ObjectParameter("maestroID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Get_factura_detalle_Result>("sp_Get_factura_detalle", maestroIDParameter);
-        }
-    
         public virtual ObjectResult<sp_Get_producto_x_nombre_Result> sp_Get_producto_x_nombre(string nombre_producto)
         {
             var nombre_productoParameter = nombre_producto != null ?
@@ -150,6 +141,37 @@ namespace BackEnd.Entities
         public virtual ObjectResult<Nullable<int>> sp_Get_Last_SaleID()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_Get_Last_SaleID");
+        }
+    
+        public virtual int sp_Analytics_Earnings(string ano_Mes, Nullable<bool> rep_mes)
+        {
+            var ano_MesParameter = ano_Mes != null ?
+                new ObjectParameter("Ano_Mes", ano_Mes) :
+                new ObjectParameter("Ano_Mes", typeof(string));
+    
+            var rep_mesParameter = rep_mes.HasValue ?
+                new ObjectParameter("rep_mes", rep_mes) :
+                new ObjectParameter("rep_mes", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Analytics_Earnings", ano_MesParameter, rep_mesParameter);
+        }
+    
+        public virtual int sp_Analytics_Show(Nullable<int> compraID, ObjectParameter z_Vent_Tot, ObjectParameter z_Util_Tot)
+        {
+            var compraIDParameter = compraID.HasValue ?
+                new ObjectParameter("compraID", compraID) :
+                new ObjectParameter("compraID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_Analytics_Show", compraIDParameter, z_Vent_Tot, z_Util_Tot);
+        }
+    
+        public virtual ObjectResult<sp_Get_factura_detalle_Result> sp_Get_factura_detalle(Nullable<int> maestroID)
+        {
+            var maestroIDParameter = maestroID.HasValue ?
+                new ObjectParameter("maestroID", maestroID) :
+                new ObjectParameter("maestroID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Get_factura_detalle_Result>("sp_Get_factura_detalle", maestroIDParameter);
         }
     }
 }

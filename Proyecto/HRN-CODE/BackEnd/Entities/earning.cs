@@ -17,6 +17,7 @@ namespace BackEnd.Entities
         public int earningID { get; set; }
         public decimal earnings_total_mes { get; set; }
         public int conteo_facturas { get; set; }
-        public Nullable<System.DateTime> fecha_reporte { get; set; }
+        public Nullable<decimal> utils_total_mes { get; set; }
+        public string ano_mes { get; set; }
     }
 }

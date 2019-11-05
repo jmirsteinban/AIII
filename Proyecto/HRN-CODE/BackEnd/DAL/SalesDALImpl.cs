@@ -16,11 +16,11 @@ namespace BackEnd.DAL
             context = _context;
         }
 
-        public sp_Get_factura_detalle_Result GetFacturaDetalle(int maestroID)
+        public IEnumerable<sp_Get_factura_detalle_Result> GetFacturaDetalle(int maestroID)
         {
             try
             {
-                return context.sp_Get_factura_detalle(maestroID).FirstOrDefault();
+                return context.sp_Get_factura_detalle(maestroID).ToList();
             }
             catch (Exception)
             {

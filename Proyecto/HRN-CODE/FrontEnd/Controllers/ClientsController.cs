@@ -376,7 +376,7 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Borrar Cliente";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
-                    "seleccionar a un cliente existente y de ingresar los datos en el formato correcto!";
+                    "seleccionar a un cliente existente!";
                 string exception = msj.Message;
                 string redirection = "Index";
                 string controller2 = "Clients";

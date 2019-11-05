@@ -27,6 +27,7 @@ namespace BackEnd.Entities
         public Nullable<System.DateTime> fecha_compra { get; set; }
         public decimal monto_total { get; set; }
         public string estado_factura { get; set; }
+        public Nullable<byte> fact_analizada { get; set; }
     
         public virtual client client { get; set; }
         public virtual user user { get; set; }

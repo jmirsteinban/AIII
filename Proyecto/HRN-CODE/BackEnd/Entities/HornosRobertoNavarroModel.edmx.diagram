@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="HornosDBModel.bitacora" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.client" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.direction" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="HornosDBModel.earning" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.phone" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.product" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="HornosDBModel.sale" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
@@ -22,6 +21,7 @@
         <AssociationConnector Association="HornosDBModel.UsersInRoles" />
         <EntityTypeShape EntityType="HornosDBModel.warranty" Width="1.5" PointX="5.25" PointY="5.625" />
         <AssociationConnector Association="HornosDBModel.fkCompraID_cascade_warranties" />
+        <EntityTypeShape EntityType="HornosDBModel.earning" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -17,5 +17,6 @@ namespace BackEnd.Entities
         public int compraID { get; set; }
         public int productID { get; set; }
         public decimal precio_factura_d { get; set; }
+        public int cantidad { get; set; }
     }
 }

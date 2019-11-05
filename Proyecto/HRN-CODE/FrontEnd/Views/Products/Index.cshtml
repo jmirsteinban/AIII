@@ -27,8 +27,7 @@
 <h4>
     @Html.ActionLink("Crear Producto", "Create")
 </h4>
-
-<table id="tblProductos" class="display table-bordered" style="width:100%">
+<table id="tblProductos" class="table table-dark" style="width:100%">
     <thead>
         <tr>
             <th class="thead-dark">
@@ -52,20 +51,19 @@
             <th class="thead-dark">
                 @Html.DisplayNameFor(model => model.estado_producto)
             </th>
-            <th class="thead-dark"></th>
-            <th class="thead-dark"></th>
-            <th class="thead-dark"></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
-
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr class="bg-dark">
                 <td>
                     @Html.DisplayFor(modelItem => item.codigo_producto)
                 </td>
-                <td>
+                <td >
                     @Html.DisplayFor(modelItem => item.nombre_producto)
                 </td>
                 <td>
