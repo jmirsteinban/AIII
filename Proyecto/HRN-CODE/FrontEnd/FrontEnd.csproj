@@ -52,6 +52,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="IronPdf">
+      <HintPath>..\..\..\..\..\..\..\Downloads\IronPdf\net40\IronPdf.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
