@@ -380,6 +380,7 @@ namespace FrontEnd.Controllers
             }
         }*/
 
+        [Authorize(Roles = "Administrador")]
         // GET: Facturas/Delete/5
         public ActionResult Delete(int id)
         {
@@ -423,6 +424,7 @@ namespace FrontEnd.Controllers
             }            
         }
 
+        [Authorize(Roles = "Administrador")]
         // POST: Facturas/Delete/5
         [HttpPost]
         public ActionResult Delete(SalesViewModel salesViewModel)

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using IronPdf;
+//using IronPdf;
 using System.Net.Mail;
 
 namespace FrontEnd.Controllers
@@ -78,8 +78,8 @@ namespace FrontEnd.Controllers
             plantilla_comodines = plantilla_comodines.Replace("@proforma", "PROFORMA-"+numero.ToString());
             plantilla_comodines = plantilla_comodines.Replace("@Cliente", order[0].cedCliente);
             plantilla_comodines = plantilla_comodines.Replace("@usuario", order[0].cedUsuario);
-            IronPdf.HtmlToPdf Renderer = new IronPdf.HtmlToPdf();
-            Renderer.PrintOptions.CreatePdfFormsFromHtml = true;
+            //IronPdf.HtmlToPdf Renderer = new IronPdf.HtmlToPdf();
+            //Renderer.PrintOptions.CreatePdfFormsFromHtml = true;
             string html_cuerpo = "";
             html_cuerpo = "<html>";
             html_cuerpo += "<body>";
@@ -88,7 +88,7 @@ namespace FrontEnd.Controllers
             html_cuerpo += "<p>Saludos,</p>";
             html_cuerpo += "</body>";
             html_cuerpo += "</html>";
-            Renderer.RenderHtmlAsPdf(plantilla_comodines).SaveAs(@"C:\Users\dpadilla\Downloads\pdf\proforma"+numero.ToString()+".pdf");
+            //Renderer.RenderHtmlAsPdf(plantilla_comodines).SaveAs(@"C:\Users\dpadilla\Downloads\pdf\proforma"+numero.ToString()+".pdf");
             MailMessage mail = new MailMessage();
             SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
             mail.From = new MailAddress("diego.padilla.miranda@hotmail.com");
