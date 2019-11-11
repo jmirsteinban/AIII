@@ -11,131 +11,145 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    @Html.LabelFor(model => model.cedula_cliente, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-                <div class="col-6">
-                    @Html.LabelFor(model => model.cedula_user, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                <label for="cedula_cliente" class="control-label col-md-6" >Cliente</label>
+                @*@Html.LabelFor(model => model.cedula_cliente, htmlAttributes: new { @class = "control-label col-md-6" })*@
             </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente" } })
-                    @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @Value = @ViewBag.CedulaUser, @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    @Html.LabelFor(model => model.estado_factura, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-                <div class="col-6">
-                    @Html.LabelFor(model => model.nombre_producto, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-4">
-                    @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id = "estadoFac" })
-                    @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-                    <select id="productName" name="select" class="form-control select2" onChange="cambiaSelect()" style="border-radius: .25rem;">
-                        <option value="--Select--"> --Select-- </option>
-
-                        @foreach (var item in ViewBag.Productos)
-                        {
-                            <option attr-prec=" @item.precio_factura_d" attr-cant=" @item.cantProd"> @item.productName </option>
-                        }
-
-                    </select>
-                </div>
+            <div class="col-6">
+                @Html.LabelFor(model => model.cedula_user, htmlAttributes: new { @class = "control-label col-md-6" })
+                
             </div>
         </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-                <div class="col-6">
-                    @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                </div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
-                    @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "" } })
-                    @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                </div>
-                <div class="col-4">
-                </div>
-                <div class="col-2">
-
-                </div>
-                <div class="col-4">
-                    <br />
-                    <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
+        <div class="row">
             <div class="col-1"></div>
-            <div class="col-10">
-                <table id="detailsTable" class="table">
-                    <thead>
-                        <tr>
-                            <th style="width:40%">Producto</th>
-                            <th style="width:35%; display:none;">Cédula Cliente</th>
-                            <th style="width:30%">Cantidad</th>
-                            <th style="width:35%">Precio Total ₡</th>
-                            <th style="width:35%; display:none;">Cédula Empleado</th>
-                            <th style="width:35%;display:none;">Estado de Factura</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                        <tr>
-                            <td id="precioTotal"><span class="pull-right" style="margin-right:100px;"><strong></strong> </span></td>
-                        </tr>
-                    </tfoot>
-                </table>
+            <div class="col-4">
+                @*@Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente" } })
+        @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })*@
+                <select id="cedCliente" name="cedCliente" class="form-control select2" onChange="cambiaSelect()" style="border-radius: .25rem;">
+                    <option value="0"> --Select-- </option>
+                    @foreach (var item in ViewBag.Clientes)
+                    {
+                        <option value=" @item.cedula_cliente"> @item.primer_nombre_cliente @item.primer_apellido_cliente  </option>
+                    }
+
+                </select>
             </div>
-            <div class="col-1"></div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @Value = @ViewBag.CedulaUser, @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
+            </div>
         </div>
 
-        <div class="modal-footer">
-            <button type="reset" class="btn btn-danger" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
-            <button id="saveOrder" type="submit" class="btn btn-success">Crear Proforma</button>
+    </div>
+
+    <div class="form-group">
+        <div class="row" >
+            <div class="col-6">
+                @Html.LabelFor(model => model.nombre_producto, htmlAttributes: new { @class = "control-label col-md-6" })
+                
+            </div>
+            <div class="col-6">
+                @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <select id="productName" name="select" class="form-control select2" onChange="cambiaSelect()" style="border-radius: .25rem;">
+                    <option value="0"> --Select-- </option>
+
+                    @foreach (var item in ViewBag.Productos)
+                    {
+                        <option attr-prec=" @item.precio_factura_d" attr-cant=" @item.cantProd"> @item.productName </option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+
+                @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
+                @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+            <div class="col-6" style="display:none;">
+                @Html.LabelFor(model => model.estado_factura, htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-4">
+
+            
+                @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "" } })
+                @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4" style="display:none;">
+                @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id = "estadoFac" })
+                @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-4">
+                <br />
+                <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <table id="detailsTable" class="table">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Producto</th>
+                        <th style="width:35%; display:none;">Cédula Cliente</th>
+                        <th style="width:30%">Cantidad</th>
+                        <th style="width:35%">Precio Total ₡</th>
+                        <th style="width:35%; display:none;">Cédula Empleado</th>
+                        <th style="width:35%;display:none;">Estado de Factura</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td id="precioTotal"><span class="pull-right" style="margin-right:100px;"><strong></strong> </span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="reset" class="btn btn-danger" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
+        <button id="saveOrder" type="submit" class="btn btn-success">Crear Proforma</button>
+    </div>
+</div>
     <center>
         <div class="modal fade" id="newOrderModal">
             <div class="modal-dialog modal-lg" style=" width: 900px !important;">
@@ -205,13 +219,13 @@
             //Add Multiple Order.
             $("#addToList").click(function (e) {
                 e.preventDefault();
-                if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {
+                if ($.trim($("#productName").val()) == "0" || $.trim($("#cedCliente").val()) == "0" || $.trim($("#cedUsuario").val()) == "" ||  $.trim($("#cantProducto").val()) == "") {
                     mensajeSistema("Error", "¡Debe llenar todos los campos!", "error");
                 } else {
                     var productName = $("#productName").val(),
                         cedCliente = $("#cedCliente").val(),
                         cedUsuario = $("#cedUsuario").val(),
-                        estado = $("#estadoFac").val(),
+                        estado = "PROFORMA",
                         cantProd = $("#cantProducto").val(),
                         precioDetalle = parseFloat($("#precioDetalle").val()),
                         detailsTableBody = $("#detailsTable tbody");
@@ -236,9 +250,7 @@
                 e.preventDefault();
                 var $self = $(this);
                 if ($(this).attr('data-itemId') == "0") {
-                    $(this).parents('tr').css("background-color", "#ff6347").fadeOut(300, function () {
-                        $(this).removeData();
-                });
+                    $(this).parents('tr').remove();
                 }
                 calcTotalCompra();
             });
@@ -253,22 +265,33 @@
                     data: data,
                     success: function (result) {
                         //este no se está usando por el momento
-                        document.getElementById("modalHeader").innerHTML = "Estado de Factura --- " + $("#estadoFac").val();
-                        if ($("#estadoFac").val()=="Procesando") {
-                            document.getElementById("modalBody").innerHTML = "¡El proceso de la compra quedó en un estado de espera! <br /> Fecha: @DateTime.Now";
-                            document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + calcTotalCompra();
-                            document.getElementById("redirect").setAttribute("href", "/Sales/Index");
-                            document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
-                            document.getElementById("redirect").innerHTML = "Volver a la lista";
-                        } else {
-                            document.getElementById("modalBody").innerHTML = "¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now";
-                            document.getElementById("modalBody2").innerHTML = "Cliente: " + result + " --- Monto Total: ₡" + calcTotalCompra();
-                            document.getElementById("redirect").setAttribute("href", "/Sales/Index");
-                            document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
-                            document.getElementById("redirect").innerHTML = "Volver a la lista";
-                            //$("#cedCliente").val()
+                        if (result === "1") {
+                            document.getElementById("modalHeader").innerHTML = "Estado de proforma --- " + "Enviado";
+                            if ($("#estadoFac").val() == "Procesando") {
+                                document.getElementById("modalBody").innerHTML = "¡Proforma enviada! <br /> Fecha: @DateTime.Now";
+                                document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + calcTotalCompra();
+                                document.getElementById("redirect").setAttribute("href", "/Proforma/Create");
+                                document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
+                                document.getElementById("redirect").innerHTML = "Volver a la proforma";
+                            } else {
+                                document.getElementById("modalBody").innerHTML = "¡Proforma enviada con éxito! <br /> Fecha: @DateTime.Now";
+                                document.getElementById("modalBody2").innerHTML = "Cliente: " + result + " --- Monto Total: ₡" + calcTotalCompra();
+                                document.getElementById("redirect").setAttribute("href", "/Proforma/Create");
+                                document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
+                                document.getElementById("redirect").innerHTML = "Volver a la proforma";
+                                //$("#cedCliente").val()
+                            }
+                            $("#newOrderModal").modal();
                         }
-                        $("#newOrderModal").modal();
+                        else {
+                            document.getElementById("modalHeader").innerHTML = "¡Falloel envío de la proforma!";
+                            document.getElementById("modalBody").innerHTML = "¡Ha ocurrido un error al enviar la proforma! <br /> Fecha: @DateTime.Now";
+                            document.getElementById("modalBody2").innerHTML = "";
+                            document.getElementById("redirect").setAttribute("href", "#");
+                            document.getElementById("redirect").setAttribute("class", "btn btn-block btn-danger");
+                            document.getElementById("redirect").innerHTML = "Volver a la proforma";
+                            $("#newOrderModal").modal();
+                        }
                     },
                     error: function () {
                         //location.href = "/Sales/Index";
@@ -277,7 +300,7 @@
                         document.getElementById("modalBody2").innerHTML = "";
                         document.getElementById("redirect").setAttribute("href", "#");
                         document.getElementById("redirect").setAttribute("class", "btn btn-block btn-danger");
-                        document.getElementById("redirect").innerHTML = "Volver a la compra";
+                        document.getElementById("redirect").innerHTML = "Volver a la proforma";
                         $("#newOrderModal").modal();
                     }
                 });
@@ -297,20 +320,22 @@
                     precioDetalle: $(this).find('td:eq(3)').html(),
                     cedUsuario: $(this).find('td:eq(4)').html(),
                     estado: $(this).find('td:eq(5)').html()
+                    });
                 });
-            });
+                console.log(orderArr);
+                if (orderArr.length !== 0) {
+                    var data = JSON.stringify({
+                        order: orderArr
+                    });
+                    $.when(saveOrder(data)).then(function (response) {
+                        console.log(response);
+                    }).fail(function (err) {
+                        console.log(err);
+                    });
+                }
+                
+           
 
-
-            var data = JSON.stringify({
-            order: orderArr
-                });
-                console.log(data);
-
-            $.when(saveOrder(data)).then(function (response) {
-            console.log(response);
-            }).fail(function (err) {
-            console.log(err);
-            });
             });
     </script>
 }
