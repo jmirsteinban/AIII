@@ -173,5 +173,7 @@ namespace BackEnd.Entities
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Get_factura_detalle_Result>("sp_Get_factura_detalle", maestroIDParameter);
         }
+
+
     }
 }

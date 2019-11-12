@@ -51,8 +51,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="IronPdf">
-      <HintPath>..\..\..\..\..\..\..\Downloads\IronPdf\net40\IronPdf.dll</HintPath>
+    <Reference Include="IronPdf, Version=2019.7.0.21100, Culture=neutral, PublicKeyToken=94e1c31412563c75, processorArchitecture=MSIL">
+      <HintPath>..\packages\IronPdf.2019.7.0\lib\net40\IronPdf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
@@ -319,9 +319,9 @@
     <Content Include="Vendor\jquery-3.3.1\jquery-3.3.1.slim.min.map" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Proforma\Create.cshtml" />
-    <Content Include="Views\Earnings\Index.cshtml" />
     <Content Include="Views\Sales\Delete.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Earnings\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
