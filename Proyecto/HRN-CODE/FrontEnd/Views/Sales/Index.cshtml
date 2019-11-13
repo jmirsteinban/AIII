@@ -6,36 +6,43 @@
 
 <h2>Lista Facturación</h2>
 
-<h4>
-    @Html.ActionLink("Crear Factura", "Create")
-</h4>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <h4>
+            <a href="../Sales/Create" class="btn btn-outline-info" style="font-size:0.8em;">Crear Factura</a>
+        </h4>
+    </div>
+    <div class="col-4"></div>
+</div>
 
-<table id="tblFacturas" class="table table-dark">
-    <thead>
+
+<table id="tblFacturas" class="table table-light table-striped">
+    <thead class="bg-primary">
         <tr>
-            <th class="thead-dark">
-                @Html.DisplayNameFor(model => model.cedula_cliente)
+            <th class="">
+                <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
             </th>
-            <th class="thead-dark">
-                @Html.DisplayNameFor(model => model.cedula_user)
+            <th class="">
+                <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
             </th>
-            <th class="thead-dark">
-                @Html.DisplayNameFor(model => model.fecha_compra)
+            <th class="">
+                <font color="white">@Html.DisplayNameFor(model => model.fecha_compra)</font>
             </th>
-            <th class="thead-dark">
-                @Html.DisplayNameFor(model => model.estado_factura)
+            <th class="">
+                <font color="white">@Html.DisplayNameFor(model => model.estado_factura)</font>
             </th>
-            <th class="thead-dark">
-                @Html.DisplayNameFor(model => model.monto_total)
+            <th class="">
+                <font color="white">@Html.DisplayNameFor(model => model.monto_total)</font>
             </th>
-            <th class="thead-dark"></th>
-            <th class="thead-dark"></th>
+            <th class=""></th>
+            <th class=""></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr class="bg-dark">
+            <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.cedula_cliente)
                 </td>
@@ -52,10 +59,10 @@
                     ₡ @Html.DisplayFor(modelItem => item.monto_total)
                 </td>
                 <td>
-                    @Html.ActionLink("Detalles", "Details", new { id = item.compraID })
+                    <a href="../Sales/Details/@item.compraID" class="btn btn-primary" style="color:white;">Detalles</a>
                 </td>
                 <td>
-                    @Html.ActionLink("Borrar", "Delete", new { id = item.compraID })
+                    <a href="../Sales/Delete/@item.compraID" class="btn btn-danger" style="color:white;">Borrar</a>
                 </td>
             </tr>
         }
@@ -73,8 +80,9 @@
                 buttons: [
                     'copy', 'excel', 'pdf'
                 ]
-            }
+            }            
             );
+            document.querySelectorAll("#tblFacturas label input").setAttribute("autofocus", "true");
         });
 
     </script>
