@@ -44,7 +44,7 @@ namespace FrontEnd.Controllers
                 listaModel.Add(Convertir(item));
             }
 
-            return RedirectToAction("Index");
+            return View(listaModel);
 
 
         }
