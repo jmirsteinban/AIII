@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+}
+
+.widget {
+  display: inline-block;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+  font-size: 0;
+  white-space: nowrap;
+}
+
+.btn,
+.social-count {
+  position: relative;
+  display: inline-block;
+  height: 14px;
+  padding: 2px 5px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 14px;
+  vertical-align: bottom;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-repeat: repeat-x;
+  background-position: -1px -1px;
+  background-size: 110% 110%;
+  border: 1px solid;
+}
+
+.btn {
+  border-radius: 0.25em;
+
+  &:not(:last-child) {
+    border-radius: 0.25em 0 0 0.25em;
+  }
+}
+
+.social-count {
+  border-left: 0;
+  border-radius: 0 0.25em 0.25em 0;
+}
+
+.widget-lg {
+  .btn,
+  .social-count {
+    height: 20px;
+    padding: 3px 10px;
+    font-size: 12px;
+    line-height: 20px;
+  }
+}
+
+@import '../../node_modules/@primer/octicons';

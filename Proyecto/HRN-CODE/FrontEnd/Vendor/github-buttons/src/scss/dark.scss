@@ -1,0 +1,13 @@
+@import 'mixins';
+
+.btn {
+  @include btn($gray-000, $gray-800, darken($gray-900, 2%));
+}
+
+.social-count {
+  @include social-count($gray-000, $black);
+}
+
+.octicon-heart {
+  color: $pink-400;
+}

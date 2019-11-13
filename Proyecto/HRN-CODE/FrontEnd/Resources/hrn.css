@@ -1,0 +1,11 @@
+﻿.bg-primary {
+    background-color: #6aa765 !important;
+}
+
+
+.btn-outline-info {
+    background-color: transparent;
+    background-image: none;
+    border-color: #4db115;
+    color: #4db115;
+}

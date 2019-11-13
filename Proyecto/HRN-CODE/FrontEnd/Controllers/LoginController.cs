@@ -54,22 +54,33 @@ namespace FrontEnd.Controllers
 
         public ActionResult LogOut()
         {
-            int userId = (int)Session["userID"];
-            Session.Clear();
-            Session.Abandon();
+            try
+            {
+                int userId = (int)Session["userID"];
+                Session.Clear();
+                Session.Abandon();
 
 
 
-            // clear authentication cookie
-            HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
-            cookie1.Expires = DateTime.Now.AddYears(-1);
-            Response.Cookies.Add(cookie1);
+                // clear authentication cookie
+                HttpCookie cookie1 = new HttpCookie(FormsAuthentication.FormsCookieName, "");
+                cookie1.Expires = DateTime.Now.AddYears(-1);
+                Response.Cookies.Add(cookie1);
 
-            // clear session cookie
-            HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
-            cookie2.Expires = DateTime.Now.AddYears(-1);
-            Response.Cookies.Add(cookie2);
-            return RedirectToAction("Index", "Login");
+                // clear session cookie
+                HttpCookie cookie2 = new HttpCookie("ASP.NET_SessionId", "");
+                cookie2.Expires = DateTime.Now.AddYears(-1);
+                Response.Cookies.Add(cookie2);
+                return RedirectToAction("Index", "Login");
+            }
+            catch 
+            {
+                return RedirectToAction("Index", "Login");
+                
+            }
+
+
+           
         }
     }
 }

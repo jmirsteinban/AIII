@@ -4,100 +4,103 @@
     ViewBag.Title = "Lista Clientes";
 }
 
-<h2>Lista de Clientes</h2>
 
 <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        <h4>
-            <a href="../Clients/Create" class="btn btn-outline-info" style="font-size:0.8em;">Crear Cliente</a>
-        </h4>
+    <div class="col-12 text-center">
+        <h2>Lista de Clientes</h2>
     </div>
-    <div class="col-4"></div>
 </div>
+<hr />
 
-<table id="tblClientes" class="table table-light table-striped">
-    <thead class="bg-primary">
-        <tr>
-            <th>
-                <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_cliente)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_cliente)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_cliente)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_cliente)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.correo_electronico_cliente)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
-            </th>
-            <th class=""></th>
-            <th class=""></th>
-            <th class=""></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr>
-            <td style="width:100%;">
-                @Html.DisplayFor(modelItem => item.cedula_cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.primer_nombre_cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.segundo_nombre_cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.primer_apellido_cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.segundo_apellido_cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.correo_electronico_cliente)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.estado_cliente)
-            </td>
-            <td>
-                <a href="../Clients/Edit/@item.clientID" class="btn btn-success" style="color:white;">Editar</a>
-            </td>
-            <td>
-                <a href="../Clients/Details/@item.clientID" class="btn btn-primary" style="color:white;">Detalles</a>
-            </td>
-            <td>
-                <a href="../Clients/Delete/@item.clientID" class="btn btn-danger" style="color:white;">Borrar</a>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
 
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+
+        <table id="tblClientes" class="table table-light table-striped">
+            <thead class="bg-primary">
+                <tr>
+                    <th>
+                        <font color="white">Cédula</font>
+                    </th>
+                    <th class="">
+                        <font color="white">Nombre Completo</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.correo_electronico_cliente)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
+                    </th>
+                    <th class=""></th>
+                    <th class=""></th>
+                    <th class=""></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cedula_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.primer_nombre_cliente) @Html.DisplayFor(modelItem => item.segundo_nombre_cliente) @Html.DisplayFor(modelItem => item.primer_apellido_cliente) @Html.DisplayFor(modelItem => item.segundo_apellido_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.correo_electronico_cliente)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.estado_cliente)
+                        </td>
+                        <td>
+                            <a href="../Clients/Edit/@item.clientID" class="btn btn-success" style="color:white;">Editar</a>
+                        </td>
+                        <td>
+                            <a href="../Clients/Details/@item.clientID" class="btn btn-primary" style="color:white;">Detalles</a>
+                        </td>
+                        <td>
+                            <a href="../Clients/Delete/@item.clientID" class="btn btn-danger" style="color:white;">Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 @section Scripts{
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
 
+
+
+    <script>
         $(document).ready(function () {
             $('#tblClientes').DataTable({
+                dom: 'Bfrtip',
                 buttons: [
-                    'copy', 'excel', 'pdf'
-                ]
+                    {
+                        text: ' + Crear Cliente',
+                        action: function ( e, dt, node, config ) {
+                            window.location.href = "../Clients/Create";
+                        }
+                    },
+                    'copy', 
+                    'excel', 
+                    'pdf'
+                ],
+                "language": { "url": "../Vendor/DataTables/Spanish.json" } ,
+                columnDefs: [
+                    { width: 80, targets: 0 },
+                    { width: 50, targets: 4 },
+                    { width: 50, targets: 5 },
+                    { width: 50, targets: 6 }
+                ],
+                fixedColumns: true
             }
             );
         });
 
     </script>
+
+ 
 }
