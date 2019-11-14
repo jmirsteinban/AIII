@@ -4,10 +4,15 @@
     ViewBag.Title = "Beneficio Económico";
 }
 
-<h2>Beneficio Económico</h2>
 
 
 
+<div class="row">
+    <div class="col-12 text-center">
+        <h2>Beneficio Económico</h2>
+    </div>
+</div>
+<hr />
 
 <div class="col-12">
 
@@ -71,7 +76,7 @@
     <script>arrVentaTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.earnings_total_mes))); </script>
     <script>arrUtilidadTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.utils_total_mes))); </script>
 
-    
+
 }
 
 
@@ -79,8 +84,8 @@
 <script>
 
 
-   // console.log(arrVentaTotal);
-   // console.log(arrUtilidadTotal);
+    // console.log(arrVentaTotal);
+    // console.log(arrUtilidadTotal);
 
     var cantMeses = arrVentaTotal.length;
 
@@ -143,9 +148,9 @@
         },
 
         // Uncomment the next lines in order to disable the animations.
-         animation: {
-           duration: 1
-         },
+        animation: {
+            duration: 1
+        },
         hover: {
             mode: 'nearest',
             intersect: false

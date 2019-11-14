@@ -1,6 +1,38 @@
-﻿.bg-primary {
+﻿
+/* -------------------------------------------------------------
+    
+              CSS Hornos Roberto Navarro 
+
+  -------------------------------------------------------------*/
+
+
+
+/* Elementos */
+a {
+    color: #6aa765;
+}
+
+    a:hover {
+        color: #57b846;
+        text-decoration: underline;
+    }
+
+/* Clases Personales */
+
+.hrn-btnadd {
+    border-color: #57b846 !important;
+    background-color: #57b846 !important;
+    font-weight: bold !important;
+    box-shadow: none;
+}
+
+
+
+/* Clases Bootstrap */
+.bg-primary {
     background-color: #6aa765 !important;
 }
+
 
 
 .btn-outline-info {
@@ -8,4 +40,36 @@
     background-image: none;
     border-color: #4db115;
     color: #4db115;
+}
+
+
+.btn-success {
+    color: #fff;
+    border-color: #57b846;
+    background-color: #57b846;
+    box-shadow: none;
+}
+
+
+.page-item {
+    box-shadow: none !important;
+}
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    background-color: none !important;
+    background: none !important;
+    border-color: #57b846 !important;
+}
+
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #6aa765;
+    border-color: #6aa765;
+}
+
+/* Data Tables*/
+
+.dataTables_wrapper .dataTables_filter {
+    text-align: center !important;
 }

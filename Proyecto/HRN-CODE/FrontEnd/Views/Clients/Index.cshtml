@@ -79,14 +79,25 @@
                 dom: 'Bfrtip',
                 buttons: [
                     {
+                        className: 'hrn-btnadd' ,
                         text: ' + Crear Cliente',
                         action: function ( e, dt, node, config ) {
                             window.location.href = "../Clients/Create";
                         }
                     },
-                    'copy', 
-                    'excel', 
-                    'pdf'
+                    {
+                        extend: 'copy',
+                        text: 'Copiar'
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf'
+                    }
+  
                 ],
                 "language": { "url": "../Vendor/DataTables/Spanish.json" } ,
                 columnDefs: [

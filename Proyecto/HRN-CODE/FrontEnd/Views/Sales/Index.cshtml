@@ -4,17 +4,16 @@
     ViewBag.Title = "Lista Facturación";
 }
 
-<h2>Lista Facturación</h2>
+
+
+
 
 <div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        <h4>
-            <a href="../Sales/Create" class="btn btn-outline-info" style="font-size:0.8em;">Crear Factura</a>
-        </h4>
+    <div class="col-12 text-center">
+        <h2>Lista Facturación</h2>
     </div>
-    <div class="col-4"></div>
 </div>
+<hr />
 
 
 <table id="tblFacturas" class="table table-light table-striped">
@@ -70,20 +69,45 @@
 </table>
 
 @section Scripts{
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
-    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script>
 
+    <script>
         $(document).ready(function () {
             $('#tblFacturas').DataTable({
+                dom: 'Bfrtip',
                 buttons: [
-                    'copy', 'excel', 'pdf'
-                ]
-            }            
-            );
+                    {
+                        className: 'hrn-btnadd',
+                        text: ' + Crear Factura',
+                        action: function (e, dt, node, config) {
+                            window.location.href = "../Sales/Create";
+                        }
+                    },
+                    {
+                        extend: 'copy',
+                        text: 'Copiar'
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf'
+                    }
+
+                ],
+                "language": { "url": "../Vendor/DataTables/Spanish.json" },
+                columnDefs: [
+                    { width: 80, targets: 0 }
+      
+                ],
+                fixedColumns: true
+            });
+
             document.querySelectorAll("#tblFacturas label input").setAttribute("autofocus", "true");
+
         });
 
     </script>
+
 }
