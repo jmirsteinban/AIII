@@ -4,179 +4,237 @@
     ViewBag.Title = "Beneficio Económico";
 }
 
+<div id="exportthis">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2>Beneficio Económico</h2>
+            </div>
+        </div>
+        <hr />
+
+        <div class="col-12">
+
+            <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+
+            <canvas height="255" style="max-width: 100% !important; display: block; width: 589px; height: 255px;" class="blog-overview-users chartjs-render-monitor" width="589"></canvas>
+        </div>
 
 
+        <script>
+            var arrVentaTotal = [];
+            var arrUtilidadTotal = [];
 
-<div class="row">
-    <div class="col-12 text-center">
-        <h2>Beneficio Económico</h2>
+        </script>
+
+        <div class="col-12">
+            <table id="tblEarnings" class="table table-light table-striped" style="width:100%">
+                <thead class="bg-primary">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ano_mes)
+                        </th>
+                        <th>
+
+                            @Html.DisplayNameFor(model => model.earnings_total_mes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.conteo_facturas)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.utils_total_mes)
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ano_mes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.earnings_total_mes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.conteo_facturas)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.utils_total_mes)
+                            </td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
     </div>
-</div>
-<hr />
 
-<div class="col-12">
+    @foreach (var item in Model)
+    {
+        <script>arrVentaTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.earnings_total_mes))); </script>
+        <script>arrUtilidadTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.utils_total_mes))); </script>
+    }
 
-    <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+    @section Scripts{
 
-    <canvas height="255" style="max-width: 100% !important; display: block; width: 589px; height: 255px;" class="blog-overview-users chartjs-render-monitor" width="589"></canvas>
-</div>
+        <script>
 
+            $(document).ready(function () {
+                $('#tblEarnings').DataTable({
+                    dom: 'Brtip',
+                    buttons: [
+                        {
+                            extend: 'copy',
+                            text: 'Copiar'
+                        },
+                        {
+                            extend: 'excel',
+                            text: 'Excel'
+                        },
+                        {
+                            extend: 'pdf',
+                            text: 'Pdf'
+                        },
+                                            {
+                        className: '',
+                        text: 'Pdf [Grafico y Tabla]',
+                        action: function (e, dt, node, config) {
+                            pdgGrafTabla();
+                        }
+                    },
 
-<script>
-    var arrVentaTotal = [];
-    var arrUtilidadTotal = [];
-
-</script>
-
-<div class="col-12">
-    <table class="table">
-        <tr>
-            <th>
-
-                @Html.DisplayNameFor(model => model.earnings_total_mes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.conteo_facturas)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.utils_total_mes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ano_mes)
-            </th>
-
-        </tr>
-
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.earnings_total_mes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.conteo_facturas)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.utils_total_mes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ano_mes)
-                </td>
-            </tr>
+                    ],
+                    "language": { "url": "../Vendor/DataTables/Spanish.json" }
+                }
+                );
+            });
 
 
-        }
-
-    </table>
-</div>
 
 
-@foreach (var item in Model)
-{
-    <script>arrVentaTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.earnings_total_mes))); </script>
-    <script>arrUtilidadTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.utils_total_mes))); </script>
+            // console.log(arrVentaTotal);
+            // console.log(arrUtilidadTotal);
+
+            var cantMeses = arrVentaTotal.length;
+
+            // Blog overview date range init.
+            //$('#blog-overview-date-range').datepicker({});
+
+
+            // Datasets
+
+
+            var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
+
+            // Data
+            var bouData = {
+                // Generate the meses labels on the X axis.
+                labels: Array.from(new Array(cantMeses), function (_, i) {
+                    return i === 0 ? 1 : i;
+                }),
+                datasets: [{
+                    label: 'Venta Total',
+                    fill: 'Inicio',
+                    data: arrVentaTotal,
+                    backgroundColor: 'rgba(0,123,255,0.1)',
+                    borderColor: 'rgba(0,123,255,1)',
+                    pointBackgroundColor: '#ffffff',
+                    pointHoverBackgroundColor: 'rgb(0,123,255)',
+                    borderWidth: 1.5,
+                    pointRadius: 0,
+                    pointHoverRadius: 3
+                }, {
+                    label: 'Utilidad Total',
+                    fill: 'start',
+                    data: arrUtilidadTotal,
+                    backgroundColor: 'rgba(255,65,105,0.1)',
+                    borderColor: 'rgba(255,65,105,1)',
+                    pointBackgroundColor: '#ffffff',
+                    pointHoverBackgroundColor: 'rgba(255,65,105,1)',
+                    borderDash: [3, 3],
+                    borderWidth: 1,
+                    pointRadius: 0,
+                    pointHoverRadius: 2,
+                    pointBorderColor: 'rgba(255,65,105,1)'
+                }]
+            };
+
+            // Options
+            var bouOptions = {
+                responsive: true,
+                legend: {
+                    position: 'top'
+                },
+                elements: {
+                    line: {
+                        // A higher value makes the line look skewed at this ratio.
+                        tension: 0.3
+                    },
+                    point: {
+                        radius: 0
+                    }
+                },
+
+                animation: {
+                    duration: 1
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: false
+                },
+                tooltips: {
+                    custom: false,
+                    mode: 'nearest',
+                    intersect: false
+                }
+            };
+
+            // Generate the Analytics Overview chart.
+            window.BlogOverviewUsers = new Chart(bouCtx, {
+                type: 'LineWithLine',
+                data: bouData,
+                options: bouOptions
+            });
+
+            // Hide initially the first and last analytics overview chart points.
+            // They can still be triggered on hover.
+            var aocMeta = BlogOverviewUsers.getDatasetMeta(0);
+            aocMeta.data[0]._model.radius = 0;
+            aocMeta.data[bouData.datasets[0].data.length - 1]._model.radius = 0;
+
+            // Render the chart.
+            window.BlogOverviewUsers.render();
+
+
+
+
+            function pdgGrafTabla() {
+
+
+            html2canvas(document.getElementById('exportthis')).then(function(canvas) {
+                    var data = canvas.toDataURL();
+
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500,
+                        }]
+                        };
+                        console.log("++++");
+                    pdfMake.createPdf(docDefinition).download("BeneficioEconómico");
+
+
+            });
+
+   
 
 
 }
 
-
-
-<script>
-
-
-    // console.log(arrVentaTotal);
-    // console.log(arrUtilidadTotal);
-
-    var cantMeses = arrVentaTotal.length;
-
-    // Blog overview date range init.
-    //$('#blog-overview-date-range').datepicker({});
-
-
-    // Datasets
-
-
-    var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
-
-    // Data
-    var bouData = {
-        // Generate the meses labels on the X axis.
-        labels: Array.from(new Array(cantMeses), function (_, i) {
-            return i === 0 ? 1 : i;
-        }),
-        datasets: [{
-            label: 'Venta Total',
-            fill: 'Inicio',
-            data: arrVentaTotal,
-            backgroundColor: 'rgba(0,123,255,0.1)',
-            borderColor: 'rgba(0,123,255,1)',
-            pointBackgroundColor: '#ffffff',
-            pointHoverBackgroundColor: 'rgb(0,123,255)',
-            borderWidth: 1.5,
-            pointRadius: 0,
-            pointHoverRadius: 3
-        }, {
-            label: 'Utilidad Total',
-            fill: 'start',
-            data: arrUtilidadTotal,
-            backgroundColor: 'rgba(255,65,105,0.1)',
-            borderColor: 'rgba(255,65,105,1)',
-            pointBackgroundColor: '#ffffff',
-            pointHoverBackgroundColor: 'rgba(255,65,105,1)',
-            borderDash: [3, 3],
-            borderWidth: 1,
-            pointRadius: 0,
-            pointHoverRadius: 2,
-            pointBorderColor: 'rgba(255,65,105,1)'
-        }]
-    };
-
-    // Options
-    var bouOptions = {
-        responsive: true,
-        legend: {
-            position: 'top'
-        },
-        elements: {
-            line: {
-                // A higher value makes the line look skewed at this ratio.
-                tension: 0.3
-            },
-            point: {
-                radius: 0
-            }
-        },
-
-        // Uncomment the next lines in order to disable the animations.
-        animation: {
-            duration: 1
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: false
-        },
-        tooltips: {
-            custom: false,
-            mode: 'nearest',
-            intersect: false
-        }
-    };
-
-    // Generate the Analytics Overview chart.
-    window.BlogOverviewUsers = new Chart(bouCtx, {
-        type: 'LineWithLine',
-        data: bouData,
-        options: bouOptions
-    });
-
-    // Hide initially the first and last analytics overview chart points.
-    // They can still be triggered on hover.
-    var aocMeta = BlogOverviewUsers.getDatasetMeta(0);
-    aocMeta.data[0]._model.radius = 0;
-    aocMeta.data[bouData.datasets[0].data.length - 1]._model.radius = 0;
-
-    // Render the chart.
-    window.BlogOverviewUsers.render();
-
-</script>
-
+        </script>
+    }
