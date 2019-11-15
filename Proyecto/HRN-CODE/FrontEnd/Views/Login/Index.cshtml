@@ -52,21 +52,20 @@
         #card-header {
             background-image: url('../Resources/green-white-polygonal-background_1035-6041.jpg');
             opacity: 0.8;
-            filter: alpha(opacity=50); /* For IE8 and earlier */
+            filter: alpha(opacity=50);
         }
 
         #text-card-header {
-
             opacity: 1;
-            filter: alpha(opacity=50); /* For IE8 and earlier */
+            filter: alpha(opacity=50);
             text-shadow: 2px 2px 4px rgba(0,0,0,1);
         }
 
         .card-login {
             position: absolute;
             top: 50%;
-            left: 50%;
-            transform: translate(-55%,-50%);
+            left: 55%;
+            transform: translate(-56%,-50%);
             width: 60%;
         }
 
@@ -74,7 +73,17 @@
             color: black;
         }
 
+        .inputs-login{
+            margin-bottom:10px;
+        }
 
+        .align-left{
+            text-align:left;
+        }
+
+        .todo-ancho{
+            width:90%;
+        }
 
         footer {
             text-align: center;
@@ -89,6 +98,7 @@
         .field-validation-error {
             color: red;
         }
+
         #card-01-card-header {
             background-image: url("~/Resources/green-white-polygonal-background_1035-6041.jpg") !important;
             background-position: center !important;
@@ -118,30 +128,24 @@
     @using (Html.BeginForm("Autherize", "Login", FormMethod.Post))
     {
 
-
-
-
-
         <div class="card card-login">
 
             <div id="card-header" class="card-header">
                 <h2 id="text-card-header" class="text-white text-center shadow-sm"> Introduzca sus credenciales</h2>
             </div>
 
-
             <div class="card-body">
-
                 <center>
 
                     <div class="row">
                         <div class="col-3"></div>
-                        <div class="col-2">@Html.LabelFor(model => model.UserName)</div>
-                        <div class="col-4">@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @autoFocus = "true" } })</div>
+                        <div class="col-2 align-left">@Html.LabelFor(model => model.UserName):</div>
+                        <div class="col-4 inputs-login">@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @autoFocus = "true" } })</div>
                     </div>
                     <div class="row">
                         <div class="col-3"></div>
-                        <div class="col-2">
-                            @Html.LabelFor(model => model.Password)
+                        <div class="col-2 align-left">
+                            @Html.LabelFor(model => model.Password):
                         </div>
                         <div class="col-4">
                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
@@ -154,36 +158,24 @@
                             <label class="field-validation-error">@Html.DisplayFor(model => model.LoginErrorMessage)</label>
                         </div>
                     </div>
-                    <hr />
                     <div class="row mx-auto">
-
-                        <div class="col-12">
-                            <input type="reset" name="name" value="Limpiar" class="btn btn-outline-dark col-2" />
-                            <input type="submit" name="name" value="Iniciar Sesión" class="btn btn-outline-dark col-2" />
+                        <div class="col-3"></div>
+                        <div class="col-3">
+                            <input type="reset" name="name" value="Limpiar" class="btn btn-outline-dark todo-ancho"/>
+                        </div>
+                        <div class="col-3 todo-ancho">
+                            <input type="submit" name="name" value="Iniciar Sesión" class="btn btn-outline-dark todo-ancho" />
                         </div>
                     </div>
                 </center>
 
             </div>
 
-
-            <div class="card-footer text-muted">
+            <div class="card-footer text-center text-muted">
                 <p> &copy; @DateTime.Now.Year - Hornos Roberto Navarro </p>
             </div>
 
         </div>
-
-
-
-
-
-
-
-            
-   
-
- 
-
 
     }
 
