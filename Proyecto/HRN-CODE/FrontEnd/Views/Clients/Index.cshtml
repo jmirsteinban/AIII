@@ -33,9 +33,9 @@
                     <th class="">
                         <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
                     </th>
-                    <th class=""></th>
-                    <th class=""></th>
-                    <th class=""></th>
+                    <th class="notexport"></th>
+                    <th class="notexport"></th>
+                    <th class="notexport"></th>
                 </tr>
             </thead>
             <tbody>
@@ -79,33 +79,43 @@
                 dom: 'Bfrtip',
                 buttons: [
                     {
-                        className: 'hrn-btnadd' ,
+                        className: 'hrn-btnadd',
                         text: ' + Crear Cliente',
-                        action: function ( e, dt, node, config ) {
+                        action: function (e, dt, node, config) {
                             window.location.href = "../Clients/Create";
                         }
                     },
                     {
                         extend: 'copy',
-                        text: 'Copiar'
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     },
                     {
                         extend: 'excel',
-                        text: 'Excel'
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     },
                     {
                         extend: 'pdf',
-                        text: 'Pdf'
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     }
-  
+
                 ],
-                "language": { "url": "../Vendor/DataTables/Spanish.json" } ,
+                "language": { "url": "../Vendor/DataTables/Spanish.json" },
                 columnDefs: [
                     { width: 80, targets: 0 },
                     { width: 50, targets: 4 },
                     { width: 50, targets: 5 },
                     { width: 50, targets: 6 }
                 ],
+
                 fixedColumns: true
             }
             );
@@ -113,5 +123,5 @@
 
     </script>
 
- 
+
 }

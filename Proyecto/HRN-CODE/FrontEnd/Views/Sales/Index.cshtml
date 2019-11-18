@@ -30,8 +30,8 @@
             <th class="">
                 <font color="white">@Html.DisplayNameFor(model => model.monto_total)</font>
             </th>
-            <th class=""></th>
-            <th class=""></th>
+            <th class="notexport"></th>
+            <th class="notexport"></th>
         </tr>
     </thead>
     <tbody>
@@ -80,15 +80,24 @@
                     },
                     {
                         extend: 'copy',
-                        text: 'Copiar'
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     },
                     {
                         extend: 'excel',
-                        text: 'Excel'
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     },
                     {
                         extend: 'pdf',
-                        text: 'Pdf'
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     }
 
                 ],

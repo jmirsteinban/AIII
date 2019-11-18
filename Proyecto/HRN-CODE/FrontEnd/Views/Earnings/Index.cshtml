@@ -4,103 +4,119 @@
     ViewBag.Title = "Beneficio Económico";
 }
 
+
+
 <div id="exportthis">
 
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2>Beneficio Económico</h2>
-            </div>
+    <div class="row">
+        <div class="col-12 text-center">
+            <h2>Beneficio Económico</h2>
         </div>
-        <hr />
+    </div>
+    <hr />
 
-        <div class="col-12">
+    <div class="col-12">
 
-            <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+        <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
-            <canvas height="255" style="max-width: 100% !important; display: block; width: 589px; height: 255px;" class="blog-overview-users chartjs-render-monitor" width="589"></canvas>
-        </div>
-
-
-        <script>
-            var arrVentaTotal = [];
-            var arrUtilidadTotal = [];
-
-        </script>
-
-        <div class="col-12">
-            <table id="tblEarnings" class="table table-light table-striped" style="width:100%">
-                <thead class="bg-primary">
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ano_mes)
-                        </th>
-                        <th>
-
-                            @Html.DisplayNameFor(model => model.earnings_total_mes)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.conteo_facturas)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.utils_total_mes)
-                        </th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ano_mes)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.earnings_total_mes)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.conteo_facturas)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.utils_total_mes)
-                            </td>
-
-                        </tr>
-
-                    }
-                </tbody>
-            </table>
-        </div>
-
+        <canvas height="255" style="max-width: 100% !important; display: block; width: 589px; height: 255px;" class="blog-overview-users chartjs-render-monitor" width="589"></canvas>
     </div>
 
-    @foreach (var item in Model)
-    {
-        <script>arrVentaTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.earnings_total_mes))); </script>
-        <script>arrUtilidadTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.utils_total_mes))); </script>
-    }
 
-    @section Scripts{
+    <script>
+        var arrVentaTotal = [];
+        var arrUtilidadTotal = [];
+        var arrMeses = [];
+        var ano, mes;
 
-        <script>
+    </script>
 
-            $(document).ready(function () {
-                $('#tblEarnings').DataTable({
-                    dom: 'Brtip',
-                    buttons: [
-                        {
-                            extend: 'copy',
-                            text: 'Copiar'
-                        },
-                        {
-                            extend: 'excel',
-                            text: 'Excel'
-                        },
-                        {
-                            extend: 'pdf',
-                            text: 'Pdf'
-                        },
-                                            {
+    <div class="col-12">
+        <table id="tblEarnings" class="table table-light table-striped" style="width:100%">
+            <thead class="bg-primary">
+                <tr>
+                    <th>
+                        Año
+                    </th>
+                    <th>
+                        Mes
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.earnings_total_mes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.conteo_facturas)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.utils_total_mes)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ano)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.mes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.earnings_total_mes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.conteo_facturas)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.utils_total_mes)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@foreach (var item in Model)
+{
+    <script>arrVentaTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.earnings_total_mes))); </script>
+    <script>arrUtilidadTotal.push(parseFloat( @Html.DisplayFor(modelItem => item.utils_total_mes))); </script>
+
+    <script>
+         ano = @Html.DisplayFor(modelItem => item.ano);
+         mes =  @Html.DisplayFor(modelItem => item.mes);
+        if (mes < 10) {
+            mes = '0' + mes;
+        }
+        arrMeses.push(mes + " / " + ano)
+    </script>
+}
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            console.log(arrMeses);
+
+            $('#tblEarnings').DataTable({
+                dom: 'Brtip',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar'
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf'
+                    },
+                    {
                         className: '',
                         text: 'Pdf [Grafico y Tabla]',
                         action: function (e, dt, node, config) {
@@ -108,35 +124,27 @@
                         }
                     },
 
-                    ],
-                    "language": { "url": "../Vendor/DataTables/Spanish.json" }
-                }
-                );
-            });
+                ],
+                "language": { "url": "../Vendor/DataTables/Spanish.json" }
+            }
+            );
+        });
 
 
+        // console.log(arrVentaTotal);
+        // console.log(arrUtilidadTotal);
 
+        // Datasets
+        var cantMeses = arrVentaTotal.length;
+        var earnCtx = document.getElementsByClassName('blog-overview-users')[0];
 
-            // console.log(arrVentaTotal);
-            // console.log(arrUtilidadTotal);
+        console.log(arrMeses);
+        // Generate the Analytics Overview chart.
+        window.BlogOverviewUsers = new Chart(earnCtx, {
+            type: 'LineWithLine',
+            data: {
+                labels: arrMeses,
 
-            var cantMeses = arrVentaTotal.length;
-
-            // Blog overview date range init.
-            //$('#blog-overview-date-range').datepicker({});
-
-
-            // Datasets
-
-
-            var bouCtx = document.getElementsByClassName('blog-overview-users')[0];
-
-            // Data
-            var bouData = {
-                // Generate the meses labels on the X axis.
-                labels: Array.from(new Array(cantMeses), function (_, i) {
-                    return i === 0 ? 1 : i;
-                }),
                 datasets: [{
                     label: 'Venta Total',
                     fill: 'Inicio',
@@ -157,22 +165,19 @@
                     pointBackgroundColor: '#ffffff',
                     pointHoverBackgroundColor: 'rgba(255,65,105,1)',
                     borderDash: [3, 3],
-                    borderWidth: 1,
+                    borderWidth: 1.5,
                     pointRadius: 0,
-                    pointHoverRadius: 2,
+                    pointHoverRadius: 3,
                     pointBorderColor: 'rgba(255,65,105,1)'
                 }]
-            };
-
-            // Options
-            var bouOptions = {
+            },
+            options: {
                 responsive: true,
                 legend: {
                     position: 'top'
                 },
                 elements: {
                     line: {
-                        // A higher value makes the line look skewed at this ratio.
                         tension: 0.3
                     },
                     point: {
@@ -185,56 +190,48 @@
                 },
                 hover: {
                     mode: 'nearest',
-                    intersect: false
+                    intersect: true
                 },
                 tooltips: {
                     custom: false,
                     mode: 'nearest',
                     intersect: false
                 }
-            };
+            }
+        });
+        // Render the chart.
+        window.BlogOverviewUsers.render();
 
-            // Generate the Analytics Overview chart.
-            window.BlogOverviewUsers = new Chart(bouCtx, {
-                type: 'LineWithLine',
-                data: bouData,
-                options: bouOptions
+
+        // Funcion Para Exportar DIV a PDF usando html2canvas y pdfMake
+        function pdgGrafTabla() {
+            html2canvas(document.getElementById('exportthis')).then(function (canvas) {
+                var data = canvas.toDataURL();
+
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500,
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("BeneficioEconómico");
             });
+        }
 
-            // Hide initially the first and last analytics overview chart points.
-            // They can still be triggered on hover.
-            var aocMeta = BlogOverviewUsers.getDatasetMeta(0);
-            aocMeta.data[0]._model.radius = 0;
-            aocMeta.data[bouData.datasets[0].data.length - 1]._model.radius = 0;
+        //Funcion para dar formato de Moneda
+        function formatMoney(number, decPlaces, decSep, thouSep) {
+            decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+                decSep = typeof decSep === "undefined" ? "." : decSep;
+            thouSep = typeof thouSep === "undefined" ? "," : thouSep;
+            var sign = number < 0 ? "-" : "";
+            var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+            var j = (j = i.length) > 3 ? j % 3 : 0;
 
-            // Render the chart.
-            window.BlogOverviewUsers.render();
+            return sign +
+                (j ? i.substr(0, j) + thouSep : "") +
+                i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
+                (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+        }
 
-
-
-
-            function pdgGrafTabla() {
-
-
-            html2canvas(document.getElementById('exportthis')).then(function(canvas) {
-                    var data = canvas.toDataURL();
-
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500,
-                        }]
-                        };
-                        console.log("++++");
-                    pdfMake.createPdf(docDefinition).download("BeneficioEconómico");
-
-
-            });
-
-   
-
-
+    </script>
 }
-
-        </script>
-    }

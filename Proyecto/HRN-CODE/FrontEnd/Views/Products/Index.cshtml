@@ -38,9 +38,9 @@
             <th class="">
                 <font color="white">@Html.DisplayNameFor(model => model.estado_producto)</font>
             </th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th class="notexport"></th>
+            <th class="notexport"></th>
+            <th class="notexport"></th>
         </tr>
     </thead>
     <tbody>
@@ -100,15 +100,24 @@
                     },
                     {
                         extend: 'copy',
-                        text: 'Copiar'
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     },
                     {
                         extend: 'excel',
-                        text: 'Excel'
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     },
                     {
                         extend: 'pdf',
-                        text: 'Pdf'
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     }
 
                 ],

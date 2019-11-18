@@ -44,7 +44,8 @@
           <Property Name="earnings_total_mes" Type="money" Nullable="false" />
           <Property Name="conteo_facturas" Type="int" Nullable="false" />
           <Property Name="utils_total_mes" Type="money" />
-          <Property Name="ano_mes" Type="nvarchar" MaxLength="7" />
+          <Property Name="mes" Type="nvarchar" MaxLength="4" />
+          <Property Name="ano" Type="nvarchar" MaxLength="4" />
         </EntityType>
         <EntityType Name="phones">
           <Key>
@@ -130,7 +131,7 @@
           <Property Name="compraID" Type="int" Nullable="false" />
           <Property Name="estado_warranty" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <Association Name="FK__sales__clientID__6477ECF3">
+        <Association Name="FK__sales__clientID__6383C8BA">
           <End Role="clients" Type="Self.clients" Multiplicity="1" />
           <End Role="sales" Type="Self.sales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -142,7 +143,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sales__userID__656C112C">
+        <Association Name="FK__sales__userID__6477ECF3">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="sales" Type="Self.sales" Multiplicity="*" />
           <ReferentialConstraint>
@@ -154,7 +155,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__sales_x_p__produ__66603565">
+        <Association Name="FK__sales_x_p__produ__656C112C">
           <End Role="products" Type="Self.products" Multiplicity="1" />
           <End Role="sales_x_products" Type="Self.sales_x_products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -280,15 +281,15 @@
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="warranties" EntityType="Self.warranties" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__sales__clientID__6477ECF3" Association="Self.FK__sales__clientID__6477ECF3">
+          <AssociationSet Name="FK__sales__clientID__6383C8BA" Association="Self.FK__sales__clientID__6383C8BA">
             <End Role="clients" EntitySet="clients" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__sales__userID__656C112C" Association="Self.FK__sales__userID__656C112C">
+          <AssociationSet Name="FK__sales__userID__6477ECF3" Association="Self.FK__sales__userID__6477ECF3">
             <End Role="users" EntitySet="users" />
             <End Role="sales" EntitySet="sales" />
           </AssociationSet>
-          <AssociationSet Name="FK__sales_x_p__produ__66603565" Association="Self.FK__sales_x_p__produ__66603565">
+          <AssociationSet Name="FK__sales_x_p__produ__656C112C" Association="Self.FK__sales_x_p__produ__656C112C">
             <End Role="products" EntitySet="products" />
             <End Role="sales_x_products" EntitySet="sales_x_products" />
           </AssociationSet>
@@ -533,7 +534,6 @@
             <End Role="sale" EntitySet="sales" />
             <End Role="warranty" EntitySet="warranties" />
           </AssociationSet>
-          <EntitySet Name="earnings" EntityType="HornosDBModel.earning" />
           <FunctionImport Name="sp_Analytics_Earnings">
             <Parameter Name="Ano_Mes" Mode="In" Type="String" />
             <Parameter Name="rep_mes" Mode="In" Type="Boolean" />
@@ -544,8 +544,9 @@
             <Parameter Name="Z_Util_Tot" Mode="InOut" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="sp_Get_factura_detalle" ReturnType="Collection(HornosDBModel.sp_Get_factura_detalle_Result)">
-            <Parameter Name="maestroID" Mode="In" Type="Int32" />
+          <Parameter Name="maestroID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="earnings" EntityType="HornosDBModel.earnings" />
         </EntityContainer>
         <ComplexType Name="sp_directions_clients_Result">
           <Property Type="Int32" Name="direccionID" Nullable="false" />
@@ -640,16 +641,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="earning">
-          <Key>
-            <PropertyRef Name="earningID" />
-          </Key>
-          <Property Name="earningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="earnings_total_mes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-          <Property Name="conteo_facturas" Type="Int32" Nullable="false" />
-          <Property Name="utils_total_mes" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ano_mes" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
-        </EntityType>
         <ComplexType Name="sp_Get_factura_detalle_Result">
           <Property Type="Int32" Name="compraID_detalle" Nullable="false" />
           <Property Type="Int32" Name="compraID" Nullable="false" />
@@ -657,6 +648,17 @@
           <Property Type="Decimal" Name="precio_factura_d" Nullable="false" Precision="19" />
           <Property Type="Int32" Name="cantidad" Nullable="false" />
         </ComplexType>
+        <EntityType Name="earnings">
+          <Key>
+            <PropertyRef Name="earningID" />
+          </Key>
+          <Property Name="earningID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="earnings_total_mes" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="conteo_facturas" Type="Int32" Nullable="false" />
+          <Property Name="utils_total_mes" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="mes" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+          <Property Name="ano" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -879,17 +881,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="earnings">
-            <EntityTypeMapping TypeName="HornosDBModel.earning">
-              <MappingFragment StoreEntitySet="earnings">
-                <ScalarProperty Name="ano_mes" ColumnName="ano_mes" />
-                <ScalarProperty Name="utils_total_mes" ColumnName="utils_total_mes" />
-                <ScalarProperty Name="conteo_facturas" ColumnName="conteo_facturas" />
-                <ScalarProperty Name="earnings_total_mes" ColumnName="earnings_total_mes" />
-                <ScalarProperty Name="earningID" ColumnName="earningID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_Analytics_Earnings" FunctionName="HornosDBModel.Store.sp_Analytics_Earnings" />
           <FunctionImportMapping FunctionImportName="sp_Analytics_Show" FunctionName="HornosDBModel.Store.sp_Analytics_Show" />
           <FunctionImportMapping FunctionImportName="sp_Get_factura_detalle" FunctionName="HornosDBModel.Store.sp_Get_factura_detalle">
@@ -903,6 +894,18 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="earnings">
+            <EntityTypeMapping TypeName="HornosDBModel.earnings">
+              <MappingFragment StoreEntitySet="earnings">
+                <ScalarProperty Name="ano" ColumnName="ano" />
+                <ScalarProperty Name="mes" ColumnName="mes" />
+                <ScalarProperty Name="utils_total_mes" ColumnName="utils_total_mes" />
+                <ScalarProperty Name="conteo_facturas" ColumnName="conteo_facturas" />
+                <ScalarProperty Name="earnings_total_mes" ColumnName="earnings_total_mes" />
+                <ScalarProperty Name="earningID" ColumnName="earningID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

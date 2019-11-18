@@ -26,8 +26,11 @@ namespace FrontEnd.Models
         [Display(Name = "Utilidad Total")]
         public Nullable<decimal> utils_total_mes { get; set; }
 
-        [Display(Name = "Año-Mes")]
-        public string ano_mes { get; set; }
+        [Display(Name = "Año")]
+        public string ano { get; set; }
+
+        [Display(Name = "Mes")]
+        public string mes { get; set; }
 
 
     }

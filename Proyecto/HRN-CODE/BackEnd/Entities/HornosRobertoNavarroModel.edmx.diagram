@@ -19,9 +19,9 @@
         <AssociationConnector Association="HornosDBModel.fkCompraID_cascade_salesProducts" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HornosDBModel.Role" Width="1.5" PointX="0.75" PointY="11.75" />
         <AssociationConnector Association="HornosDBModel.UsersInRoles" />
-        <EntityTypeShape EntityType="HornosDBModel.warranty" Width="1.5" PointX="5.25" PointY="5.625" />
+        <EntityTypeShape EntityType="HornosDBModel.warranty" Width="1.5" PointX="3" PointY="5.75" />
         <AssociationConnector Association="HornosDBModel.fkCompraID_cascade_warranties" />
-        <EntityTypeShape EntityType="HornosDBModel.earning" Width="1.5" PointX="7.375" PointY="6.75" />
+        <EntityTypeShape EntityType="HornosDBModel.earnings" Width="1.5" PointX="7.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

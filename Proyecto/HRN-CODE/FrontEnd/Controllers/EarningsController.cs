@@ -15,7 +15,7 @@ namespace FrontEnd.Controllers
     public class EarningsController : Controller
     {
 
-        public EarningsViewModel Convertir(earning Earning)
+        public EarningsViewModel Convertir(earnings Earning)
         {
             EarningsViewModel earningsViewModel = new EarningsViewModel
             {
@@ -23,7 +23,8 @@ namespace FrontEnd.Controllers
                 earnings_total_mes = Earning.earnings_total_mes,
                 conteo_facturas = Earning.conteo_facturas,
                 utils_total_mes = Earning.utils_total_mes,
-                ano_mes = Earning.ano_mes
+                ano = Earning.ano,
+                mes = Earning.mes
             };
             return earningsViewModel;
         }
@@ -32,8 +33,8 @@ namespace FrontEnd.Controllers
         public ActionResult Index()
         {
 
-            List<earning> lista;
-            using (WorkUnit<earning> workUnit = new WorkUnit<earning>(new BDContext()))
+            List<earnings> lista;
+            using (WorkUnit<earnings> workUnit = new WorkUnit<earnings>(new BDContext()))
             {
                 lista = workUnit.genericDAL.GetAll().ToList();
             }

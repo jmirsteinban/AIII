@@ -70,7 +70,7 @@
     <Compile Include="Entities\direction.cs">
       <DependentUpon>HornosRobertoNavarroModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entities\earning.cs">
+    <Compile Include="Entities\earnings.cs">
       <DependentUpon>HornosRobertoNavarroModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Entities\HornosRobertoNavarroModel.Context.cs">
