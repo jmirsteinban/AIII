@@ -15,11 +15,11 @@
 
 
 <div>
-    <hr />
     <br />
-    <center>
-        <div class="table-responsive">
-            <table class="table table-light">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="table-responsive col-10">
+            <table id="tblBorrar" class="table table-light">
                 <thead class="bg-danger">
                     <tr>
                         <th scope="col" class="thead-dark">
@@ -83,45 +83,57 @@
                     </tr>
                 </tbody>
             </table>
-        </div>
-    </center>
-    <br />
-
-
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.clientID)
-        @Html.HiddenFor(model => model.direccionID)
-        @Html.HiddenFor(model => model.telefonoID)
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">ELIMINAR</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Está seguro de borrar este cliente?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <input type="submit" value="Confirmar" class="btn btn-primary" style="width:120px;" />
+            <br />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.clientID)
+                @Html.HiddenFor(model => model.direccionID)
+                @Html.HiddenFor(model => model.telefonoID)
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">ELIMINAR</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¿Está seguro de borrar este cliente?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <input type="submit" value="Confirmar" class="btn btn-primary" style="width:120px;" />
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="form-actions no-color">
-            <a href="~/Clients/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                Borrar
-            </button>
+                <div class="form-actions no-color">
+                    <a href="~/Clients/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                        Borrar
+                    </button>
 
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
+        @section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $('#tblBorrar').DataTable({
+                        dom: ''
+                    }
+                    );
+                });
+
+            </script>
+
+
+        }
+

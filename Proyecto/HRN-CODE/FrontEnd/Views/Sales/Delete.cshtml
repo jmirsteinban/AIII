@@ -12,125 +12,144 @@
 
 
 
-<div>
-    <hr />
-    <center>
-        <div class="table-responsive">
-            <table class="table table-light">
-                <thead class="bg-danger">
-                    <tr>
-                        <th scope="col" class="thead-dark">
-                            <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
-                        </th>
-                        <th scope="col" class="thead-dark">
-                            <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
-                        </th>
-                        <th scope="col" class="thead-dark">
-                            <font color="white">@Html.DisplayNameFor(model => model.fecha_compra)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.estado_factura)</font>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => model.cedula_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.cedula_user)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.fecha_compra)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.estado_factura)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </center>
-    <br />
-    <br />
-    <center>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <caption class="bg-dark">
-                    <center>
-                        <font color="white">@Html.DisplayNameFor(model => model.monto_total) : ₡@Html.DisplayFor(model => model.monto_total)</font>
-                    </center>
-                </caption>
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col" class="thead-dark">
-                            @Html.DisplayNameFor(model => model.nombre_producto)
-                        </th>
-                        <th scope="col" class="thead-dark">
-                            @Html.DisplayNameFor(model => model.cantidad_producto)
-                        </th>
-                        <th scope="col" class="thead-dark">
-                            @Html.DisplayNameFor(model => model.precio_factura_d)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.productosDetalle)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.productName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.cantProd)
-                            </td>
-                            <td>
-                                ₡ @Html.DisplayFor(modelItem => item.precio_factura_d)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </center>
-    <br />
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+        <table id="tblBorrarM" class="table table-light">
+            <thead class="bg-danger">
+                <tr>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.fecha_compra)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_factura)</font>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.cedula_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.cedula_user)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.fecha_compra)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.estado_factura)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.compraID)
-        @Html.HiddenFor(model => model.clientID)
-        @Html.HiddenFor(model => model.userID)
-        @Html.HiddenFor(model => model.monto_total)
-        @Html.HiddenFor(model => model.estado_factura)
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">ELIMINAR</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        ¿Está seguro de borrar esta factura?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <input type="submit" value="Confirmar" class="btn btn-primary" style="width:120px;" />
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+        <hr />
+        <table id="tblBorrarD" class="table table-striped">
+            <caption class="bg-primary">
+                <center>
+                    <font color="white">@Html.DisplayNameFor(model => model.monto_total) : ₡@Html.DisplayFor(model => model.monto_total)</font>
+                </center>
+            </caption>
+            <thead class="bg-primary">
+                <tr>
+                    <th scope="col" class="thead-dark">
+                        @Html.DisplayNameFor(model => model.nombre_producto)
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        @Html.DisplayNameFor(model => model.cantidad_producto)
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        @Html.DisplayNameFor(model => model.precio_factura_d)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.productosDetalle)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.productName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cantProd)
+                        </td>
+                        <td>
+                            ₡ @Html.DisplayFor(modelItem => item.precio_factura_d)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.compraID)
+            @Html.HiddenFor(model => model.clientID)
+            @Html.HiddenFor(model => model.userID)
+            @Html.HiddenFor(model => model.monto_total)
+            @Html.HiddenFor(model => model.estado_factura)
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">ELIMINAR</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Está seguro de borrar esta factura?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <input type="submit" value="Confirmar" class="btn btn-primary" style="width:120px;" />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="form-actions no-color">
-            <button class="btn btn-pill btn-success btn-md"><a href="~/Sales/Index" style="color:white !important">Volver a la Lista</a></button>
-            <!-- Button trigger modal -->
-            <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                Borrar
-            </button>
-        </div>
-    }
+            <div class="form-actions no-color">
+                <button class="btn btn-pill btn-success btn-md"><a href="~/Sales/Index" style="color:white !important">Volver a la Lista</a></button>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+                    Borrar
+                </button>
+            </div>
+        }
+    </div>
 </div>
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblBorrarMx').DataTable({
+                dom: ''
+            }
+            );
+            $('#tblBorrarD').DataTable({
+                dom: ''
+            }
+            );
+        });
+
+    </script>
+
+
+}

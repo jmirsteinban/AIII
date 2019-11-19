@@ -12,80 +12,121 @@
 </div>
 <hr />
 
-<div>
-    <hr />
-    <br />
-    <center>
-        <div class="table-responsive">
-            <table class="table table-striped table-dark">
-                <thead class="bg-success">
-                    <tr>
-                        <th scope="col" class="thead-dark">
-                            <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
-                        </th>
-                        <th scope="col" class="thead-dark">
-                            <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_cliente)</font>
-                        </th>
-                        <th scope="col" class="thead-dark">
-                            <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_cliente)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_cliente)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_cliente)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.correo_electronico_cliente)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.telefono)</font>
-                        </th>
-                        <th>
-                            <font color="white">@Html.DisplayNameFor(model => model.direccion)</font>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(model => model.cedula_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.primer_nombre_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.segundo_nombre_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.primer_apellido_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.segundo_apellido_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.correo_electronico_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.estado_cliente)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.telefono)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => model.direccion)
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </center>
-    <br />
+
+<br />
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+        <table id="tblDetalle" class="table table-striped">
+            <thead class="bg-primary">
+                <tr>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_cliente)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_cliente)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_cliente)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_cliente)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.correo_electronico_cliente)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_cliente)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.telefono)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.direccion)</font>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.cedula_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.primer_nombre_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.segundo_nombre_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.primer_apellido_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.segundo_apellido_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.correo_electronico_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.estado_cliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.direccion)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <p>
+            <a href="~/Clients/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
+            <button class="btn btn-pill btn-outline-dark" style="width:120px;">@Html.ActionLink("Editar", "Edit", new { id = Model.clientID })</button>
+        </p>
+    </div>
 </div>
-<p>
-    <a href="~/Clients/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
-    <button class="btn btn-pill btn-outline-dark" style="width:120px;">@Html.ActionLink("Editar", "Edit", new { id = Model.clientID })</button>
-</p>
+
+@section Scripts{
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#tblDetalle').DataTable({
+                dom: 'B',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    }
+                ],
+                "language": { "url": "../../Vendor/DataTables/Spanish.json" }
+            }
+            );
+        });
+
+    </script>
+
+
+}
+

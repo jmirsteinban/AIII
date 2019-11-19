@@ -42,7 +42,6 @@ a {
     color: #4db115;
 }
 
-
 .btn-success {
     color: #fff;
     border-color: #57b846;
@@ -72,4 +71,12 @@ a {
 
 .dataTables_wrapper .dataTables_filter {
     text-align: center !important;
+}
+
+/* Titulo Detalle */
+
+.hrn-titdet {
+    color:white !important;
+    font-style:italic !important;
+    background-color: #57b846 !important;
 }

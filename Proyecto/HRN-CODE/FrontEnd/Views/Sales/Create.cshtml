@@ -121,7 +121,7 @@
                                 <span id="precioTotal" class="pull-right" style="margin-right:100px;"><strong></strong> </span>
                             </center>
                         </caption>
-                        <thead class="bg-dark">
+                        <thead class="bg-primary">
                             <tr>
                                 <th style="width:30%; color:white;">Producto</th>
                                 <th style="width:15%; color:white;">Cédula Cliente</th>
@@ -175,27 +175,30 @@
     <script src="@Url.Content("~/Scripts/Mascaras/jquery.maskMoney.js")"></script>
     <script src="@Url.Content("~/Scripts/Alertas/sweetalert2.all.js")"></script>
     <script>
-        $('.select2').select2();
 
-            //Cambio Dinámico de Máxima cantidad
-            function cambiaSelect() {
-                document.getElementById("cantProducto").setAttribute("max", $("#productName option:selected").attr("attr-cant"));
-                //$("#cantProducto").val($("#productName option:selected").attr("attr-cant"));
-                $("#precioDetalle").val($("#productName option:selected").attr("attr-prec"));
-            };
 
-            function calcTotalCompra() {
-                //Total de compra
-                    var precioTotal=0;
+        $(document).ready(function () {
+            $('#detailsTable').DataTable({
+                dom: '',
+                "language": { "url": "../Vendor/DataTables/Spanish.json" }
+            });
 
-                    $.each($("#detailsTable tbody tr"), function () {
-                        precioTotal = parseFloat(precioTotal) + parseFloat($(this).find('td:eq(3)').html());
-                    });
 
-                document.getElementById("precioTotal").innerHTML = "Total de la Compra : ₡ " + precioTotal;
+            $('.select2').select2();
 
-                return precioTotal;
-            };
+
+            // After Add A New Order In The List, If You Want, You Can Remove It.
+            $(document).on('click', 'a.deleteItem', function (e) {
+                e.preventDefault();
+                if ($(this).attr('data-itemId') == "0") {
+                    //$(this).parents('tr').css("background-color", "#ff6347").fadeOut(600, function () {
+                    //    $(this).removeData();
+                    //});
+                    $(this).parents('tr').remove();
+                }
+
+                calcTotalCompra();
+            });
 
             //Add Multiple Order.
             $("#addToList").click(function (e) {
@@ -219,64 +222,6 @@
                 }
             });
 
-            //After Add A New Order In The List, Clear Clean The Form For Add More Order.
-            function clearItem() {
-                $("#productName").val('');
-                $("#cantProducto").val('');
-                $("#precioDetalle").val('₡');
-            }
-
-            // After Add A New Order In The List, If You Want, You Can Remove It.
-            $(document).on('click', 'a.deleteItem', function (e) {
-                e.preventDefault();
-                if ($(this).attr('data-itemId') == "0") {
-                    //$(this).parents('tr').css("background-color", "#ff6347").fadeOut(600, function () {
-                    //    $(this).removeData();
-                    //});
-                    $(this).parents('tr').remove();
-                }
-
-                calcTotalCompra();
-            });
-
-            //After Click Save Button Pass All Data View To Controller For Save Database
-            function saveOrder(data) {
-                return $.ajax({
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    type: 'POST',
-                    url: "/Sales/Create",
-                    data: data,
-                    success: function (result) {
-                        document.getElementById("modalHeader").innerHTML = "Estado de Factura: " + $("#estadoFac").val();
-                        if ($("#estadoFac").val()=="Procesando") {
-                            document.getElementById("modalBody").innerHTML = "¡El proceso de la compra quedó en un estado de espera! <br /> Fecha: @DateTime.Now";
-                            document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + calcTotalCompra();
-                            document.getElementById("redirect").setAttribute("href", "/Sales/Index");
-                            document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
-                            document.getElementById("redirect").innerHTML = "Volver a la lista";
-                        } else {
-                            document.getElementById("modalBody").innerHTML = "¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now";
-                            document.getElementById("modalBody2").innerHTML = "Cliente: " + result + " --- Monto Total: ₡" + calcTotalCompra();
-                            document.getElementById("redirect").setAttribute("href", "/Sales/Index");
-                            document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
-                            document.getElementById("redirect").innerHTML = "Volver a la lista";
-                            //$("#cedCliente").val()
-                        }
-                        $("#newOrderModal").modal();
-                    },
-                    error: function () {
-                        //location.href = "/Sales/Index";
-                        document.getElementById("modalHeader").innerHTML = "¡Fallo a la hora de realizar la compra!";
-                        document.getElementById("modalBody").innerHTML = "¡La compra fue cancelada revise los datos que ingresó! <br /> Fecha: @DateTime.Now";
-                        document.getElementById("modalBody2").innerHTML = "";
-                        document.getElementById("redirect").setAttribute("href", "#");
-                        document.getElementById("redirect").setAttribute("class", "btn btn-block btn-danger");
-                        document.getElementById("redirect").innerHTML = "Volver a la compra";
-                        $("#newOrderModal").modal();
-                    }
-                });
-            }
             //Collect Multiple Order List For Pass To Controller
             $("#saveOrder").click(function (e) {
                 e.preventDefault();
@@ -285,26 +230,93 @@
                 orderArr.length = 0;
 
                 $.each($("#detailsTable tbody tr"), function () {
-                orderArr.push({
-                    productName: $(this).find('td:eq(0)').html(),
-                    cedCliente: $(this).find('td:eq(1)').html(),
-                    cantProd: $(this).find('td:eq(2)').html(),
-                    precioDetalle: $(this).find('td:eq(3)').html(),
-                    cedUsuario: $(this).find('td:eq(4)').html(),
-                    estado: $(this).find('td:eq(5)').html()
+                    orderArr.push({
+                        productName: $(this).find('td:eq(0)').html(),
+                        cedCliente: $(this).find('td:eq(1)').html(),
+                        cantProd: $(this).find('td:eq(2)').html(),
+                        precioDetalle: $(this).find('td:eq(3)').html(),
+                        cedUsuario: $(this).find('td:eq(4)').html(),
+                        estado: $(this).find('td:eq(5)').html()
+                    });
+                });
+
+
+                var data = JSON.stringify({
+                order: orderArr
+                });
+
+                $.when(saveOrder(data)).then(function (response) {
+                        console.log(response);
+                }).fail(function (err) {
+                        console.log(err);
                 });
             });
 
 
-            var data = JSON.stringify({
-            order: orderArr
-            });
+        });
 
-            $.when(saveOrder(data)).then(function (response) {
-            console.log(response);
-            }).fail(function (err) {
-            console.log(err);
+        //Cambio Dinámico de Máxima cantidad
+        function cambiaSelect() {
+                document.getElementById("cantProducto").setAttribute("max", $("#productName option:selected").attr("attr-cant"));
+                //$("#cantProducto").val($("#productName option:selected").attr("attr-cant"));
+                $("#precioDetalle").val($("#productName option:selected").attr("attr-prec"));
+        };
+
+        function calcTotalCompra() {
+            //Total de compra
+            var precioTotal=0;
+            $.each($("#detailsTable tbody tr"), function () {
+                precioTotal = parseFloat(precioTotal) + parseFloat($(this).find('td:eq(3)').html());
             });
+            document.getElementById("precioTotal").innerHTML = "Total de la Compra : ₡ " + precioTotal;
+            return precioTotal;
+        };
+
+        //After Add A New Order In The List, Clear Clean The Form For Add More Order.
+        function clearItem() {
+            $("#productName").val('');
+            $("#cantProducto").val('');
+            $("#precioDetalle").val('₡');
+        }
+
+        //After Click Save Button Pass All Data View To Controller For Save Database
+        function saveOrder(data) {
+            return $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: 'POST',
+                url: "/Sales/Create",
+                data: data,
+                success: function (result) {
+                    document.getElementById("modalHeader").innerHTML = "Estado de Factura: " + $("#estadoFac").val();
+                    if ($("#estadoFac").val()=="Procesando") {
+                        document.getElementById("modalBody").innerHTML = "¡El proceso de la compra quedó en un estado de espera! <br /> Fecha: @DateTime.Now";
+                        document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + calcTotalCompra();
+                        document.getElementById("redirect").setAttribute("href", "/Sales/Index");
+                        document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
+                        document.getElementById("redirect").innerHTML = "Volver a la lista";
+                    } else {
+                        document.getElementById("modalBody").innerHTML = "¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now";
+                        document.getElementById("modalBody2").innerHTML = "Cliente: " + result + " --- Monto Total: ₡" + calcTotalCompra();
+                        document.getElementById("redirect").setAttribute("href", "/Sales/Index");
+                        document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
+                        document.getElementById("redirect").innerHTML = "Volver a la lista";
+                        //$("#cedCliente").val()
+                    }
+                    $("#newOrderModal").modal();
+                },
+                error: function () {
+                    //location.href = "/Sales/Index";
+                    document.getElementById("modalHeader").innerHTML = "¡Fallo a la hora de realizar la compra!";
+                    document.getElementById("modalBody").innerHTML = "¡La compra fue cancelada revise los datos que ingresó! <br /> Fecha: @DateTime.Now";
+                    document.getElementById("modalBody2").innerHTML = "";
+                    document.getElementById("redirect").setAttribute("href", "#");
+                    document.getElementById("redirect").setAttribute("class", "btn btn-block btn-danger");
+                    document.getElementById("redirect").innerHTML = "Volver a la compra";
+                    $("#newOrderModal").modal();
+                }
             });
+        }
+
     </script>
 }

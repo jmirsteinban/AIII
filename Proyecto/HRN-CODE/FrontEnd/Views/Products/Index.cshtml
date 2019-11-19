@@ -13,124 +13,129 @@
 <hr />
 
 
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+        <table id="tblProductos" class="table table-light table-striped" style="width:100%">
+            <thead class="bg-primary">
+                <tr>
+                    <th class="">
+                        <small> <font color="white">@Html.DisplayNameFor(model => model.codigo_producto)</font></small>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.nombre_producto)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.descripcion)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.cantidad)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.precio_manufactura)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.precio_venta)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_producto)</font>
+                    </th>
+                    <th class="notexport"></th>
+                    <th class="notexport"></th>
+                    <th class="notexport"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.codigo_producto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.nombre_producto)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.descripcion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cantidad)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precio_manufactura)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.precio_venta)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.estado_producto)
+                        </td>
+                        <td>
+                            <a href="../Products/Edit/@item.productID" class="btn btn-success" style="color:white;">Editar</a>
+                        </td>
+                        <td>
+                            <a href="../Products/Details/@item.productID" class="btn btn-primary" style="color:white;">Detalles</a>
+                        </td>
+                        <td>
+                            <a href="../Products/Delete/@item.productID" class="btn btn-danger" style="color:white;">Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table id="tblProductos" class="table table-light table-striped" style="width:100%">
-    <thead class="bg-primary">
-        <tr>
-            <th class="">
-                <small> <font color="white">@Html.DisplayNameFor(model => model.codigo_producto)</font></small>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.nombre_producto)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.descripcion)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.cantidad)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.precio_manufactura)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.precio_venta)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.estado_producto)</font>
-            </th>
-            <th class="notexport"></th>
-            <th class="notexport"></th>
-            <th class="notexport"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.codigo_producto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre_producto)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.descripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.cantidad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.precio_manufactura)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.precio_venta)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.estado_producto)
-                </td>
-                <td>
-                    <a href="../Products/Edit/@item.productID" class="btn btn-success" style="color:white;">Editar</a>
-                </td>
-                <td>
-                    <a href="../Products/Details/@item.productID" class="btn btn-primary" style="color:white;">Detalles</a>
-                </td>
-                <td>
-                    <a href="../Products/Delete/@item.productID" class="btn btn-danger" style="color:white;">Borrar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-@section Scripts{
+        @section Scripts{
 
 
 
-    <script>
-        $(document).ready(function () {
-            $('#tblProductos').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        className: 'hrn-btnadd',
-                        text: ' + Ingresar Producto',
-                        action: function (e, dt, node, config) {
-                            window.location.href = "../Sales/Create";
-                        }
-                    },
-                    {
-                        extend: 'copy',
-                        text: 'Copiar',
-                        exportOptions: {
-                            columns: ':not(.notexport)'
-                        },
-                    },
-                    {
-                        extend: 'excel',
-                        text: 'Excel',
-                        exportOptions: {
-                            columns: ':not(.notexport)'
-                        },
-                    },
-                    {
-                        extend: 'pdf',
-                        text: 'Pdf',
-                        exportOptions: {
-                            columns: ':not(.notexport)'
-                        },
+            <script>
+                $(document).ready(function () {
+                    $('#tblProductos').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                className: 'hrn-btnadd',
+                                text: ' + Ingresar Producto',
+                                action: function (e, dt, node, config) {
+                                    window.location.href = "../Sales/Create";
+                                }
+                            },
+                            {
+                                extend: 'copy',
+                                text: 'Copiar',
+                                exportOptions: {
+                                    columns: ':not(.notexport)'
+                                },
+                            },
+                            {
+                                extend: 'excel',
+                                text: 'Excel',
+                                exportOptions: {
+                                    columns: ':not(.notexport)'
+                                },
+                            },
+                            {
+                                extend: 'pdf',
+                                text: 'Pdf',
+                                exportOptions: {
+                                    columns: ':not(.notexport)'
+                                },
+                            }
+
+                        ],
+                        "language": { "url": "../Vendor/DataTables/Spanish.json" },
+                        columnDefs: [
+                            { width: 50, targets: 0 },
+                            { width: 40, targets: 3 }
+                        ],
+                        fixedColumns: true
                     }
+                    );
+                });
 
-                ],
-                "language": { "url": "../Vendor/DataTables/Spanish.json" },
-                columnDefs: [
-                    { width: 50, targets: 0 },
-                    { width: 40, targets: 3 }
-                ],
-                fixedColumns: true
-            }
-            );
-        });
+            </script>
 
-    </script>
-
-}
+        }

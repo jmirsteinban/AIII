@@ -12,11 +12,11 @@
 </div>
 <hr />
 
-<div>
-    <br />
-    <div class="table-responsive">
-        <table class="table table-striped table-dark">
-            <thead class="bg-success">
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+        <table id="tblDetalle" class="table table-striped">
+            <thead class="bg-primary">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.codigo_producto)</th>
                     <th>@Html.DisplayNameFor(model => model.nombre_producto)</th>
@@ -43,11 +43,51 @@
                 </tr>
             </tbody>
         </table>
+        <br />
+        <p>
+            <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
+            <button class="btn btn-pill btn-outline-dark" style="width:120px;"> @Html.ActionLink("Editar", "Edit", new { id = Model.productID })</button>
+        </p>
     </div>
 </div>
-<br />
-<br />
-<p>
-    <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
-    <button class="btn btn-pill btn-outline-dark" style="width:120px;"> @Html.ActionLink("Editar", "Edit", new { id = Model.productID })</button>
-</p>
+
+
+
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#tblDetalle').DataTable({
+                dom: 'B',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    }
+                ],
+                "language": { "url": "../../Vendor/DataTables/Spanish.json" }
+            });
+        });
+
+    </script>
+
+
+}
