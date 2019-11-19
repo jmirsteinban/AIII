@@ -309,14 +309,18 @@
                 error: function () {
                     //location.href = "/Sales/Index";
                     document.getElementById("modalHeader").innerHTML = "¡Fallo a la hora de realizar la compra!";
-                    document.getElementById("modalBody").innerHTML = "¡La compra fue cancelada revise los datos que ingresó! <br /> Fecha: @DateTime.Now";
+                    document.getElementById("modalBody").innerHTML = "¡La compra fue fallida revise los datos que ingresó! <br /> Fecha: @DateTime.Now";
                     document.getElementById("modalBody2").innerHTML = "";
-                    document.getElementById("redirect").setAttribute("href", "#");
+                    document.getElementById("redirect").setAttribute("href", "../Sales/Create");
                     document.getElementById("redirect").setAttribute("class", "btn btn-block btn-danger");
                     document.getElementById("redirect").innerHTML = "Volver a la compra";
                     $("#newOrderModal").modal();
                 }
             });
+
+            //document.getElementById("redirect").onclick(function () {
+            //    $("#newOrderModal").modal('hide');
+            //});
         }
 
     </script>
