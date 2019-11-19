@@ -12,19 +12,19 @@ namespace TestBackEnd
     [TestClass]
     public class TestEarnings
     {
-        private WorkUnit<earning> unit;
+        private WorkUnit<earnings> unit;
 
         [TestMethod]
         public void AddEarning()
         {
-            earning Earning = new earning
+            earnings Earning = new earnings
             {
                 conteo_facturas=50,
                 earnings_total_mes=5000000,
                 //fecha_reporte=DateTime.Now
             };
 
-            using (unit = new WorkUnit<earning>(new BDContext()))
+            using (unit = new WorkUnit<earnings>(new BDContext()))
             {
                 unit.genericDAL.Add(Earning);
                 Assert.AreEqual(true, unit.Complete());
@@ -34,7 +34,7 @@ namespace TestBackEnd
         [TestMethod]
         public void GetEarning()
         {
-            using (unit = new WorkUnit<earning>(new BDContext()))
+            using (unit = new WorkUnit<earnings>(new BDContext()))
             {
                 unit.genericDAL.Get(1);
                 Assert.AreEqual(true, unit.Complete());
@@ -44,14 +44,14 @@ namespace TestBackEnd
         [TestMethod]
         public void UpdateEarning()
         {
-            earning Earning = new earning
+            earnings Earning = new earnings
             {
                 conteo_facturas = 51,
                 earnings_total_mes = 5600000,
                // fecha_reporte = DateTime.Now
             };
 
-            using (unit = new WorkUnit<earning>(new BDContext()))
+            using (unit = new WorkUnit<earnings>(new BDContext()))
             {
                 unit.genericDAL.Delete(Earning);
                 Assert.AreEqual(true, unit.Complete());
@@ -61,14 +61,14 @@ namespace TestBackEnd
         [TestMethod]
         public void DeleteEarning()
         {
-            earning Earning = new earning
+            earnings Earning = new earnings
             {
                 conteo_facturas = 51,
                 earnings_total_mes = 5600000,
                 //fecha_reporte = DateTime.Now
             };
 
-            using (unit = new WorkUnit<earning>(new BDContext()))
+            using (unit = new WorkUnit<earnings>(new BDContext()))
             {
                 unit.genericDAL.Delete(Earning);
                 Assert.AreEqual(true, unit.Complete());
