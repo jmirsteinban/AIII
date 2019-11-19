@@ -6,11 +6,9 @@
 <div class="row">
     <div class="col-12 text-center">
         <h2>Detalle de Factura</h2>
+        <hr class="hrn-hr" />
     </div>
 </div>
-<hr />
-
-
 
 <div class="row">
     <div class="col-1"></div>
@@ -18,19 +16,19 @@
     <div class="table-responsive col-10 shadow-sm">
         <br />
         <table class="table table-light">
-            <thead class="bg-primary">
+            <thead class="hrn-titMae">
                 <tr>
                     <th scope="col" class="thead-dark">
-                        <font color="white">@Html.DisplayNameFor(model => model.cedula_cliente)</font>
+                        @Html.DisplayNameFor(model => model.cedula_cliente)
                     </th>
                     <th scope="col" class="thead-dark">
-                        <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
+                        @Html.DisplayNameFor(model => model.cedula_user)
                     </th>
                     <th scope="col" class="thead-dark">
-                        <font color="white">@Html.DisplayNameFor(model => model.fecha_compra)</font>
+                        @Html.DisplayNameFor(model => model.fecha_compra)
                     </th>
                     <th>
-                        <font color="white">@Html.DisplayNameFor(model => model.estado_factura)</font>
+                        @Html.DisplayNameFor(model => model.estado_factura)
                     </th>
                 </tr>
             </thead>
@@ -94,7 +92,8 @@
             <button class="btn btn-pill btn-success btn-md"><a href="~/Sales/Index" style="color:white !important">Volver a la Lista</a></button>
         </p>
     </div>
+    <br />
 
 
 </div>
-
+<br />

@@ -12,10 +12,10 @@ a {
     color: #6aa765;
 }
 
-    a:hover {
-        color: #57b846;
-        text-decoration: underline;
-    }
+a:hover {
+    color: #57b846;
+    text-decoration: underline;
+}
 
 /* Clases Personales */
 
@@ -67,6 +67,12 @@ a {
     border-color: #6aa765;
 }
 
+.hrn-hr {
+    border: 0 !important;
+    height: 1px !important;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)) !important;
+}
+
 /* Data Tables*/
 
 .dataTables_wrapper .dataTables_filter {
@@ -75,8 +81,17 @@ a {
 
 /* Titulo Detalle */
 
-.hrn-titdet {
-    color:white !important;
-    font-style:italic !important;
-    background-color: #57b846 !important;
+
+.hrn-titMae {
+    color: #fff;
+    background: #6aa765 !important;
 }
+
+
+.hrn-titdet {
+    color: #616161;
+    text-shadow: #e0e0e0 1px 1px 0;
+    background: #b9e264 !important;
+    font-style: italic !important;
+}
+

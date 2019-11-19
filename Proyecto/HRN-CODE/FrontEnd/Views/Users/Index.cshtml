@@ -7,128 +7,134 @@
 <div class="row">
     <div class="col-12 text-center">
         <h2>Lista de Empleados</h2>
+        <hr class="hrn-hr" />
     </div>
 </div>
-<hr />
+
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+
+        <table id="tblUsers" class="table table-light table-striped">
+            <thead class="bg-primary">
+                <tr>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_user)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_user)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_user)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_user)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.usuario)</font>
+                    </th>
+                    <th class="">
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_user)</font>
+                    </th>
+                    <th class="notexport"></th>
+                    <th class="notexport"></th>
+                    <th class="notexport"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.cedula_user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.primer_nombre_user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.segundo_nombre_user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.primer_apellido_user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.segundo_apellido_user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.usuario)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.estado_user)
+                        </td>
+                        <td>
+                            <a href="../Users/Edit/@item.userID" class="btn btn-success" style="color:white;">Editar</a>
+                        </td>
+                        <td>
+                            <a href="../Users/Details/@item.userID" class="btn btn-primary" style="color:white;">Detalles</a>
+                        </td>
+                        <td>
+                            <a href="../Users/Delete/@item.userID" class="btn btn-danger" style="color:white;">Borrar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+        @section Scripts{
 
 
-<table id="tblUsers" class="table table-light table-striped">
-    <thead class="bg-primary">
-        <tr>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.primer_nombre_user)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.segundo_nombre_user)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.primer_apellido_user)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.segundo_apellido_user)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.usuario)</font>
-            </th>
-            <th class="">
-                <font color="white">@Html.DisplayNameFor(model => model.estado_user)</font>
-            </th>
-            <th class="notexport"></th>
-            <th class="notexport"></th>
-            <th class="notexport"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr class="">
-                <td>
-                    @Html.DisplayFor(modelItem => item.cedula_user)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.primer_nombre_user)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.segundo_nombre_user)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.primer_apellido_user)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.segundo_apellido_user)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.usuario)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.estado_user)
-                </td>
-                <td>
-                    <a href="../Users/Edit/@item.userID" class="btn btn-success" style="color:white;">Editar</a>
-                </td>
-                <td>
-                    <a href="../Users/Details/@item.userID" class="btn btn-primary" style="color:white;">Detalles</a>
-                </td>
-                <td>
-                    <a href="../Users/Delete/@item.userID" class="btn btn-danger" style="color:white;">Borrar</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-@section Scripts{
+            <script>
+                $(document).ready(function () {
+                    $('#tblUsers').DataTable({
+                        dom: 'Bfrtip',
+                        buttons: [
+                            {
+                                className: 'hrn-btnadd',
+                                text: ' + Registrar Empleado Nuevo',
+                                action: function (e, dt, node, config) {
+                                    window.location.href = "../Users/Create";
+                                }
+                            },
+                            {
+                                extend: 'copy',
+                                text: 'Copiar',
+                                exportOptions: {
+                                    columns: ':not(.notexport)'
+                                },
+                            },
+                            {
+                                extend: 'excel',
+                                text: 'Excel',
+                                exportOptions: {
+                                    columns: ':not(.notexport)'
+                                },
+                            },
+                            {
+                                extend: 'pdf',
+                                text: 'Pdf',
+                                exportOptions: {
+                                    columns: ':not(.notexport)'
+                                },
+                            }
 
+                        ],
+                        "language": { "url": "../Vendor/DataTables/Spanish.json" },
+                        columnDefs: [
+                            { width: 80, targets: 0 }
 
-
-    <script>
-        $(document).ready(function () {
-            $('#tblUsers').DataTable({
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        className: 'hrn-btnadd',
-                        text: ' + Registrar Empleado Nuevo',
-                        action: function (e, dt, node, config) {
-                            window.location.href = "../Users/Create";
-                        }
-                    },
-                    {
-                        extend: 'copy',
-                        text: 'Copiar',
-                        exportOptions: {
-                            columns: ':not(.notexport)'
-                        },
-                    },
-                    {
-                        extend: 'excel',
-                        text: 'Excel',
-                        exportOptions: {
-                            columns: ':not(.notexport)'
-                        },
-                    },
-                    {
-                        extend: 'pdf',
-                        text: 'Pdf',
-                        exportOptions: {
-                            columns: ':not(.notexport)'
-                        },
+                        ],
+                        fixedColumns: true
                     }
+                    );
+                });
 
-                ],
-                "language": { "url": "../Vendor/DataTables/Spanish.json" },
-                columnDefs: [
-                    { width: 80, targets: 0 }
-
-                ],
-                fixedColumns: true
-            }
-            );
-        });
-
-    </script>
-}
+            </script>
+        }
 
