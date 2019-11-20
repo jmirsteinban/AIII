@@ -88,55 +88,79 @@
 </div>
 
 
-        @section Scripts{
+@section Scripts{
 
 
 
-            <script>
-                $(document).ready(function () {
-                    $('#tblProductos').DataTable({
-                        dom: 'Bfrtip',
-                        buttons: [
-                            {
-                                className: 'hrn-btnadd',
-                                text: ' + Ingresar Producto',
-                                action: function (e, dt, node, config) {
-                                    window.location.href = "../Products/Create";
-                                }
-                            },
-                            {
-                                extend: 'copy',
-                                text: 'Copiar',
-                                exportOptions: {
-                                    columns: ':not(.notexport)'
-                                },
-                            },
-                            {
-                                extend: 'excel',
-                                text: 'Excel',
-                                exportOptions: {
-                                    columns: ':not(.notexport)'
-                                },
-                            },
-                            {
-                                extend: 'pdf',
-                                text: 'Pdf',
-                                exportOptions: {
-                                    columns: ':not(.notexport)'
-                                },
-                            }
-
-                        ],
-                        "language": { "url": "../Vendor/DataTables/Spanish.json" },
-                        columnDefs: [
-                            { width: 50, targets: 0 },
-                            { width: 40, targets: 3 }
-                        ],
-                        fixedColumns: true
+    <script>
+        $(document).ready(function () {
+            $('#tblProductos').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        className: 'hrn-btnadd',
+                        text: ' + Ingresar Producto',
+                        action: function (e, dt, node, config) {
+                            window.location.href = "../Products/Create";
+                        }
+                    },
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     }
-                    );
-                });
 
-            </script>
+                ],
+                "language": { "url": "../Vendor/DataTables/Spanish.json" },
+                columnDefs: [
+                    { width: 50, targets: 0 },
+                    { width: 40, targets: 3 }
+                ],
+                fixedColumns: true,
+                "columnDefs": [
+                    {
+                        "render": function (data, type, row) {
 
+                            console.log(commaSeparateNumber(data));
+                            return commaSeparateNumber(data);
+                        },
+                        "targets": [4,5]
+                    },
+                ]
+            }
+            );
+
+
+            setTimeout(
+                function () {
+                    $('div.dataTables_filter input').focus()
+                }, 500);
+
+        });
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + '.' + '$2');
+            }
+            return val;
         }
+
+    </script>
+
+}

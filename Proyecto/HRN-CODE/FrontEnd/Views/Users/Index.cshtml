@@ -86,55 +86,60 @@
     </div>
 </div>
 
-        @section Scripts{
+@section Scripts{
 
 
 
-            <script>
-                $(document).ready(function () {
-                    $('#tblUsers').DataTable({
-                        dom: 'Bfrtip',
-                        buttons: [
-                            {
-                                className: 'hrn-btnadd',
-                                text: ' + Registrar Empleado Nuevo',
-                                action: function (e, dt, node, config) {
-                                    window.location.href = "../Users/Create";
-                                }
-                            },
-                            {
-                                extend: 'copy',
-                                text: 'Copiar',
-                                exportOptions: {
-                                    columns: ':not(.notexport)'
-                                },
-                            },
-                            {
-                                extend: 'excel',
-                                text: 'Excel',
-                                exportOptions: {
-                                    columns: ':not(.notexport)'
-                                },
-                            },
-                            {
-                                extend: 'pdf',
-                                text: 'Pdf',
-                                exportOptions: {
-                                    columns: ':not(.notexport)'
-                                },
-                            }
-
-                        ],
-                        "language": { "url": "../Vendor/DataTables/Spanish.json" },
-                        columnDefs: [
-                            { width: 80, targets: 0 }
-
-                        ],
-                        fixedColumns: true
+    <script>
+        $(document).ready(function () {
+            $('#tblUsers').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        className: 'hrn-btnadd',
+                        text: ' + Registrar Empleado Nuevo',
+                        action: function (e, dt, node, config) {
+                            window.location.href = "../Users/Create";
+                        }
+                    },
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
                     }
-                    );
-                });
 
-            </script>
-        }
+                ],
+                "language": { "url": "../Vendor/DataTables/Spanish.json" },
+                columnDefs: [
+                    { width: 80, targets: 0 }
+
+                ],
+                fixedColumns: true
+            }
+            );
+
+            setTimeout(
+                function () {
+                    $('div.dataTables_filter input').focus()
+                }, 500);
+        });
+
+    </script>
+}
 

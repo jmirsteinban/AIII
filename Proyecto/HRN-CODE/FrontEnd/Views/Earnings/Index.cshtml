@@ -15,14 +15,16 @@
         </div>
     </div>
 
+    <br />
+    <div class="row">
+        <div class="col-1"></div>
+        <div class=" col-10">
 
-    <div class="col-12">
+            <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
 
-        <div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-
-        <canvas height="255" style="max-width: 100% !important; display: block; width: 589px; height: 255px;" class="blog-overview-users chartjs-render-monitor" width="589"></canvas>
+            <canvas height="255" style="max-width: 100% !important; display: block; width: 589px; height: 255px;" class="blog-overview-users chartjs-render-monitor" width="589"></canvas>
+        </div>
     </div>
-
 
     <script>
         var arrVentaTotal = [];
@@ -31,53 +33,57 @@
         var ano, mes;
 
     </script>
-
-    <div class="col-12">
-        <table id="tblEarnings" class="table table-light table-striped" style="width:100%">
-            <thead class="bg-primary">
-                <tr>
-                    <th>
-                        Año
-                    </th>
-                    <th>
-                        Mes
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.earnings_total_mes)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.conteo_facturas)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.utils_total_mes)
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    <br />
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="table-responsive col-10">
+            <table id="tblEarnings" class="table table-light table-striped" style="width:100%">
+                <thead class="bg-primary">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ano)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.mes)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.earnings_total_mes)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.conteo_facturas)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.utils_total_mes)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                        <th>
+                            Año
+                        </th>
+                        <th>
+                            Mes
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.earnings_total_mes)
+                        </th>
 
+                        <th>
+                            @Html.DisplayNameFor(model => model.utils_total_mes)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.conteo_facturas)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ano)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.mes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.earnings_total_mes)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.utils_total_mes)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.conteo_facturas)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @foreach (var item in Model)
@@ -126,7 +132,17 @@
                     },
 
                 ],
-                "language": { "url": "../Vendor/DataTables/Spanish.json" }
+                "language": { "url": "../Vendor/DataTables/Spanish.json" },
+                "columnDefs": [
+                    {
+                        "render": function (data, type, row) {
+
+                            console.log(commaSeparateNumber(data));
+                            return commaSeparateNumber(data);
+                        },
+                        "targets": [2, 3]
+                    },
+                ]
             }
             );
         });
@@ -232,6 +248,13 @@
                 (j ? i.substr(0, j) + thouSep : "") +
                 i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
                 (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+        }
+
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + '.' + '$2');
+            }
+            return val;
         }
 
     </script>

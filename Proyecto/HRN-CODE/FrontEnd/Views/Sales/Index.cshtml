@@ -110,10 +110,34 @@
                     { width: 80, targets: 0 }
 
                 ],
-                fixedColumns: true
+                "columnDefs": [
+                    {
+                        "render": function (data, type, row) {
+
+                            console.log(commaSeparateNumber(data));
+                            return commaSeparateNumber(data);
+                        },
+                        "targets": [4]
+                    },
+                ]
             });
+
+            /*
+             * El truco esta en dejar renderizar el Datatable
+             * y luego ejecutar el focus
+            */
+            setTimeout(
+                function () {
+                    $('div.dataTables_filter input').focus()
+                }, 500);
         });
 
+        function commaSeparateNumber(val) {
+            while (/(\d+)(\d{3})/.test(val.toString())) {
+                val = val.toString().replace(/(\d+)(\d{3})/, '$1' + '.' + '$2');
+            }
+            return val;
+        }
     </script>
 
 }
