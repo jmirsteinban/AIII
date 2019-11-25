@@ -4,17 +4,13 @@
     ViewBag.Title = "Crear";
 }
 
-
-
-
 <div class="row">
     <div class="col-12 text-center">
         <h2>Crear Cliente</h2>
         <hr class="hrn-hr" />
     </div>
 </div>
-
-
+<br />
 
 @using (Html.BeginForm())
 {
@@ -35,7 +31,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control text-center", @autoFocus="true" } })
                     @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -132,7 +128,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    <input type="submit" value="Crear" class="btn btn-block btn-outline-dark" />
+                    <input type="submit" value="Crear" class="btn btn-block btn-success" />
                 </div>
             </div>
         </div>
@@ -142,8 +138,12 @@
 
 <hr />
 
-<div>
-    <a href="~/Clients/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
+<div class="row">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <a href="~/Clients/Index" class="btn btn-pill btn-outline-danger btn-md" style=" width:100%">Volver a la Lista</a>
+    </div>
+    <div class="col-4"></div>    
 </div>
 
 @section Scripts {

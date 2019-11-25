@@ -113,8 +113,6 @@
                 "columnDefs": [
                     {
                         "render": function (data, type, row) {
-
-                            console.log(commaSeparateNumber(data));
                             return commaSeparateNumber(data);
                         },
                         "targets": [4]
@@ -122,10 +120,6 @@
                 ]
             });
 
-            /*
-             * El truco esta en dejar renderizar el Datatable
-             * y luego ejecutar el focus
-            */
             setTimeout(
                 function () {
                     $('div.dataTables_filter input').focus()

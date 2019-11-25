@@ -52,22 +52,22 @@
 
         <hr />
         <table class="table table-striped table-hover">
-            <caption class="bg-primary">
+            <caption  class="hrn-titdet">
                 <center>
-                    <font color="white">@Html.DisplayNameFor(model => model.monto_total) : ₡@Html.DisplayFor(model => model.monto_total)</font>
+                    <font class="thead-dark">@Html.DisplayNameFor(model => model.monto_total) : ₡@Html.DisplayFor(model => model.monto_total)</font>
                 </center>
             </caption>
-            <thead class="hrn-titdet">
+            <thead class="hrn-titMae">
                 <tr>
-                    <th scope="col" class="thead-dark">
+                    <th scope="col">
                         @Html.DisplayNameFor(model => model.nombre_producto)
                     </th>
-                    <th scope="col" class="thead-dark">
+                    <th scope="col">
                         @Html.DisplayNameFor(model => model.cantidad_producto)
                     </th>
-                    <th scope="col" class="thead-dark">
+                    <th scope="col">
                         @Html.DisplayNameFor(model => model.precio_factura_d)
-                    </th>
+                    </th>                    
                 </tr>
             </thead>
             <tbody>
@@ -88,12 +88,39 @@
             </tbody>
         </table>
         <br />
-        <p>
-            <button class="btn btn-pill btn-success btn-md"><a href="~/Sales/Index" style="color:white !important">Volver a la Lista</a></button>
-        </p>
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <button class="btn btn-pill btn-success btn-md" style=" width:100%;"><a href="~/Sales/Index" style="color:white !important;">Volver a la Lista</a></button>
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <br />
     </div>
     <br />
 
 
 </div>
 <br />
+
+@section Scripts{
+    <script>    
+        $(document).ready(function () {
+            var total = $("#caption").val();
+            addCommas(total);
+        });
+
+       function addCommas(nStr) {
+            nStr += '';
+            var x = nStr.split('.');
+            var x1 = x[0];
+            var x2 = x.length > 1 ? '.' + x[1] : '';
+            var rgx = /(\d+)(\d{3})/;
+            while (rgx.test(x1)) {
+                x1 = x1.replace(rgx, '$1' + ',' + '$2');
+            }
+            return x1 + x2;
+        }
+    </script>
+
+}

@@ -4,7 +4,6 @@
     ViewBag.Title = "Detalles de Producto";
 }
 
-
 <div class="row">
     <div class="col-12 text-center">
         <h2>Detalles de Producto</h2>
@@ -19,15 +18,15 @@
         <table id="tblDetalle" class="table table-striped">
             <thead class="bg-primary">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.codigo_producto)</th>
-                    <th>@Html.DisplayNameFor(model => model.nombre_producto)</th>
-                    <th>@Html.DisplayNameFor(model => model.descripcion)</th>
-                    <th>@Html.DisplayNameFor(model => model.cantidad)</th>
-                    <th>@Html.DisplayNameFor(model => model.precio_manufactura)</th>
-                    <th>@Html.DisplayNameFor(model => model.precio_venta)</th>
-                    <th>@Html.DisplayNameFor(model => model.estado_producto)</th>
-                    <th>@Html.DisplayNameFor(model => model.porcentaje_ganancia)</th>
-                    <th>@Html.DisplayNameFor(model => model.porcentaje_descuento)</th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.codigo_producto)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.nombre_producto)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.descripcion)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.cantidad)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.precio_manufactura)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.precio_venta)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.estado_producto)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.porcentaje_ganancia)</font></th>
+                    <th><font color="white">@Html.DisplayNameFor(model => model.porcentaje_descuento)</font></th>
                 </tr>
             </thead>
             <tbody>
@@ -45,16 +44,23 @@
             </tbody>
         </table>
         <br />
-        <p>
-            <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
-            <button class="btn btn-pill btn-outline-dark" style="width:120px;"> @Html.ActionLink("Editar", "Edit", new { id = Model.productID })</button>
-        </p>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <center>
+                    <a href="~/Products/Index" class="btn btn-pill btn-success" style="color:white !important; width:100%;">Volver a la Lista</a>
+                </center>
+            </div>
+            <div class="col-3">
+                <center>
+                    <button class="btn btn-pill btn-outline-dark" style="width:100%;"> @Html.ActionLink("Editar", "Edit", new { id = Model.productID })</button>
+                </center>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <br />
     </div>
 </div>
-
-
-
-
 
 @section Scripts{
     <script>

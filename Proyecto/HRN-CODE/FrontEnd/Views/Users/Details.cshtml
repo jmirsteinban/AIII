@@ -7,100 +7,124 @@
 
 <div class="row">
     <div class="col-12 text-center">
-        <h2>Detalles</h2>
+        <h2>Detalles de Empleado</h2>
         <hr class="hrn-hr" />
     </div>
 </div>
 
-
-
-
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.cedula_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.cedula_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.primer_nombre_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.primer_nombre_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.segundo_nombre_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.segundo_nombre_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.primer_apellido_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.primer_apellido_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.segundo_apellido_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.segundo_apellido_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.usuario)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.usuario)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.tipo_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.tipo_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.estado_user)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.estado_user)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.direccion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.direccion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.telefono)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.telefono)
-        </dd>
-
-    </dl>
+<br />
+<div class="row">
+    <div class="col-1"></div>
+    <div class="table-responsive col-10">
+        <table id="tblDetalle" class="table table-striped">
+            <thead class="bg-primary">
+                <tr>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">@Html.DisplayNameFor(model => model.cedula_user)</font>
+                    </th>
+                    <th scope="col" class="thead-dark">
+                        <font color="white">Nombre Completo</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.usuario)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.tipo_user)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.estado_user)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.telefono)</font>
+                    </th>
+                    <th>
+                        <font color="white">@Html.DisplayNameFor(model => model.direccion)</font>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.cedula_user)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.primer_nombre_user) @Html.DisplayFor(model => model.segundo_nombre_user)
+                        @Html.DisplayFor(model => model.primer_apellido_user) @Html.DisplayFor(model => model.segundo_apellido_user)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.usuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.tipo_user)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.estado_user)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.direccion)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br />
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3">
+                <center>
+                    <a href="~/Clients/Index" class="btn btn-pill btn-success btn-md" style="color:white !important; width:100%;">Volver a la Lista</a>
+                </center>
+            </div>
+            <div class="col-3">
+                <center>
+                    <button class="btn btn-pill btn-outline-dark" style="width:100%;">@Html.ActionLink("Editar", "Edit", new { id = Model.userID })</button>
+                </center>
+            </div>
+            <div class="col-2"></div>
+        </div>
+        <br />
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.userID }) |
-    @Html.ActionLink("Volver a la Lista", "Index")
-</p>
+
+@section Scripts{
+
+
+
+    <script>
+        $(document).ready(function () {
+            $('#tblDetalle').DataTable({
+                dom: 'B',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'excel',
+                        text: 'Excel',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    },
+                    {
+                        extend: 'pdf',
+                        text: 'Pdf',
+                        exportOptions: {
+                            columns: ':not(.notexport)'
+                        },
+                    }
+                ],
+                "language": { "url": "../../Vendor/DataTables/Spanish.json" }
+            }
+            );
+        });
+
+    </script>
+
+
+}

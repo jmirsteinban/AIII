@@ -4,15 +4,12 @@
     ViewBag.Title = "Delete";
 }
 
-
-
 <div class="row">
     <div class="col-12 text-center">
         <h2>Borrar Producto</h2>
         <hr class="hrn-hr" />
     </div>
 </div>
-
 
 <br />
 <div class="row">
@@ -89,16 +86,27 @@
                     </div>
                 </div>
             </div>
-            <div class="form-actions no-color">
-                <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                    Borrar
-                </button>
+            <div class="row form-actions no-color">
+                <div class="col-3"></div>
+                <div class="col-3">
+                    <center>
+                        <a href="~/Products/Index" class="btn btn-pill btn-success" style="color:white !important; width:100%;">Volver a la Lista</a>
+                    </center>
+                </div>
+                <div class="col-3">
+                    <center>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-pill btn-danger" style="width:100%;" data-toggle="modal" data-target="#exampleModalCenter">
+                            Borrar
+                        </button>
+                    </center>
+                </div>
+                <div class="col-2"></div>
             </div>
+            <br />
         }
     </div>
-    <br />
+    
 </div>
 
 @section Scripts{

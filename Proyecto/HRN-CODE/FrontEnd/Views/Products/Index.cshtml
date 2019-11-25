@@ -15,13 +15,12 @@
 
 
 <div class="row">
-    <div class="col-1"></div>
-    <div class="table-responsive col-10">
+    <div class="table-responsive col-12">
         <table id="tblProductos" class="table table-light table-striped" style="width:100%">
             <thead class="bg-primary">
                 <tr>
                     <th class="">
-                        <small> <font color="white">@Html.DisplayNameFor(model => model.codigo_producto)</font></small>
+                        <font color="white">@Html.DisplayNameFor(model => model.codigo_producto)</font>
                     </th>
                     <th class="">
                         <font color="white">@Html.DisplayNameFor(model => model.nombre_producto)</font>
@@ -63,10 +62,10 @@
                             @Html.DisplayFor(modelItem => item.cantidad)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.precio_manufactura)
+                            ₡@Html.DisplayFor(modelItem => item.precio_manufactura)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.precio_venta)
+                            ₡@Html.DisplayFor(modelItem => item.precio_venta)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.estado_producto)
@@ -89,9 +88,6 @@
 
 
 @section Scripts{
-
-
-
     <script>
         $(document).ready(function () {
             $('#tblProductos').DataTable({
@@ -145,8 +141,6 @@
                 ]
             }
             );
-
-
             setTimeout(
                 function () {
                     $('div.dataTables_filter input').focus()

@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente", @placeHolder = "1-1234-1234" } })
+                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente", @placeHolder = "1-1234-1234", @autoFocus="true" } })
                     @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -99,29 +99,25 @@
                     @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
                 </div>
             </div>
+            <br />
+            <br />
             <div class="row">
-                <div class="col-1">
-                </div>
                 <div class="col-4">
                 </div>
-                <div class="col-2">
-
-                </div>
                 <div class="col-4">
-                    <br />
                     <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
                 </div>
             </div>
         </div>
         <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
-            <div class="col-12">
+            <div class="table-responsive col-11">
                 <center>
                     <table id="detailsTable" class="table table-striped">
-                        <caption>
+                        @*<caption>
                             <center>
                                 <span id="precioTotal" class="pull-right" style="margin-right:100px;"><strong></strong> </span>
                             </center>
-                        </caption>
+                        </caption>*@
                         <thead class="bg-primary">
                             <tr>
                                 <th style="width:30%; color:white;">Producto</th>
@@ -143,12 +139,16 @@
                 </center>
             </div>
         </div>
-
-        <div class="modal-footer">
-            <center>
-                <a href="/Sales" class="btn btn-pill btn-success" data-dismiss="modal" style="color:white !important;">Volver a la Lista</a>
-                <button id="saveOrder" type="submit" class="btn btn-pill btn-primary">Crear Factura</button>
-            </center>
+        <hr />
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-3"></div>
+            <div class="col-2">
+                <a href="/Sales" class="btn btn-pill btn-outline-danger" data-dismiss="modal" style="width:100%;">Volver a la Lista</a>
+            </div>
+            <div class="col-2">
+                <button id="saveOrder" type="submit" class="btn btn-pill btn-success" style="width:100%;">Crear Factura</button>
+            </div>
         </div>
     </div>
     <center>

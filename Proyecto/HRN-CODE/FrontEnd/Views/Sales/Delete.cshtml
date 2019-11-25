@@ -9,9 +9,7 @@
         <hr class="hrn-hr" />
     </div>
 </div>
-
-
-
+<br />
 
 <div class="row">
     <div class="col-1"></div>
@@ -66,13 +64,13 @@
             <thead class="bg-primary">
                 <tr>
                     <th scope="col" class="thead-dark">
-                        @Html.DisplayNameFor(model => model.nombre_producto)
+                        <font color="white"> @Html.DisplayNameFor(model => model.nombre_producto)</font>
                     </th>
                     <th scope="col" class="thead-dark">
-                        @Html.DisplayNameFor(model => model.cantidad_producto)
+                        <font color="white">@Html.DisplayNameFor(model => model.cantidad_producto)</font>
                     </th>
                     <th scope="col" class="thead-dark">
-                        @Html.DisplayNameFor(model => model.precio_factura_d)
+                        <font color="white">@Html.DisplayNameFor(model => model.precio_factura_d)</font>
                     </th>
                 </tr>
             </thead>
@@ -93,6 +91,7 @@
                 }
             </tbody>
         </table>
+        <br />
         <br />
 
         @using (Html.BeginForm())
@@ -124,13 +123,23 @@
                 </div>
             </div>
 
-            <div class="form-actions no-color">
-                <button class="btn btn-pill btn-success btn-md"><a href="~/Sales/Index" style="color:white !important">Volver a la Lista</a></button>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                    Borrar
-                </button>
-            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-4">
+                    <div class="form-actions no-color">
+                        <button class="btn btn-pill btn-success btn-md" style="width:100%;"><a href="~/Sales/Index" style="color:white;">Volver a la Lista</a></button>                       
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-actions no-color">                        
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-pill btn-danger" data-toggle="modal" data-target="#exampleModalCenter" style="width:100%;">
+                            Borrar
+                        </button>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>            
         }
     </div>
 </div>

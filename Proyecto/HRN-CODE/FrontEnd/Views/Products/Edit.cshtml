@@ -10,9 +10,6 @@
     </div>
 </div>
 
-
-
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -138,8 +135,13 @@
     </div>
 }
 
-<div>
-    <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important">Volver a la Lista</a>
+<div class="row">
+    <div class="col-5"></div>
+    <div class="col-2">
+        <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important; width:100%;">Volver a la Lista</a>
+    </div>
+    <div class="col-5"></div>
+    
 </div>
 
 @section Scripts {

@@ -11,8 +11,6 @@ namespace FrontEnd.Controllers
 {
     public class LoginController : Controller
     {
-
-
         private IUserDAL userDAL;
 
         //
@@ -77,10 +75,7 @@ namespace FrontEnd.Controllers
             {
                 return RedirectToAction("Index", "Login");
                 
-            }
-
-
-           
+            } 
         }
     }
 }
