@@ -88,20 +88,23 @@ namespace FrontEnd.Controllers
                     Random rnd = new Random();
                     int numero = rnd.Next(1, 1000);
                     var html_tabla = "";
+                    decimal total_factura = 0;
+                    decimal total_linea = 0;
                     foreach (var product in order)
                     {
+                        total_linea = product.precio_factura_d; 
                         html_tabla += "<tr>";
+                        html_tabla += "<td>" + product.productName+ "</td>";
                         html_tabla += "<td>" + product.cantProd + "</td>";
-                        html_tabla += "<td>" + product.productName + "</td>";
-                        html_tabla += "<td>" + "1000" + "</td>";
-                        html_tabla += "<td>" + product.cantProd * 1000 + "</td>";
+                        html_tabla += "<td>" + String.Format("{0:n}", total_linea)  + "</td>";
                         html_tabla += "</tr>";
-
+                        total_factura = total_factura + product.precio_factura_d;
                     }
                     plantilla_comodines = plantilla_comodines.Replace("@tabla", html_tabla);
-                    plantilla_comodines = plantilla_comodines.Replace("@proforma", "PROFORMA-" + numero.ToString());
-                    plantilla_comodines = plantilla_comodines.Replace("@Cliente", order[0].cedCliente);
-                    plantilla_comodines = plantilla_comodines.Replace("@usuario", order[0].cedUsuario);
+                    plantilla_comodines = plantilla_comodines.Replace("@Numero_Proforma", "PROFORMA-" + numero.ToString());
+                    plantilla_comodines = plantilla_comodines.Replace("@Cliente_proforma", order[0].cedCliente);
+                    plantilla_comodines = plantilla_comodines.Replace("@Fecha_proforma", DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+                    plantilla_comodines = plantilla_comodines.Replace("@Total_Proforma", String.Format("{0:n}",total_factura));
                     IronPdf.HtmlToPdf Renderer = new IronPdf.HtmlToPdf();
                     Renderer.PrintOptions.CreatePdfFormsFromHtml = true;
                     string html_cuerpo = "";
@@ -115,8 +118,9 @@ namespace FrontEnd.Controllers
                     Renderer.RenderHtmlAsPdf(plantilla_comodines).SaveAs(rutaPDF + "proforma" + numero.ToString() + ".pdf");
                     MailMessage mail = new MailMessage();
                     SmtpClient SmtpServer = new SmtpClient("smtp.live.com");
-                    mail.From = new MailAddress("diego.padilla.miranda@hotmail.com");
+                    mail.From = new MailAddress(correo_notificacion);
                     mail.To.Add(listaClientes[0].correo_electronico_cliente);
+                    //mail.To.Add("dpadillam1@hotmail.com");
                     mail.CC.Add("dpadillam1@hotmail.com");
                     mail.Subject = "Nueva Proforma - " + numero.ToString();
                     mail.IsBodyHtml = true;
