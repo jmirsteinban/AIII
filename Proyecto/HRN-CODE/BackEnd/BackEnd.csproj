@@ -115,6 +115,9 @@
     <Compile Include="Entities\sp_Get_factura_detalle_Result.cs">
       <DependentUpon>HornosRobertoNavarroModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities\sp_Get_Garantias_Result.cs">
+      <DependentUpon>HornosRobertoNavarroModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Entities\sp_Get_producto_x_nombre_Result.cs">
       <DependentUpon>HornosRobertoNavarroModel.tt</DependentUpon>
     </Compile>

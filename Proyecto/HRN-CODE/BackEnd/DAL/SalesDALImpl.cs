@@ -28,6 +28,18 @@ namespace BackEnd.DAL
             }
         }
 
+        public IEnumerable<sp_Get_Garantias_Result> GetGarantias()
+        {
+            try
+            {
+                return context.sp_Get_Garantias().ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         public sp_Get_producto_x_nombre_Result GetProducto(string nombreProducto)
         {
             try

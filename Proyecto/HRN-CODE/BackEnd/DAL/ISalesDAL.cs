@@ -12,6 +12,8 @@ namespace BackEnd.DAL
         IEnumerable<sp_Get_factura_detalle_Result> GetFacturaDetalle(int maestroID);
 
         sp_Get_producto_x_nombre_Result GetProducto(string nombreProducto);
+
+        IEnumerable<sp_Get_Garantias_Result> GetGarantias();
               
     }
 }
