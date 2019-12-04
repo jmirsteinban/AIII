@@ -13,7 +13,7 @@ namespace BackEnd.DAL
 
         sp_Get_producto_x_nombre_Result GetProducto(string nombreProducto);
 
-        IEnumerable<sp_Get_Garantias_Result> GetGarantias();
+        List<sp_Get_Garantias_Result> GetGarantias();
               
     }
 }

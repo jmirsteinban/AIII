@@ -181,6 +181,45 @@ namespace FrontEnd.Controllers
             return FacturaD;
         }
 
+        private List<SalesViewModel> ConvertirGarantia(List<sp_Get_Garantias_Result> Lista)
+        {
+            client Cliente;
+            user Empleado;
+            
+            List<SalesViewModel> Garantias = new List<SalesViewModel>();
+
+            foreach (var item in Lista)
+            {
+                using (WorkUnit<client> unidad = new WorkUnit<client>(new BDContext()))
+                {
+                    Cliente = unidad.genericDAL.Get(item.clientID);
+
+                }
+                
+                using (WorkUnit<user> unidad = new WorkUnit<user>(new BDContext()))
+                {
+                    Empleado = unidad.genericDAL.Get(item.userID);
+
+                }
+
+                SalesViewModel garantia = new SalesViewModel
+                {
+                    compraID = item.compraID,
+                    clientID = item.clientID,
+                    cedula_cliente=Cliente.cedula_cliente,                    
+                    userID = item.userID,
+                    cedula_user=Empleado.cedula_user,
+                    fecha_compra = (DateTime)item.fecha_compra,
+                    monto_total = item.monto_total,
+                    estado_factura=item.estado_factura
+                };
+
+                Garantias.Add(garantia);
+            }
+
+            return Garantias;
+        }
+
         private void LlenarLista()
         {
             List<product> Productos;
@@ -355,30 +394,7 @@ namespace FrontEnd.Controllers
                         controller2 = controller2
                     }));
             }
-        }
-
-        /*
-        // GET: Facturas/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Facturas/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
+        }        
 
         [Authorize(Roles = "Administrador")]
         // GET: Facturas/Delete/5
@@ -457,6 +473,57 @@ namespace FrontEnd.Controllers
                     "borrando la información de una compra que no tiene dependencias!";
                 string exception = msj.Message;
                 string redirection = "Delete/" + salesViewModel.compraID;
+                string controller2 = "Sales";
+
+                return RedirectToAction("Error", new RouteValueDictionary
+                    (new
+                    {
+                        Controller = "Error",
+                        Action = "Error",
+                        proveedor = proveedor,
+                        mensaje = mensaje,
+                        exception = exception,
+                        redirection = redirection,
+                        controller2 = controller2
+                    }));
+            }
+        }
+
+        [Authorize(Roles = "Administrador,Consulta")]
+        // GET: Facturas/Delete/5
+        public ActionResult Garantias()
+        {
+            try
+            {
+                List<sp_Get_Garantias_Result> ListaGarantias;
+
+                using (WorkUnit<sale> unidad = new WorkUnit<sale>(new BDContext()))
+                {
+                    ListaGarantias = unidad.salesDAL.GetGarantias();
+                }
+
+                if (ListaGarantias.Count!=0)
+                {
+
+                    List<SalesViewModel> garantias = new List<SalesViewModel>();
+
+                    garantias = ConvertirGarantia(ListaGarantias);
+
+                    return View(garantias);
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception msj)
+            {
+                string proveedor = "Lista Garantías";
+                string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
+                    "seleccionar que hayan garantíass disponibles y de tener los permisos para realizar el proceso!";
+                string exception = msj.Message;
+                string redirection = "Index";
                 string controller2 = "Sales";
 
                 return RedirectToAction("Error", new RouteValueDictionary

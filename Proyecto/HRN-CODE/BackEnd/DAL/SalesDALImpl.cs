@@ -28,7 +28,7 @@ namespace BackEnd.DAL
             }
         }
 
-        public IEnumerable<sp_Get_Garantias_Result> GetGarantias()
+        public List<sp_Get_Garantias_Result> GetGarantias()
         {
             try
             {
