@@ -90,7 +90,19 @@
                         },
                     }
                 ],
-                "language": { "url": "../../Vendor/DataTables/Spanish.json" }
+                "language": { "url": "../../Vendor/DataTables/Spanish.json" },
+                columnDefs: [
+                    { width: 80, targets: 0 }
+
+                ],
+                "columnDefs": [
+                    {
+                        "render": function (data, type, row) {
+                            return commaSeparateNumber(data);
+                        },
+                        "targets": [4,5]
+                    },
+                ]
             });
 
             function commaSeparateNumber(val) {
