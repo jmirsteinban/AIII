@@ -4,144 +4,152 @@
     ViewBag.Title = "Crear Proforma";
 }
 
-
-<div class="row">
-    <div class="col-12 text-center">
-        <h2>Crear Proforma</h2>
-        <hr class="hrn-hr" />
-    </div>
-</div>
-
-
+<h2>Crear Proforma</h2>
 @Styles.Render("~/Content/Select2/select2.min.css")
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    <label for="cedula_cliente" class="control-label col-md-6">Cliente</label>                    
-                </div>
-                <div class="col-6">
-                    @Html.LabelFor(model => model.cedula_user, htmlAttributes: new { @class = "control-label col-md-6" })
-
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-4">
-                    <select id="cedCliente" name="cedCliente" class="form-control select2" onChange="cambiaSelect()" style="border-radius: .25rem;">
-                        <option value="0"> --Select-- </option>
-                        @foreach (var item in ViewBag.Clientes)
-                        {
-                            <option value=" @item.cedula_cliente"> @item.primer_nombre_cliente @item.primer_apellido_cliente  </option>
-                        }
-
-                    </select>
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @Value = @ViewBag.CedulaUser, @readonly = "readonly" } })
-                    @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    @Html.LabelFor(model => model.nombre_producto, htmlAttributes: new { @class = "control-label col-md-6" })
-
-                </div>
-                <div class="col-6">
-                    @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1"></div>
-                <div class="col-4">
-                    <select id="productName" name="select" class="form-control select2" onChange="cambiaSelect()" style="border-radius: .25rem;">
-                        <option value="0"> --Select-- </option>
-
-                        @foreach (var item in ViewBag.Productos)
-                        {
-                            <option attr-prec=" @item.precio_factura_d" attr-cant=" @item.cantProd"> @item.productName </option>
-                        }
-
-                    </select>
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-
-                    @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
-                    @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="row">
-                <div class="col-6">
-                    @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-                <div class="col-6" style="display:none;">
-                    @Html.LabelFor(model => model.estado_factura, htmlAttributes: new { @class = "control-label col-md-6" })
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                </div>
-                <div class="col-4">
-                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "" } })
-                    @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-2"></div>
-                <div class="col-4">
-                    <a id="addToList" class="btn btn-block btn-primary" style="color:white;">Agregar Producto</a>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <table id="detailsTable" class="table table-striped">
-                    <thead class="bg-primary">
-                        <tr>
-                            <th style="width:40%;color:white;">Producto</th>
-                            <th style="width:35%;color:white;; display:none;">Cédula Cliente</th>
-                            <th style="width:30%;color:white;">Cantidad</th>
-                            <th style="width:35%;color:white;">Precio Total ₡</th>
-                            <th style="width:35%; display:none;">Cédula Empleado</th>
-                            <th style="width:35%;display:none;">Estado de Factura</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                        <tr>
-                            <th colspan="7" style="text-align:center">Total de la Proforma : ₡</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <div class="col-1"></div>
-        </div>
-        <hr />
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+   
+    <div class="form-group">
         <div class="row">
-            <div class="col-4"></div>
-            <div class="col-3"></div>
-            <div class="col-4">
-                <button id="saveOrder" type="submit" class="btn btn-pill btn-success" style="width:100%;">Crear Proforma</button>
+            <div class="col-6">
+                <label for="cedula_cliente" class="control-label col-md-6" >Cliente</label>
+                @*@Html.LabelFor(model => model.cedula_cliente, htmlAttributes: new { @class = "control-label col-md-6" })*@
             </div>
+            <div class="col-6">
+                @Html.LabelFor(model => model.cedula_user, htmlAttributes: new { @class = "control-label col-md-6" })
+                
+            </div>
+        </div>
+        <div class="row">
             <div class="col-1"></div>
+            <div class="col-4">
+                @*@Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente" } })
+        @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })*@
+                <select id="cedCliente" name="cedCliente" class="form-control select2"  style="border-radius: .25rem;">
+                    <option value="0"> --Select-- </option>
+                    @foreach (var item in ViewBag.Clientes)
+                    {
+                        <option value=" @item.cedula_cliente"> @item.primer_nombre_cliente @item.primer_apellido_cliente  </option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+                @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control", @id = "cedUsuario", @Value = @ViewBag.CedulaUser, @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <div class="row" >
+            <div class="col-6">
+                @Html.LabelFor(model => model.nombre_producto, htmlAttributes: new { @class = "control-label col-md-6" })
+                
+            </div>
+            <div class="col-6">
+                @Html.LabelFor(model => model.cantidad_producto, htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-4">
+                <select id="productName" name="select" class="form-control select2" onChange="cambiaSelect()" style="border-radius: .25rem;">
+                    <option value="0"> --Select-- </option>
+
+                    @foreach (var item in ViewBag.Productos)
+                    {
+                        <option attr-prec=" @item.precio_factura_d" attr-cant=" @item.cantProd"> @item.productName </option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4">
+
+                @Html.EditorFor(model => model.cantidad_producto, new { htmlAttributes = new { @class = "form-control", @id = "cantProducto", @Min = "1", @Max = "" } })
+                @Html.ValidationMessageFor(model => model.cantidad_producto, "", new { @class = "text-danger" })
+            </div>
         </div>
     </div>
+
+    <div class="form-group">
+        <div class="row">
+            <div class="col-6">
+                @Html.LabelFor(model => model.precio_factura_d, htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+            <div class="col-6" style="display:none;">
+                @Html.LabelFor(model => model.estado_factura, htmlAttributes: new { @class = "control-label col-md-6" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-4">
+
+            
+                @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "" } })
+                @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-2"></div>
+            <div class="col-4" style="display:none;">
+                @Html.DropDownListFor(model => model.estado_factura, new SelectList(ViewBag.Estados, "nombreEstado", "nombreEstado"), "--Select--", new { @class = "form-control", @id = "estadoFac" })
+                @Html.ValidationMessageFor(model => model.estado_factura, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1">
+            </div>
+            <div class="col-4">
+            </div>
+            <div class="col-2">
+
+            </div>
+            <div class="col-4">
+                <br />
+                <a id="addToList" class="btn btn-md btn-block btn-primary" style="color:white;">Agregar Producto</a>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:0.5in;margin-bottom:0.2in;">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <table id="detailsTable" class="table">
+                <thead>
+                    <tr>
+                        <th style="width:40%">Producto</th>
+                        <th style="width:35%; display:none;">Cédula Cliente</th>
+                        <th style="width:30%">Cantidad</th>
+                        <th style="width:35%">Precio Total ₡</th>
+                        <th style="width:35%; display:none;">Cédula Empleado</th>
+                        <th style="width:35%;display:none;">Estado de Factura</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td id="precioTotal"><span class="pull-right" style="margin-right:100px;"><strong></strong> </span></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="reset" class="btn btn-danger" data-dismiss="modal"><a href="/Sales" style="color:white !important;">Volver a la Lista</a></button>
+        <button id="saveOrder" type="submit" class="btn btn-success">Crear Proforma</button>
+    </div>
+</div>
     <center>
         <div class="modal fade" id="newOrderModal">
             <div class="modal-dialog modal-lg" style=" width: 900px !important;">
@@ -184,28 +192,30 @@
         }
     </script>
     <script>
-        $('#precioDetalle').maskMoney({
-            prefix: '₡'
-        });
+        //$('#precioDetalle').maskMoney({
+        //    prefix: '₡'
+        //});
         $('.select2').select2();
             //Cambio Dinámico de Máxima cantidad
             function cambiaSelect() {
                 document.getElementById("cantProducto").setAttribute("max", $("#productName option:selected").attr("attr-cant"));
                 //$("#cantProducto").val($("#productName option:selected").attr("attr-cant"));
-                $("#precioDetalle").val($("#productName option:selected").attr("attr-prec"));
+                var precio = $("#productName option:selected").attr("attr-prec").replace(",",".");
+                $("#precioDetalle").val(numberWithCommas(precio));
             };
 
             function calcTotalCompra() {
                 //Total de compra
                     var precioTotal=0;
-
+                var total_linea;
                     $.each($("#detailsTable tbody tr"), function () {
-                        precioTotal = parseInt(precioTotal) + parseFloat($(this).find('td:eq(3)').html());
+                        total_linea= $(this).find('td:eq(3)').html().replace(/,/g, "");
+                        precioTotal = parseInt(precioTotal) + parseFloat(total_linea);
                     });
 
-                document.getElementById("precioTotal").innerHTML = "Total de la Compra : ₡ " + precioTotal;
+                document.getElementById("precioTotal").innerHTML = "Total de la Compra : ₡ " + numberWithCommas(precioTotal);
 
-                return precioTotal;
+                return numberWithCommas(precioTotal);
             };
 
             //Add Multiple Order.
@@ -219,10 +229,10 @@
                         cedUsuario = $("#cedUsuario").val(),
                         estado = "PROFORMA",
                         cantProd = $("#cantProducto").val(),
-                        precioDetalle = parseFloat($("#precioDetalle").val()),
+                        precioDetalle = parseFloat($("#precioDetalle").val().replace(/,/g, "")),
                         detailsTableBody = $("#detailsTable tbody");
 
-                    var productItem = '<tr><td>' + productName + '</td><td style="display:none;">' + cedCliente + '</td><td>' + cantProd + '</td><td>' + parseFloat(cantProd * parseFloat(precioDetalle)) + '</td><td style="display:none;">' + cedUsuario + '</td><td style="display:none;">' + estado + '</td><td><a data-itemId="0" href="#" class="deleteItem">Borrar</a></td></tr>';
+                    var productItem = '<tr><td>' + productName + '</td><td style="display:none;">' + cedCliente + '</td><td>' + cantProd + '</td><td>' + numberWithCommas(parseFloat(cantProd * parseFloat(precioDetalle))) + '</td><td style="display:none;">' + cedUsuario + '</td><td style="display:none;">' + estado + '</td><td><a data-itemId="0" href="#" class="deleteItem">Borrar</a></td></tr>';
                     detailsTableBody.append(productItem);
                     clearItem();
 
@@ -309,7 +319,7 @@
                     productName: $(this).find('td:eq(0)').html(),
                     cedCliente: $(this).find('td:eq(1)').html(),
                     cantProd: $(this).find('td:eq(2)').html(),
-                    precioDetalle: $(this).find('td:eq(3)').html(),
+                    precio_factura_d: $(this).find('td:eq(3)').html().replace(/,/g, ""),
                     cedUsuario: $(this).find('td:eq(4)').html(),
                     estado: $(this).find('td:eq(5)').html()
                     });
@@ -325,9 +335,28 @@
                         console.log(err);
                     });
                 }
+                
+           
 
+        });
 
+        function numberWithCommas(x) {
+            var parts = x.toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
+        }
+       
+       
+        $('#precioDetalle').keyup(function (event) {
 
+            // skip for arrow keys
+            if (event.which >= 37 && event.which <= 40) {
+                event.preventDefault();
+            }
+            $(this).val(function (index, value) {
+                value = value.replace(/,/g, '');
+                return numberWithCommas(value);
             });
+        });
     </script>
 }
