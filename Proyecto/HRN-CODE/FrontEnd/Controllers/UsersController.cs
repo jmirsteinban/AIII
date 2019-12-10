@@ -218,7 +218,7 @@ namespace FrontEnd.Controllers
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de estar " +
                     "seleccionar a un empleado existente!";
                 string exception = msj.Message;
-                string redirection = "Create";
+                string redirection = "Index";
                 string controller2 = "Users";
 
                 return RedirectToAction("Error", new RouteValueDictionary
@@ -273,10 +273,10 @@ namespace FrontEnd.Controllers
             catch (Exception msj)
             {
                 string proveedor = "Crear Empleado";
-                string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
-                    "seleccionar a un empleado existente y de ingresar los datos en el formato correcto!";
+                string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegúrese de " +
+                    " ingresar los datos en el formato correcto y que todos los campos estén completos! *A excepción del segundo nombre que no es requerido*";    
                 string exception = msj.Message;
-                string redirection = "Index";
+                string redirection = "Create";
                 string controller2 = "Users";
 
                 return RedirectToAction("Error", new RouteValueDictionary
@@ -369,7 +369,7 @@ namespace FrontEnd.Controllers
                     "seleccionar a un empleado existente y de ingresar los datos en el formato correcto!";
                 string exception = msj.Message;
                 string redirection = "Edit/" + usersViewModel.userID;
-                string controller2 = "Clients";
+                string controller2 = "Users";
 
                 return RedirectToAction("Error", new RouteValueDictionary
                     (new
@@ -407,7 +407,7 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Borrar Empleado";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
-                    "seleccionar a un empleado existente y de ingresar los datos en el formato correcto!";
+                    "seleccionar a un empleado existente!";
                 string exception = msj.Message;
                 string redirection = "Index";
                 string controller2 = "Users";
