@@ -132,7 +132,7 @@
                         <tbody></tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="7" style="text-align:center">Total de la Compra : ₡</th>
+                                <th id="totCompra" colspan="7" style="text-align:center">Total de la Compra : ₡</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -216,7 +216,7 @@
                     // Update footer
                     $(api.column(3).footer()).html(
 
-                        ' <span> Total de la Compra : ₡ ' + commaSeparateNumber(total) + ',00</span>'
+                        ' <span> Total de la Compra : ₡ ' + commaSeparateNumber(total) + '</span>'
 
                     );
                 },
@@ -237,19 +237,14 @@
 
             $('.select2').select2();
 
-
-
-
             // After Add A New Order In The List, If You Want, You Can Remove It.
             $(document).on('click', 'a.deleteItem', function (e) {
                 e.preventDefault();
                 $('#detailsTable').DataTable()
-                        .row( $(this).parents('tr') )
-                        .remove()
-                        .draw();
+                    .row( $(this).parents('tr') )
+                    .remove()
+                    .draw();
             });
-
-
 
 
             //Add Multiple Order.
@@ -267,7 +262,7 @@
                         precioDetalle = $("#precioDetalle").val();
                     var precioTot = parseFloat(cantProd) * parseFloat(precioDetalle);
                     var btnx = '<a data-itemId="0" href="#" class="deleteItem">Borrar</a>';
-                    precioTot = precioTot.toFixed(2).replace(".", ",");
+                    precioTot = precioTot.toFixed(0).replace(".", ",");
 
                 /* Agregar Row usando metodo de DATATABLES  https://datatables.net/examples/api/add_row.html */
                     $('#detailsTable').DataTable()
@@ -338,13 +333,13 @@
                     document.getElementById("modalHeader").innerHTML = "Estado de Factura: " + $("#estadoFac").val();
                     if ($("#estadoFac").val()=="Procesando") {
                         document.getElementById("modalBody").innerHTML = "¡El proceso de la compra quedó en un estado de espera! <br /> Fecha: @DateTime.Now";
-                        document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + calcTotalCompra();
+                        document.getElementById("modalBody2").innerHTML = "Cédula Cliente:" + result + " --- Monto Total: ₡" + $(api.column(3).footer()).val();
                         document.getElementById("redirect").setAttribute("href", "/Sales/Index");
                         document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
                         document.getElementById("redirect").innerHTML = "Volver a la lista";
                     } else {
                         document.getElementById("modalBody").innerHTML = "¡Compra realizada satisfactoriamente! <br /> Fecha: @DateTime.Now";
-                        document.getElementById("modalBody2").innerHTML = "Cliente: " + result + " --- Monto Total: ₡" + calcTotalCompra();
+                        document.getElementById("modalBody2").innerHTML = "Cliente: " + result + " --- Monto Total: ₡" + $('#totCompra').val();
                         document.getElementById("redirect").setAttribute("href", "/Sales/Index");
                         document.getElementById("redirect").setAttribute("class", "btn btn-block btn-success");
                         document.getElementById("redirect").innerHTML = "Volver a la lista";

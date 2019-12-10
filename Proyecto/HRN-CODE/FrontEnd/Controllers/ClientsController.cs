@@ -249,7 +249,7 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Crear Cliente";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de estar " +
-                    "ingresando la información del cliente en su debido formato!";
+                    "ingresando la información del cliente en su debido formato y que haya completado todos los campos requeridos!";
                 string exception = msj.Message;
                 string redirection = "Create";
                 string controller2 = "Clients";
