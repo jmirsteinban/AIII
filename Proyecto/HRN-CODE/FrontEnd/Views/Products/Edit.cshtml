@@ -141,9 +141,153 @@
         <a href="~/Products/Index" class="btn btn-pill btn-success btn-md" style="color:white !important; width:100%;">Volver a la Lista</a>
     </div>
     <div class="col-5"></div>
-    
+
 </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Cuidado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Por favor corregir los datos marcados con el símbolo: "<img src="~/Resources/ico_x_red.svg" />"
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
+<style>
+    .es_valido {
+        background: url(/Resources/ico_check_verd.svg) !important;
+        background-repeat: no-repeat !important;
+        background-position: 92% 10px !important;
+    }
+
+    .no_es_valido {
+        background: url(/Resources/ico_x_red.svg);
+        background-repeat: no-repeat;
+        background-position: 90% 10px;
+    }
+</style>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).ready(function () {
+           // $('#cedula_user').mask('0-0000-0000');
+           // $('#telefono').mask('0000-0000');
+
+
+            $("form").submit(function () {
+                if (!validacion()) {
+                    $('#myModal').modal('show');
+                    return false;
+                } else
+                    return true;
+            });
+
+        });
+
+        function validacion() {
+            let resp = true;
+            $("input.form-control").removeClass("es_valido");
+            $("input.form-control").removeClass("no_es_valido");
+
+
+            /*codigo_producto*/
+            if ($('#codigo_producto').val() == null ||  $('#codigo_producto').val() == "") {
+                $('#codigo_producto').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#codigo_producto').addClass("es_valido");
+            }
+
+            /*nombre_producto*/
+            if ($('#nombre_producto').val() == null || $('#nombre_producto').val() == "") {
+                $('#nombre_producto').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#nombre_producto').addClass("es_valido");
+            }
+
+            /*descripcion*/
+            if ($('#descripcion').val() == null || $('#descripcion').val() == "") {
+                 $('#descripcion').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#descripcion').addClass("es_valido");
+            }
+
+            /*cantidad*/
+            if ($('#cantidad').val() == null || $('#cantidad').val() == "") {
+                $('#cantidad').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#cantidad').addClass("es_valido");
+            }
+
+            /*precio_manufactura*/
+            if ($('#precio_manufactura').val() == null || $('#precio_manufactura').val() == "" ) {
+                 $('#precio_manufactura').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#precio_manufactura').addClass("es_valido");
+            }
+
+
+             /*precio_venta*/
+            if ($('#precio_venta').val() == null || $('#precio_venta').val() == "" ) {
+                 $('#precio_venta').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#precio_venta').addClass("es_valido");
+            }
+
+
+            /*estado_user      ********************************************************** */
+            if ($('#estado_producto').prop('selectedIndex') == null || $('#estado_producto').prop('selectedIndex') == 0) {
+                    $("#estado_producto").removeClass("es_valido");
+                    $('#estado_producto').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $("#estado_producto").removeClass("no_es_valido");
+                $('#estado_producto').addClass("es_valido");
+            }
+
+
+            /*porcentaje_ganancia*/
+            if ($('#porcentaje_ganancia').val() == null || $('#porcentaje_ganancia').val() == "") {
+                $('#porcentaje_ganancia').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#porcentaje_ganancia').addClass("es_valido");
+            }
+
+            /*porcentaje_descuento*/
+            if ($('#porcentaje_descuento').val() == null || $('#porcentaje_descuento').val() == "") {
+                 $('#porcentaje_descuento').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#porcentaje_descuento').addClass("es_valido");
+            }
+
+
+
+            return resp;
+        };
+
+
+
+    </script>
 }

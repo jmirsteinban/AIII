@@ -140,6 +140,27 @@
     </div>
 }
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Cuidado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Por favor corregir los datos marcados con el símbolo: "<img src="~/Resources/ico_x_red.svg" />"
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
 <div class="row">
     <div class="col-5"></div>
     <div class="col-2">
@@ -149,12 +170,130 @@
 
 </div>
 
-@section Scripts {
+<style>
+    .es_valido {
+        background: url(/Resources/ico_check_verd.svg) !important;
+        background-repeat: no-repeat !important;
+        background-position: 92% 10px !important;
+    }
 
+    .no_es_valido {
+        background: url(/Resources/ico_x_red.svg);
+        background-repeat: no-repeat;
+        background-position: 92% 10px;
+    }
+</style>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
             $('#cedula_cliente').mask('0-0000-0000');
+            $('#telefono').mask('0000-0000');
+
+
+            $("form").submit(function () {
+  
+
+                if (!validacion()) {
+                    $('#myModal').modal('show');
+                    return false;
+                } else
+                    return true;
+            });
+
         });
+
+        function validacion() {
+            let resp = true;
+            $("input.form-control").removeClass("es_valido");
+            $("input.form-control").removeClass("no_es_valido");
+
+
+            /*cedula_cliente*/
+            if ($('#cedula_cliente').val() == null || $('#cedula_cliente').val().length < 11) {
+                $('#cedula_cliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#cedula_cliente').addClass("es_valido");
+            }
+            
+            /*primer_nombre_cliente*/
+            if ($('#primer_nombre_cliente').val() == null || $('#primer_nombre_cliente').val() == "") {
+                $('#primer_nombre_cliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#primer_nombre_cliente').addClass("es_valido");
+            }
+
+            /*segundo_nombre_cliente*/
+            if ($('#segundo_nombre_cliente').val() == null || $('#segundo_nombre_cliente').val() == "") {
+                //resp = false;
+            } else {
+                $('#segundo_nombre_cliente').addClass("es_valido");
+            }
+
+
+            /*primer_apellido_cliente*/
+            if ($('#primer_apellido_cliente').val() == null || $('#primer_apellido_cliente').val() == "") {
+                $('#primer_apellido_cliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#primer_apellido_cliente').addClass("es_valido");
+            }
+
+            /*segundo_apellido_cliente*/
+            if ($('#segundo_apellido_cliente').val() == null || $('#segundo_apellido_cliente').val() == "") {
+                $('#segundo_apellido_cliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#segundo_apellido_cliente').addClass("es_valido");
+            }
+
+            /*correo_electronico_cliente*/
+
+            var cCM = $('#correo_electronico_cliente').val();
+            var regex = /^[-\w.%+]{1,64}@@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+            if (!regex.test(cCM)) {
+                $("#correo_electronico_cliente").removeClass("es_valido");
+                $('#correo_electronico_cliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $("#correo_electronico_cliente").removeClass("no_es_valido");
+                $('#correo_electronico_cliente').addClass("es_valido");
+            }
+
+            /*estado_cliente      ********************************************************** */
+            if ($('#estado_cliente').prop('selectedIndex') == null || $('#estado_cliente').prop('selectedIndex') == 0) {
+                $("#estado_cliente").removeClass("es_valido");
+                $('#estado_cliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $("#estado_cliente").removeClass("no_es_valido");
+                $('#estado_cliente').addClass("es_valido");
+            }
+
+            /*direccion*/
+            if ($('#direccion').val() == null || $('#direccion').val() == "") {
+                $('#direccion').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#direccion').addClass("es_valido");
+            }
+
+            /*telefono*/
+            if ($('#telefono').val() == null || $('#telefono').val().length < 9) {
+                $('#telefono').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#telefono').addClass("es_valido");
+            }
+
+            return resp;
+        };
+
+
 
     </script>
 

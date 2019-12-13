@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente", @placeHolder = "1-1234-1234", @autoFocus="true" } })
+                    @Html.EditorFor(model => model.cedula_cliente, new { htmlAttributes = new { @class = "form-control", @id = "cedCliente", @placeHolder = "1-1234-1234", @autoFocus = "true" } })
                     @Html.ValidationMessageFor(model => model.cedula_cliente, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
@@ -114,10 +114,10 @@
                 <center>
                     <table id="detailsTable" class="table table-striped">
                         @*<caption>
-                            <center>
-                                <span id="precioTotal" class="pull-right" style="margin-right:100px;"><strong></strong> </span>
-                            </center>
-                        </caption>*@
+                                <center>
+                                    <span id="precioTotal" class="pull-right" style="margin-right:100px;"><strong></strong> </span>
+                                </center>
+                            </caption>*@
                         <thead class="bg-primary">
                             <tr>
                                 <th style="width:30%; color:white;">Producto</th>
@@ -176,6 +176,43 @@
     </center>
 }
 
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Cuidado!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Por favor corregir los datos marcados con el símbolo: "<img src="~/Resources/ico_x_red.svg" />"
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+<style>
+    .es_valido {
+        background: url(/Resources/ico_check_verd.svg) !important;
+        background-repeat: no-repeat !important;
+        background-position: 92% 10px !important;
+    }
+
+    .no_es_valido {
+        background: url(/Resources/ico_x_red.svg);
+        background-repeat: no-repeat;
+        background-position: 92% 10px;
+    }
+</style>
+
 @section scripts{
     <script src="@Url.Content("~/Scripts/Select2/select2.full.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Mascaras/jquery.maskMoney.js")"></script>
@@ -184,6 +221,10 @@
 
 
         $(document).ready(function () {
+            $('#cedCliente').mask('0-0000-0000');
+            $('#cedUsuario').mask('0-0000-0000');
+
+
             $('#detailsTable').DataTable({
                 dom: '',
                 "footerCallback": function ( row, data, start, end, display ) {
@@ -205,7 +246,7 @@
                             return intVal(a) + intVal(b);
                         }, 0 );
 
-                    // Total de esta pagina 
+                    // Total de esta pagina
                     pageTotal = api
                         .column( 3, { page: 'current'} )
                         .data()
@@ -233,8 +274,6 @@
                     },
                 ]
             });
-
-
             $('.select2').select2();
 
             // After Add A New Order In The List, If You Want, You Can Remove It.
@@ -251,7 +290,8 @@
             $("#addToList").click(function (e) {
                 e.preventDefault();
                 if ($.trim($("#productName").val()) == "" || $.trim($("#cedCliente").val()) == "" || $.trim($("#cedUsuario").val()) == "" || $.trim($("#estadoFac").val()) == "" || $.trim($("#cantProducto").val()) == "") {
-                    window.alert("Debe llenar todos los campos")
+                    validacion();
+                    $('#myModal').modal('show');
                 } else {
 
                     var productName = $("#productName").val(),
@@ -302,6 +342,14 @@
                 });
             });
 
+            //Validar Form
+            $("form").submit(function () {
+                if (!validacion()) {
+                    $('#myModal').modal('show');
+                    return false;
+                } else
+                    return true;
+            });
 
         });
 
@@ -311,8 +359,6 @@
                 //$("#cantProducto").val($("#productName option:selected").attr("attr-cant"));
                 $("#precioDetalle").val($("#productName option:selected").attr("attr-prec"));
         };
-
-
 
         //After Add A New Order In The List, Clear Clean The Form For Add More Order.
         function clearItem() {
@@ -366,6 +412,71 @@
             }
             return val;
         }
+
+        //Funcion Validacion <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        function validacion() {
+            let resp = true;
+            $("input.form-control").removeClass("es_valido");
+            $("input.form-control").removeClass("no_es_valido");
+
+
+            /*cedCliente*/
+            if ($('#cedCliente').val() == null || $('#cedCliente').val().length < 11) {
+                $('#cedCliente').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#cedCliente').addClass("es_valido");
+            }
+
+            /*cedCliente*/
+            if ($('#cedula_user').val() == null || $('#cedula_user').val().length < 11) {
+                $('#cedula_user').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $('#cedula_user').addClass("es_valido");
+            }
+
+            /*estadoFac      ********************************************************** */
+            if ($('#estadoFac').prop('selectedIndex') == null || $('#estadoFac').prop('selectedIndex') == 0) {
+                    $("#estadoFac").removeClass("es_valido");
+                    $('#estadoFac').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $("#estadoFac").removeClass("no_es_valido");
+                $('#estadoFac').addClass("es_valido");
+            }
+
+            /*select2-productName-container      ********************************************************** */
+            if ($('#select2-productName-container').prop('selectedIndex') == null || $('#select2-productName-container').prop('selectedIndex') == 0) {
+                    $("#select2-productName-container").removeClass("es_valido");
+                    $('#select2-productName-container').addClass("no_es_valido");
+                resp = false;
+            } else {
+                $("#select2-productName-container").removeClass("no_es_valido");
+                $('#select2-productName-container').addClass("es_valido");
+            }
+
+            /*cantProducto*/
+            if ($('#cantProducto').val() == null || $('#cantProducto').val() == "") {
+                $('#cantProducto').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#cantProducto').addClass("es_valido");
+            }
+
+            /*cantProducto*/
+            if ($('#precioDetalle').val() == null || $('#precioDetalle').val() == "") {
+                $('#precioDetalle').addClass("no_es_valido");
+                resp = false;
+            }else {
+                $('#precioDetalle').addClass("es_valido");
+            }
+
+
+            return resp;
+        };
+
+
 
     </script>
 }
