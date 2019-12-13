@@ -137,7 +137,7 @@
             </div>
         </div>
         <br />
-        </div>
+    </div>
 }
 
 <div class="row">
@@ -146,6 +146,16 @@
         <a href="~/Clients/Index" class="btn btn-block btn-pill btn-success" style="color:white !important; width:100%; position:relative;">Volver a la Lista</a>
     </div>
     <div class="col-5"></div>
-    
+
 </div>
 
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#cedula_cliente').mask('0-0000-0000');
+        });
+
+    </script>
+
+}

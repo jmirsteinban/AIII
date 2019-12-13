@@ -178,6 +178,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\ico_check_verd.svg" />
     <Content Include="Resources\clientes.ico" />
     <Content Include="Resources\facturacion.png" />
     <Content Include="Resources\green-white-polygonal-background_1035-6041.jpg" />
@@ -185,6 +186,7 @@
     <Content Include="Resources\logo oscuro HRN.jpeg" />
     <Content Include="Resources\productos.svg" />
     <Content Include="Resources\hrn.css" />
+    <Content Include="Resources\ico_x_red.svg" />
     <Content Include="Scripts\Alertas\sweetalert2.all.js" />
     <Content Include="Scripts\Alertas\sweetalert2.min.js" />
     <Content Include="Scripts\Mascaras\jquery.maskMoney.js" />
@@ -2465,6 +2467,8 @@
     <Content Include="Vendor\jquery-3.3.1\jquery.validate.unobtrusive.js" />
     <Content Include="Vendor\jquery-3.3.1\jquery.validate.unobtrusive.min.js" />
     <Content Include="Vendor\jquery-3.3.1\modernizr-2.8.3.js" />
+    <Content Include="Vendor\jQuery-Mask-Plugin\dist\jquery.mask.js" />
+    <Content Include="Vendor\jQuery-Mask-Plugin\dist\jquery.mask.min.js" />
     <Content Include="Vendor\popper-1.14.3\popper.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

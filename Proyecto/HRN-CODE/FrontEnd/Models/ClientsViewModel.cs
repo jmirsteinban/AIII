@@ -24,9 +24,12 @@ namespace FrontEnd.Models
         [Display(Name = "Segundo Apellido")]
         [Required]
         public string segundo_apellido_cliente { get; set; }
+
         [Display(Name = "Correo Electrónico")]
         [Required]
+        [RegularExpression(".+@.+..+", ErrorMessage = "Por favor, introduce una dirección de emial correcta")]
         public string correo_electronico_cliente { get; set; }
+
         [Display(Name = "Estado")]
         public string estado_cliente { get; set; }
 
