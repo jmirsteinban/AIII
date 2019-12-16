@@ -2281,6 +2281,7 @@
     <Content Include="Vendor\html2canvas\www\package.json" />
     <Content Include="Vendor\html2canvas\www\README.md" />
     <Content Include="Vendor\html2canvas\www\static\CNAME" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Vendor\jquery-3.3.1\jquery-3.3.1.intellisense.js" />
     <Content Include="Vendor\github-buttons\.gitignore" />
     <Content Include="Vendor\github-buttons\dist\buttons.common.js" />
