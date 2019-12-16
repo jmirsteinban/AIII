@@ -106,22 +106,17 @@
     <script>
 
         $(document).ready(function () {
-            console.log(arrMeses);
-
             $('#tblEarnings').DataTable({
                 dom: 'Brtip',
                 buttons: [
                     {
-                        extend: 'copy',
-                        text: 'Copiar'
+                        extend: 'copy', text: 'Copiar'
                     },
                     {
-                        extend: 'excel',
-                        text: 'Excel'
+                        extend: 'excel', text: 'Excel'
                     },
                     {
-                        extend: 'pdf',
-                        text: 'Pdf'
+                        extend: 'pdf', text: 'Pdf'
                     },
                     {
                         className: '',
@@ -136,8 +131,6 @@
                 "columnDefs": [
                     {
                         "render": function (data, type, row) {
-
-                            console.log(commaSeparateNumber(data));
                             return commaSeparateNumber(data);
                         },
                         "targets": [2, 3]
@@ -148,14 +141,10 @@
         });
 
 
-        // console.log(arrVentaTotal);
-        // console.log(arrUtilidadTotal);
-
         // Datasets
         var cantMeses = arrVentaTotal.length;
         var earnCtx = document.getElementsByClassName('blog-overview-users')[0];
 
-        console.log(arrMeses);
         // Generate the Analytics Overview chart.
         window.BlogOverviewUsers = new Chart(earnCtx, {
             type: 'LineWithLine',
@@ -225,12 +214,7 @@
             html2canvas(document.getElementById('exportthis')).then(function (canvas) {
                 var data = canvas.toDataURL();
 
-                var docDefinition = {
-                    content: [{
-                        image: data,
-                        width: 500,
-                    }]
-                };
+                var docDefinition = { content: [{ image: data, width: 500, }]};
                 pdfMake.createPdf(docDefinition).download("BeneficioEconómico");
             });
         }

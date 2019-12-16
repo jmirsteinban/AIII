@@ -129,7 +129,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle text-nowrap px-3" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <i class="material-icons">person</i>                                    
+                                    <i class="material-icons">person</i>
                                     <span class="d-none d-md-inline-block">@Session["userName2"]</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-small">
@@ -170,6 +170,18 @@
         </div>
     </div>
 
+    <script>
+        // Funciones Globales usadas en todo el sistema
+       function mensajeSistema(titulo, cuerpo, tipo) {
+            swal(
+                titulo,
+                cuerpo,
+                tipo
+            );
+        }
+
+    </script>
+
     <script src="~/Vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
 
 
@@ -209,6 +221,8 @@
 
 
     <script src="~/Vendor/jQuery-Mask-Plugin/dist/jquery.mask.min.js"></script>
+
+    <script src="@Url.Content("~/Scripts/Alertas/sweetalert2.all.js")"></script>
 
     @RenderSection("scripts", required: false)
 </body>
