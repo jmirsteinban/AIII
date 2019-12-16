@@ -14,6 +14,9 @@
     <link href="~/Vendor/bootstrap-4.3.1-dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Vendor/fresca/template3.css" rel="stylesheet" />
     <link rel="icon" type="image/jpeg" href="~/Resources/logo claro HRN.jpeg" />
+    <script src="~/Vendor/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+    <script src="~/Vendor/popper-1.14.3/popper.min.js"></script>
+    <script src="~/Vendor/bootstrap-4.3.1-dist/js/bootstrap.min.js"></script>
 
     <style>
         * {
@@ -137,7 +140,7 @@
                     <div class="row">
                         <div class="col-3"></div>
                         <div class="col-2 align-left">@Html.LabelFor(model => model.UserName):</div>
-                        <div class="col-4 inputs-login">@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @autoFocus = "true" } })</div>
+                        <div class="col-4 inputs-login">@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @autoFocus = "true", @id="usuario" } })</div>
                     </div>
                     <div class="row">
                         <div class="col-3"></div>
@@ -145,7 +148,7 @@
                             @Html.LabelFor(model => model.Password):
                         </div>
                         <div class="col-4">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @id="password" } })
                         </div>
                     </div>
                     <div class="row mx-auto">
@@ -161,7 +164,7 @@
                             <input type="reset" name="name" value="Limpiar" class="btn btn-outline-dark todo-ancho" />
                         </div>
                         <div class="col-3 todo-ancho">
-                            <input type="submit" name="name" value="Iniciar Sesión" class="btn btn-outline-dark hrn-btnadd todo-ancho" data-toggle="modal" data-target="#exampleModalCenter"/>
+                            <input type="button" name="name" id="inicioSesion" value="Iniciar Sesión" class="btn btn-outline-dark hrn-btnadd todo-ancho"/>
                         </div>
                     </div>
                 </center>
@@ -187,7 +190,7 @@
                     </button>
                 </div>
                 <div class="modal-body field-validation-error">
-                    ¡Los datos Ingresados son incorrectos!
+                    ¡Debe llenar todos los campos!
                 </div>
                 <div class="modal-footer">                    
                     <input type="submit" value="Volver" class="btn btn-primary" style="width:120px;" />
@@ -198,7 +201,19 @@
 
     @section Scripts{
         <script>
+            $(document).ready(function (){
+                console.log('Hola');                
+            });  
 
+            $('#inicioSesion').click(function (e) {
+                e.preventDefault();
+                if ($.trim($("#usuario").val()) == "" || $.trim($("#password").val()) == "" == '') {
+                    $('#exampleModalCenter').modal('show');
+                    console.log('Llegué1');
+                } else {                    
+                    console.log('Llegué');
+                }   
+            });
         </script>
     }
 </body>
