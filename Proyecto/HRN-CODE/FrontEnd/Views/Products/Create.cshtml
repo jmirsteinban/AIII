@@ -33,12 +33,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.codigo_producto, new { htmlAttributes = new { @class = "form-control", @placeHolder = "Ej: XX20", @autoFocus = "true" } })
+                    @Html.EditorFor(model => model.codigo_producto, new { htmlAttributes = new { @class = "form-control", @placeHolder = "Ej: XX20-AC", @autoFocus = "true" } })
                     @Html.ValidationMessageFor(model => model.codigo_producto, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.nombre_producto, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.nombre_producto, new { htmlAttributes = new { @class = "form-control", @placeHolder = "Ej: Horno XX20AC" } })
                     @Html.ValidationMessageFor(model => model.nombre_producto, "", new { @class = "text-danger" })
                 </div>
             </div>

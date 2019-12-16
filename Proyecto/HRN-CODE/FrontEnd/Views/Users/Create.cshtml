@@ -30,12 +30,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control text-center", @autoFocus = "true" } })
+                    @Html.EditorFor(model => model.cedula_user, new { htmlAttributes = new { @class = "form-control text-center", @autoFocus = "true", @placeHolder = "Ej: 1-1221-1234"   } })
                     @Html.ValidationMessageFor(model => model.cedula_user, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.primer_nombre_user, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.primer_nombre_user, new { htmlAttributes = new { @class = "form-control text-center", @placeHolder = "Ej: Carlos" } })
                     @Html.ValidationMessageFor(model => model.primer_nombre_user, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -53,12 +53,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.segundo_nombre_user, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.segundo_nombre_user, new { htmlAttributes = new { @class = "form-control text-center" , @placeHolder = "Ej: Andres" } })
                     @Html.ValidationMessageFor(model => model.segundo_nombre_user, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.primer_apellido_user, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.primer_apellido_user, new { htmlAttributes = new { @class = "form-control text-center" , @placeHolder = "Ej: Carballo" } })
                     @Html.ValidationMessageFor(model => model.primer_apellido_user, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -76,12 +76,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.segundo_apellido_user, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.segundo_apellido_user, new { htmlAttributes = new { @class = "form-control text-center", @placeHolder = "Ej: Montero" } })
                     @Html.ValidationMessageFor(model => model.segundo_apellido_user, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.usuario, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.usuario, new { htmlAttributes = new { @class = "form-control text-center" , @placeHolder = "Ej: ccarballo" } })
                     @Html.ValidationMessageFor(model => model.usuario, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -99,12 +99,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.contrasena, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.contrasena, new { htmlAttributes = new { @class = "form-control text-center" , @placeHolder = "Ej: Am15*mc2" } })
                     @Html.ValidationMessageFor(model => model.contrasena, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.direccion, new { htmlAttributes = new { @class = "form-control text-center",  @placeHolder = "Ej: 40204 San Roque, Barva Heredia" } })
                     @Html.ValidationMessageFor(model => model.direccion, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -145,7 +145,7 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control text-center" } })
+                    @Html.EditorFor(model => model.telefono, new { htmlAttributes = new { @class = "form-control text-center", @placeHolder = "Ej: 8484-1520" } })
                     @Html.ValidationMessageFor(model => model.telefono, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
