@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡" } })
+                    @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "", @placeHolder = "₡", @type="number" } })
                     @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
                 </div>
             </div>

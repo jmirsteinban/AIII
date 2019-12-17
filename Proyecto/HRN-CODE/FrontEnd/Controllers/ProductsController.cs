@@ -147,10 +147,22 @@ namespace FrontEnd.Controllers
         {
             try
             {
+                bool seguir = true;
+
+                if (products.precio_manufactura==0 || products.precio_venta==0)
+                {
+                    throw new Exception();
+                }
+
                 using (WorkUnit<product> workUnit = new WorkUnit<product>(new BDContext()))
                 {
                     workUnit.genericDAL.Add(Convertir(products));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 return RedirectToAction("Index");
@@ -159,7 +171,7 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Crear Producto";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de estar " +
-                    "ingresando la información del producto en su debido formato!";
+                    "ingresando la información del producto en su debido formato y que no hayan duplicados (Código Producto)!";
                 string exception = msj.Message;
                 string redirection = "Create";
                 string controller2 = "Products";
@@ -224,10 +236,17 @@ namespace FrontEnd.Controllers
         {
             try
             {
+                bool seguir = true;
+                
                 using (WorkUnit<product> workUnit= new WorkUnit<product>(new BDContext()))
                 {
                     workUnit.genericDAL.Update(Convertir(productsViewModel));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 return RedirectToAction("Index");
@@ -236,7 +255,7 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Editar Producto";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
-                    "seleccionar un producto existente y de ingresar los datos en el formato correcto!";
+                    "seleccionar un producto existente y de ingresar los datos en el formato correcto y que no hayan duplicados (Código Producto)!";
                 string exception = msj.Message;
                 string redirection = "Edit/" + productsViewModel.productID;
                 string controller2 = "Products";

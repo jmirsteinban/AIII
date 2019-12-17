@@ -248,12 +248,19 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Create(UsersViewModel users)
         {
+            bool seguir = true;
+
             try
             {
                 using (WorkUnit<user> workUnit = new WorkUnit<user>(new BDContext()))
                 {
                     workUnit.genericDAL.Add(Convertir(users));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 using (WorkUnit<direction> workUnit = new WorkUnit<direction>(new BDContext()))
@@ -265,7 +272,12 @@ namespace FrontEnd.Controllers
                 using (WorkUnit<phone> workUnit = new WorkUnit<phone>(new BDContext()))
                 {
                     workUnit.genericDAL.Add(ConvertirTelefono(users));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 return RedirectToAction("Index");
@@ -273,8 +285,8 @@ namespace FrontEnd.Controllers
             catch (Exception msj)
             {
                 string proveedor = "Crear Empleado";
-                string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegúrese de " +
-                    " ingresar los datos en el formato correcto y que todos los campos estén completos! *A excepción del segundo nombre que no es requerido*";    
+                string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegúrese de estar " +
+                    " ingresando la información correcta, que no sea duplicada (cédula o número de teléfono) y que haya llenado todos los espacios!";    
                 string exception = msj.Message;
                 string redirection = "Create";
                 string controller2 = "Users";
@@ -340,12 +352,19 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Edit(UsersViewModel usersViewModel)
         {
+            bool seguir = true;
+
             try
             {
                 using (WorkUnit<user> workUnit = new WorkUnit<user>(new BDContext()))
                 {
                     workUnit.genericDAL.Update(Convertir(usersViewModel));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 using (WorkUnit<direction> workUnit = new WorkUnit<direction>(new BDContext()))
@@ -357,7 +376,12 @@ namespace FrontEnd.Controllers
                 using (WorkUnit<phone> workUnit = new WorkUnit<phone>(new BDContext()))
                 {
                     workUnit.genericDAL.Update(ConvertirTelefono(usersViewModel));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 return RedirectToAction("Index");
@@ -366,7 +390,8 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Editar Empleado";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
-                    "seleccionar a un empleado existente y de ingresar los datos en el formato correcto!";
+                    "ingresar los datos en el formato correcto y" +
+                    " que no sean duplicados (número de teléfono)!";
                 string exception = msj.Message;
                 string redirection = "Edit/" + usersViewModel.userID;
                 string controller2 = "Users";

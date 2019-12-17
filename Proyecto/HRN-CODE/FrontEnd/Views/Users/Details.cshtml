@@ -4,6 +4,13 @@
     ViewBag.Title = "Detalles";
 }
 
+<head>
+    <style>
+        #editar:hover{
+            color:white !important;
+        }
+    </style>
+</head>
 
 <div class="row">
     <div class="col-12 text-center">
@@ -79,7 +86,8 @@
             </div>
             <div class="col-3">
                 <center>
-                    <button class="btn btn-pill btn-outline-dark" style="width:100%;">@Html.ActionLink("Editar", "Edit", new { id = Model.userID })</button>
+                    <a href="../Edit/@Model.userID" id="editar" class="btn btn-pill btn-outline-dark" style="width:100%;">Editar</a>
+                    @*<button class="btn btn-pill btn-outline-dark" style="width:100%;">@Html.ActionLink("Editar", "Edit", new { id = Model.userID })</button>*@
                 </center>
             </div>
             <div class="col-2"></div>

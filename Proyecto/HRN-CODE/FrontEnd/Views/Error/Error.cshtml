@@ -13,9 +13,11 @@
             <hr />
             <h3>@ViewBag.Mensaje</h3>
         </hgroup>
+        <br />
         <hgroup>
             <h5>
-            @Html.ActionLink("Volver",(string)@ViewBag.Redirection,(string)@ViewBag.Controller)
+                <a href="../@ViewBag.Controller/@ViewBag.Redirection" class="btn btn-block btn-pill btn-success" style="color:white !important; width:100%; position:relative;">Volver</a>
+            @*@Html.ActionLink("Volver",(string)@ViewBag.Redirection,(string)@ViewBag.Controller)*@
             </h5>
         </hgroup>
     </div>

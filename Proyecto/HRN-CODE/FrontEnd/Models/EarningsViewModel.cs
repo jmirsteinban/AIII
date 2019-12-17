@@ -9,11 +9,6 @@ namespace FrontEnd.Models
 {
     public class EarningsViewModel
     {
-
-
-
-
-
         [Key]
         public int earningID { get; set; }
 

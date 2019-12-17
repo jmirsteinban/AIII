@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control", @placeHolder = "0" } })
+                    @Html.EditorFor(model => model.cantidad, new { htmlAttributes = new { @class = "form-control", @placeHolder = "0", @Min="1" } })
                     @Html.ValidationMessageFor(model => model.cantidad, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -79,12 +79,12 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.precio_manufactura, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.precio_manufactura, new { htmlAttributes = new { @class = "form-control", @type="number" } })
                     @Html.ValidationMessageFor(model => model.precio_manufactura, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-2"></div>
                 <div class="col-4">
-                    @Html.EditorFor(model => model.precio_venta, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.precio_venta, new { htmlAttributes = new { @class = "form-control", @type="number" } })
                     @Html.ValidationMessageFor(model => model.precio_venta, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -169,9 +169,15 @@
 
     <script>
         $(document).ready(function () {
-           // $('#cedula_user').mask('0-0000-0000');
-           // $('#telefono').mask('0000-0000');
-
+           $('#cantidad').mask('00000');
+           //$('#precio_venta').mask('000.000');
+           //$('#precio_manufactura').mask('000.000');
+           $('#porcentaje_ganancia').mask('0.00');
+           $('#porcentaje_descuento').mask('0.00');
+            // $('#telefono').mask('0000-0000');
+            //var precio_venta = document.getElementById('precio_venta');
+            //var precio_manufactura = document.getElementById('precio_manufactura');
+            //precio_venta.setAttribute("min", precio_manufactura.value);           
 
             $("form").submit(function () {
                 if (!validacion()) {

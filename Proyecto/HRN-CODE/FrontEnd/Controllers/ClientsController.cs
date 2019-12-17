@@ -223,12 +223,19 @@ namespace FrontEnd.Controllers
         [HttpPost]
         public ActionResult Create(ClientsViewModel clients)
         {
+            bool seguir = true;
+
             try
             {
                 using (WorkUnit<client> workUnit = new WorkUnit<client>(new BDContext()))
                 {
                     workUnit.genericDAL.Add(Convertir(clients));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (seguir!=true)
+                {
+                    throw new Exception();
                 }
 
                 using (WorkUnit<direction> workUnit = new WorkUnit<direction>(new BDContext()))
@@ -240,7 +247,12 @@ namespace FrontEnd.Controllers
                 using (WorkUnit<phone> workUnit = new WorkUnit<phone>(new BDContext()))
                 {
                     workUnit.genericDAL.Add(ConvertirTelefono(clients));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (seguir != true)
+                {
+                    throw new Exception();
                 }
 
                 return RedirectToAction("Index");
@@ -249,7 +261,8 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Crear Cliente";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de estar " +
-                    "ingresando la información del cliente en su debido formato y que haya completado todos los campos requeridos!";
+                    "ingresando la información correcta, que no sea duplicada (cédula o número de teléfono) y "+
+                    "que haya completado todos los campos requeridos en su formato correcto!";
                 string exception = msj.Message;
                 string redirection = "Create";
                 string controller2 = "Clients";
@@ -310,10 +323,17 @@ namespace FrontEnd.Controllers
         {
             try
             {
+                bool seguir = true;
+
                 using (WorkUnit<client> workUnit = new WorkUnit<client>(new BDContext()))
                 {
                     workUnit.genericDAL.Update(Convertir(clientsViewModel));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 using (WorkUnit<direction> workUnit = new WorkUnit<direction>(new BDContext()))
@@ -325,7 +345,12 @@ namespace FrontEnd.Controllers
                 using (WorkUnit<phone> workUnit = new WorkUnit<phone>(new BDContext()))
                 {
                     workUnit.genericDAL.Update(ConvertirTelefono(clientsViewModel));
-                    workUnit.Complete();
+                    seguir=workUnit.Complete();
+                }
+
+                if (!seguir)
+                {
+                    throw new Exception();
                 }
 
                 return RedirectToAction("Index");
@@ -334,7 +359,8 @@ namespace FrontEnd.Controllers
             {
                 string proveedor = "Editar Cliente";
                 string mensaje = "¡Hubo un error mientras se procesaba su solicitud, asegurese de " +
-                    "seleccionar a un cliente existente y de ingresar los datos en el formato correcto!";
+                    " ingresar los datos en el formato correcto y"+
+                    " que no sean duplicados (número de teléfono)!";
                 string exception = msj.Message;
                 string redirection = "Edit/"+clientsViewModel.clientID;
                 string controller2 = "Clients";

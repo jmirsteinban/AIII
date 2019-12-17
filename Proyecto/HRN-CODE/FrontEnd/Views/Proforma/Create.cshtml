@@ -96,7 +96,7 @@
             <div class="col-4">
 
             
-                @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = "" } })
+                @Html.EditorFor(model => model.precio_factura_d, new { htmlAttributes = new { @class = "form-control", @id = "precioDetalle", @Min = "1", @Max = ""} })
                 @Html.ValidationMessageFor(model => model.precio_factura_d, "", new { @class = "text-danger" })
             </div>
             <div class="col-2"></div>
@@ -168,7 +168,7 @@
                             <div class="col-12">
                                 <h4 id="modalBody"></h4> <br />
                                 <h4 id="modalBody2"></h4><br />
-                                <a id="redirect" href="" class=""></a>
+                                <a id="redirect" href="../Proforma/Create" class=""></a>
                             </div>
                         </div>
                     </div>
@@ -279,7 +279,7 @@
                             $("#newOrderModal").modal();
                         }
                         else {
-                            document.getElementById("modalHeader").innerHTML = "¡Falloel envío de la proforma!";
+                            document.getElementById("modalHeader").innerHTML = "¡Fallo el envío de la proforma!";
                             document.getElementById("modalBody").innerHTML = "¡Ha ocurrido un error al enviar la proforma! <br /> Fecha: @DateTime.Now";
                             document.getElementById("modalBody2").innerHTML = "";
                             document.getElementById("redirect").setAttribute("href", "#");
@@ -349,7 +349,11 @@
             $(this).val(function (index, value) {
                 value = value.replace(/,/g, '');
                 return numberWithCommas(value);
-            });
+            });            
+        });
+
+        $('#redirect').click(function () {
+            $("#newOrderModal").modal('hide');
         });
     </script>
 }

@@ -27,7 +27,7 @@ namespace FrontEnd.Models
         [Display(Name = "Precio Manufactura")]
         public decimal precio_manufactura { get; set; }
 
-        [Display(Name = "Precio Venta")]
+        [Display(Name = "Precio Venta")]        
         public decimal precio_venta { get; set; }
 
         [Display(Name = "Estado")]

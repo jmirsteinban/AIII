@@ -20,8 +20,6 @@ namespace FrontEnd.Controllers
             return View();
         }
 
-
-
         [HttpPost]
         public ActionResult Autherize(UserViewModel userModel)
         {
